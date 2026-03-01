@@ -20,7 +20,7 @@
       ]
     },
     "storyIntro": "変異したウイルスが細胞内に侵入！ 正しい細胞の知識で撃退しよう。",
-    "imageUrl": "/images/bosses/mutant_virus.png"
+    "imageUrl": "/orgamon-quest/images/bosses/mutant_virus.png"
   },
   {
     "id": "chaos_organ",
@@ -43,7 +43,7 @@
       ]
     },
     "storyIntro": "器官系のバランスが崩れた怪物。観察力を研ぎ澄ませ。",
-    "imageUrl": "/images/bosses/chaos_organ.png"
+    "imageUrl": "/orgamon-quest/images/bosses/chaos_organ.png"
   },
   {
     "id": "fracture_golem",
@@ -66,7 +66,7 @@
       ]
     },
     "storyIntro": "骨折したゴーレムが暴れている。骨の知識で鎮めよ。",
-    "imageUrl": "/images/bosses/fracture_golem.png"
+    "imageUrl": "/orgamon-quest/images/bosses/fracture_golem.png"
   },
   {
     "id": "anemia_dragon",
@@ -95,7 +95,7 @@
       ]
     },
     "storyIntro": "貧血を纏った竜。赤血球とヘモグロビンの知識が必要だ。",
-    "imageUrl": "/images/bosses/anemia_dragon.png"
+    "imageUrl": "/orgamon-quest/images/bosses/anemia_dragon.png"
   },
   {
     "id": "metabolic_snake",
@@ -118,7 +118,7 @@
       ]
     },
     "storyIntro": "代謝異常の蛇。消化・吸収・排泄の知識で倒せ。",
-    "imageUrl": "/images/bosses/metabolic_snake.png"
+    "imageUrl": "/orgamon-quest/images/bosses/metabolic_snake.png"
   },
   {
     "id": "arrhythmia_phantom",
@@ -147,7 +147,7 @@
       ]
     },
     "storyIntro": "横たわる不整脈の幽霊。心臓と血管の正しい知識で消し去れ。",
-    "imageUrl": "/images/bosses/arrhythmia_phantom.png"
+    "imageUrl": "/orgamon-quest/images/bosses/arrhythmia_phantom.png"
   },
   {
     "id": "apnea_shadow",
@@ -175,7 +175,7 @@
       ]
     },
     "storyIntro": "息を止めた闘の化身。肺と気道の知識で光明を照らせ。",
-    "imageUrl": "/images/bosses/apnea_shadow.png"
+    "imageUrl": "/orgamon-quest/images/bosses/apnea_shadow.png"
   },
   {
     "id": "neuro_chaos",
@@ -214,7 +214,7 @@
       ]
     },
     "storyIntro": "神経が錯綜した混沌。脳と感覚の完全理解で制圧せよ。",
-    "imageUrl": "/images/bosses/neuro_chaos.png"
+    "imageUrl": "/orgamon-quest/images/bosses/neuro_chaos.png"
   },
   {
     "id": "pandemic_king",

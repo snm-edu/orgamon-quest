@@ -30,20 +30,20 @@ const speakerEmoji: Record<string, string> = {
 
 
 const speakerImages: Record<string, string> = {
-  "ミコト先輩": "/images/heroes/mikoto.png",
-  "ミナト": "/images/heroes/minato.png",
-  "ヒカリ": "/images/heroes/hikari.png",
-  "コトハ": "/images/heroes/kotoha.png",
-  "レオン": "/images/heroes/leon.png",
-  "ミュータントウイルス": "/images/bosses/mutant_virus.png",
-  "カオスオルガン": "/images/bosses/chaos_organ.png",
-  "フラクチャーゴーレム": "/images/bosses/fracture_golem.png",
-  "アネミアドラゴン": "/images/bosses/anemia_dragon.png",
-  "メタボリックスネーク": "/images/bosses/metabolic_snake.png",
-  "不整脈ファントム": "/images/bosses/arrhythmia_phantom.png",
-  "無呼吸シャドウ": "/images/bosses/apnea_shadow.png",
-  "ニューロカオス": "/images/bosses/neuro_chaos.png",
-  "パンデミックキング": "/images/bosses/pandemic_king.png",
+  "ミコト先輩": "/orgamon-quest/images/heroes/mikoto.png",
+  "ミナト": "/orgamon-quest/images/heroes/minato.png",
+  "ヒカリ": "/orgamon-quest/images/heroes/hikari.png",
+  "コトハ": "/orgamon-quest/images/heroes/kotoha.png",
+  "レオン": "/orgamon-quest/images/heroes/leon.png",
+  "ミュータントウイルス": "/orgamon-quest/images/bosses/mutant_virus.png",
+  "カオスオルガン": "/orgamon-quest/images/bosses/chaos_organ.png",
+  "フラクチャーゴーレム": "/orgamon-quest/images/bosses/fracture_golem.png",
+  "アネミアドラゴン": "/orgamon-quest/images/bosses/anemia_dragon.png",
+  "メタボリックスネーク": "/orgamon-quest/images/bosses/metabolic_snake.png",
+  "不整脈ファントム": "/orgamon-quest/images/bosses/arrhythmia_phantom.png",
+  "無呼吸シャドウ": "/orgamon-quest/images/bosses/apnea_shadow.png",
+  "ニューロカオス": "/orgamon-quest/images/bosses/neuro_chaos.png",
+  "パンデミックキング": "/orgamon-quest/images/bosses/pandemic_king.png",
 };
 
 const emotionBg: Record<string, string> = {
@@ -116,7 +116,7 @@ export default function StoryScreen() {
   if (!currentRun || scenes.length === 0) {
     const handleSkip = () => { setScreen(storyTiming === "pre_boss" ? "battle" : "chapter_map"); };
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-[100dvh] flex items-center justify-center">
         <div className="text-center">
           <div className="text-5xl mb-4 animate-float">📖</div>
           <p className="text-warm-gray/50 text-sm mb-4">ストーリーを読み込み中...</p>
@@ -153,7 +153,7 @@ export default function StoryScreen() {
   const isMikoto = currentDialogue.speaker === "ミコト先輩";
 
   return (
-    <div className="min-h-screen flex flex-col px-4 py-5 cursor-pointer relative overflow-hidden" onClick={handleTap}>
+    <div className="min-h-[100dvh] flex flex-col px-4 py-5 cursor-pointer relative overflow-hidden" onClick={handleTap}>
       {/* BG */}
       <div className="absolute inset-0 -z-10" style={{
         background: isEnemy ? "linear-gradient(135deg, #fee2e2 0%, #fecaca 100%)" : `linear-gradient(135deg, ${hero?.themeColor || "#f08080"}15 0%, ${hero?.themeColor || "#b8a9c9"}08 100%)`,

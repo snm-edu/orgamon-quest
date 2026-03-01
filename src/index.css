@@ -95,7 +95,11 @@
 
   #root {
     position: relative;
-    min-height: 100vh;
+    min-height: 100dvh;
+    max-width: 480px;
+    margin: 0 auto;
+    background-color: transparent;
+    box-shadow: 0 0 40px rgba(79, 63, 97, 0.08);
   }
 
   h1, h2, h3 {

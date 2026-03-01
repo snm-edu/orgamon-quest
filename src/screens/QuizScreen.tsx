@@ -718,7 +718,7 @@ export default function QuizScreen() {
     <div className="h-[100dvh] overflow-hidden px-3 pt-3 pb-[calc(env(safe-area-inset-bottom)+0.35rem)] flex flex-col relative">
       <div
         className="absolute inset-0 pointer-events-none -z-20 bg-cover bg-center"
-        style={{ backgroundImage: `url(/images/backgrounds/quiz_bg.webp)`, opacity: 0.15, mixBlendMode: 'multiply' }}
+        style={{ backgroundImage: `url(/orgamon-quest/images/backgrounds/quiz_bg.webp)`, opacity: 0.15, mixBlendMode: 'multiply' }}
       />
       {/* Top bar */}
       <div className="flex items-center gap-2 mb-2">

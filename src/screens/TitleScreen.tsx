@@ -10,7 +10,7 @@ export default function TitleScreen() {
   const currentRun = useGameStore((s) => s.currentRun);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-6 py-10 text-center relative overflow-hidden">
+    <div className="min-h-[100dvh] flex flex-col items-center justify-center px-6 py-10 text-center relative overflow-hidden">
       {/* Decorative blobs */}
       <div className="absolute top-8 left-6 w-36 h-36 bg-pastel-pink/25 rounded-full blur-3xl animate-float" />
       <div

@@ -82,7 +82,7 @@ export default function ResultScreen() {
   }, [result, rewards, currentRun]);
 
   if (!result || !rewards || !currentRun) {
-    return <div className="min-h-screen flex items-center justify-center"><button onClick={() => setScreen("home")} className="text-warm-gray">ホームに戻る</button></div>;
+    return <div className="min-h-[100dvh] flex items-center justify-center"><button onClick={() => setScreen("home")} className="text-warm-gray">ホームに戻る</button></div>;
   }
 
   const rate = Math.round((result.correct / result.total) * 100);
@@ -108,7 +108,7 @@ export default function ResultScreen() {
   };
 
   return (
-    <div className="min-h-screen px-4 py-6 flex flex-col relative overflow-hidden">
+    <div className="min-h-[100dvh] px-4 py-6 flex flex-col relative overflow-hidden">
       <div
         className="absolute inset-0 -z-10 bg-cover bg-center opacity-40 mix-blend-multiply"
         style={{ backgroundImage: `url('/images/backgrounds/result_bg.webp'), linear-gradient(to bottom right, #fdfbfb, #ebedee)` }}

@@ -58,7 +58,7 @@ export default function ScreenLayout({
 
   return (
     <div
-      className={`min-h-screen relative overflow-hidden screen-enter ${padClass} ${className}`}
+      className={`min-h-[100dvh] relative overflow-x-hidden overflow-y-auto screen-enter ${padClass} ${className}`}
     >
       {bgImage && (
         <div
@@ -66,9 +66,9 @@ export default function ScreenLayout({
           style={{ backgroundImage: `url(${bgImage})`, opacity: 0.15, mixBlendMode: 'multiply' }}
         />
       )}
-      {/* Decorative background blobs */}
+      {/* Decorative background blobs (fixed position so they don't scroll away) */}
       {decorative && (
-        <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden" style={{ position: 'fixed' }}>
           <div className={`screen-backdrop ${backdropClass}`} />
           <div className="absolute inset-0 bg-noise-soft" />
           <div className={`absolute inset-x-0 -top-16 h-52 bg-gradient-to-b ${haloClass}`} />

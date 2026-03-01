@@ -84,11 +84,11 @@ class GameAudio {
 
         // Map type to the actual filename we expect in public/audio/
         const bgmFiles: Record<string, string> = {
-            title: '/audio/bgm_title.mp3',
-            map: '/audio/bgm_map.mp3',
-            battle: '/audio/bgm_battle.mp3',
-            quiz: '/audio/bgm_quiz.mp3',
-            result: '/audio/bgm_result.mp3',
+            title: '/orgamon-quest/audio/bgm_title.mp3',
+            map: '/orgamon-quest/audio/bgm_map.mp3',
+            battle: '/orgamon-quest/audio/bgm_battle.mp3',
+            quiz: '/orgamon-quest/audio/bgm_quiz.mp3',
+            result: '/orgamon-quest/audio/bgm_result.mp3',
         };
 
         const src = bgmFiles[type];
