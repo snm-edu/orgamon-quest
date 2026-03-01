@@ -123,7 +123,7 @@ export default function StoryScreen() {
   if (!currentRun || scenes.length === 0) {
     const handleSkip = () => { setScreen(storyTiming === "pre_boss" ? "battle" : "chapter_map"); };
     return (
-      <div className="min-h-[100dvh] flex items-center justify-center">
+      <div className="h-[100dvh] flex items-center justify-center">
         <div className="text-center">
           <div className="text-5xl mb-4 animate-float">📖</div>
           <p className="text-warm-gray/50 text-sm mb-4">ストーリーを読み込み中...</p>
@@ -160,7 +160,7 @@ export default function StoryScreen() {
   const isMikoto = currentDialogue.speaker === "ミコト先輩";
 
   return (
-    <div className="min-h-[100dvh] flex flex-col px-4 py-5 cursor-pointer relative overflow-hidden" onClick={handleTap}>
+    <div className="h-[100dvh] flex flex-col px-4 py-5 cursor-pointer relative overflow-hidden" onClick={handleTap}>
       {/* BG */}
       <div className="absolute inset-0 -z-10" style={{
         background: isEnemy ? "linear-gradient(135deg, #fee2e2 0%, #fecaca 100%)" : `linear-gradient(135deg, ${hero?.themeColor || "#f08080"}15 0%, ${hero?.themeColor || "#b8a9c9"}08 100%)`,

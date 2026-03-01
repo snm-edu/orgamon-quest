@@ -60,7 +60,7 @@ export default function ChapterMapScreen() {
       title="章マップ"
       titleEmoji="🗺️"
       padding="compact"
-      className="min-h-[100dvh] flex flex-col pb-[calc(env(safe-area-inset-bottom)+0.25rem)] relative"
+      className="h-[100dvh] flex flex-col pb-[calc(env(safe-area-inset-bottom)+0.25rem)] relative"
     >
       {/* Map background */}
       <div

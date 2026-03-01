@@ -158,7 +158,7 @@ export default function ZukanScreen() {
       title="図鑑"
       titleEmoji="📚"
       padding="compact"
-      className="min-h-[100dvh] flex flex-col pb-[calc(env(safe-area-inset-bottom)+0.25rem)]"
+      className="h-[100dvh] flex flex-col pb-[calc(env(safe-area-inset-bottom)+0.25rem)]"
     >
       <div className="flex-1 min-h-0 flex flex-col gap-2.5 overflow-hidden">
         <div className="flex gap-2 shrink-0">

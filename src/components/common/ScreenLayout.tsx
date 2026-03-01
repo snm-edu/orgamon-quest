@@ -58,7 +58,7 @@ export default function ScreenLayout({
 
   return (
     <div
-      className={`min-h-[100dvh] relative overflow-x-hidden overflow-y-auto screen-enter ${padClass} ${className}`}
+      className={`h-[100dvh] relative overflow-x-hidden overflow-y-auto screen-enter ${padClass} ${className}`}
     >
       {bgImage && (
         <div

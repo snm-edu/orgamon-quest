@@ -85,7 +85,7 @@ export default function ResultScreen() {
   }, [result, rewards, currentRun]);
 
   if (!result || !rewards || !currentRun) {
-    return <div className="min-h-[100dvh] flex items-center justify-center"><button onClick={() => setScreen("home")} className="text-warm-gray">ホームに戻る</button></div>;
+    return <div className="h-[100dvh] flex items-center justify-center"><button onClick={() => setScreen("home")} className="text-warm-gray">ホームに戻る</button></div>;
   }
 
   const rate = Math.round((result.correct / result.total) * 100);

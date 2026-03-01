@@ -84,7 +84,7 @@ export default function ShopScreen() {
       title="ショップ"
       titleEmoji="🛍️"
       padding="compact"
-      className="min-h-[100dvh] flex flex-col pb-[calc(env(safe-area-inset-bottom)+0.25rem)]"
+      className="h-[100dvh] flex flex-col pb-[calc(env(safe-area-inset-bottom)+0.25rem)]"
     >
       <div className="flex-1 min-h-0 flex flex-col gap-2.5 overflow-hidden">
         <GlassCard variant="strong" className="p-3 shrink-0 flex items-center justify-between">
