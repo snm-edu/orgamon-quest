@@ -9,7 +9,7 @@ import itemsData from "../data/items.json";
 
 const shopItems = shopData as ShopItem[];
 const items = itemsData as Item[];
-const MAX_SHOP_PAGES = 3;
+const SHOP_ITEMS_PER_PAGE = 3;
 
 const rarityBg: Record<string, string> = {
   Common: "!bg-mint/10",
@@ -46,7 +46,7 @@ export default function ShopScreen() {
 
   if (!currentRun) return null;
 
-  const shopItemsPerPage = Math.max(3, Math.ceil(Math.max(shopItems.length, 1) / MAX_SHOP_PAGES));
+  const shopItemsPerPage = SHOP_ITEMS_PER_PAGE;
   const totalPages = Math.max(1, Math.ceil(shopItems.length / shopItemsPerPage));
   const clampedPage = Math.min(shopPage, totalPages - 1);
   const pageStart = clampedPage * shopItemsPerPage;
@@ -86,7 +86,7 @@ export default function ShopScreen() {
       padding="compact"
       className="min-h-[100dvh] flex flex-col pb-[calc(env(safe-area-inset-bottom)+0.25rem)]"
     >
-      <div className="flex-1 flex flex-col gap-2.5">
+      <div className="flex-1 min-h-0 flex flex-col gap-2.5 overflow-hidden">
         <GlassCard variant="strong" className="p-3 shrink-0 flex items-center justify-between">
           <span className="text-sm text-warm-gray/75">所持ポイント</span>
           <span className="text-lg font-bold text-warm-gray">💰 {currentRun.mp} MP</span>
@@ -98,7 +98,10 @@ export default function ShopScreen() {
           </div>
         )}
 
-        <div className="flex flex-col gap-2.5 pb-2">
+        <div
+          className="flex-1 min-h-0 grid gap-2"
+          style={{ gridTemplateRows: `repeat(${shopItemsPerPage}, minmax(0, 1fr))` }}
+        >
           {visibleShopItems.map((shopItem) => {
             const item = items.find((entry) => entry.id === shopItem.itemId);
             if (!item) return null;

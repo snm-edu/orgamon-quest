@@ -1,10 +1,10 @@
 class GameAudio {
     private ctx: AudioContext | null = null;
     private isMuted = false;
-    private activeBgm: string | null = null;
+    public activeBgm: 'title' | 'map' | 'battle' | 'result' | 'quiz' | null = null;
 
     // Use HTMLAudioElement for true music playback
-    private bgmAudio: HTMLAudioElement | null = null;
+    public bgmAudio: HTMLAudioElement | null = null;
 
     init() {
         if (!this.ctx) {
@@ -94,7 +94,14 @@ class GameAudio {
         const src = bgmFiles[type];
         if (!src) return;
 
-        this.bgmAudio = new Audio(src);
+        if (!this.bgmAudio) {
+            this.bgmAudio = new Audio();
+        }
+
+        // Only set src and play strings if different
+        if (!this.bgmAudio.src.endsWith(src)) {
+            this.bgmAudio.src = src;
+        }
         this.bgmAudio.loop = true;
         this.bgmAudio.volume = 0.3; // Default BGM volume
 
@@ -108,7 +115,7 @@ class GameAudio {
         if (this.bgmAudio) {
             this.bgmAudio.pause();
             this.bgmAudio.currentTime = 0;
-            this.bgmAudio = null;
+            // keep this.bgmAudio intact so it stays unlocked
         }
         this.activeBgm = null;
     }
@@ -120,9 +127,22 @@ export const audio = new GameAudio();
 if (typeof window !== 'undefined') {
     const initAudio = () => {
         audio.init();
+        if (!audio.bgmAudio) {
+            audio.bgmAudio = new Audio();
+        }
+        // Unlock HTMLAudioElement for iOS Safari
+        audio.bgmAudio.play().catch(() => { });
+
+        // If a BGM was supposed to be playing (but was blocked), start it now
+        if (audio.activeBgm) {
+            audio.playBGM(audio.activeBgm);
+        } else {
+            audio.bgmAudio.pause();
+        }
+
         document.removeEventListener('click', initAudio);
         document.removeEventListener('touchstart', initAudio);
     };
-    document.addEventListener('click', initAudio);
-    document.addEventListener('touchstart', initAudio);
+    document.addEventListener('click', initAudio, { once: true });
+    document.addEventListener('touchstart', initAudio, { once: true });
 }
