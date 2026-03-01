@@ -1,0 +1,259 @@
+[
+  {
+    "id": "mutant_virus",
+    "chapter": 1,
+    "name": "ミュータントウイルス",
+    "hp": 300,
+    "debuffPattern": [
+      {
+        "type": "misinformation",
+        "duration": 2,
+        "severity": 1
+      }
+    ],
+    "weakness": "細胞膜の知識",
+    "rewards": {
+      "cardId": "dna_double_helix",
+      "mp": 150,
+      "items": [
+        "wisdom_potion"
+      ]
+    },
+    "storyIntro": "変異したウイルスが細胞内に侵入！ 正しい細胞の知識で撃退しよう。",
+    "imageUrl": "/images/bosses/mutant_virus.png"
+  },
+  {
+    "id": "chaos_organ",
+    "chapter": 2,
+    "name": "カオスオルガン",
+    "hp": 350,
+    "debuffPattern": [
+      {
+        "type": "observation_miss",
+        "duration": 2,
+        "severity": 2
+      }
+    ],
+    "weakness": "ホメオスタシス理解",
+    "rewards": {
+      "cardId": "autonomic_node",
+      "mp": 180,
+      "items": [
+        "time_sand"
+      ]
+    },
+    "storyIntro": "器官系のバランスが崩れた怪物。観察力を研ぎ澄ませ。",
+    "imageUrl": "/images/bosses/chaos_organ.png"
+  },
+  {
+    "id": "fracture_golem",
+    "chapter": 3,
+    "name": "フラクチャーゴーレム",
+    "hp": 400,
+    "debuffPattern": [
+      {
+        "type": "time_pressure",
+        "duration": 3,
+        "severity": 1
+      }
+    ],
+    "weakness": "骨格の構造",
+    "rewards": {
+      "cardId": "pelvis_guardian",
+      "mp": 200,
+      "items": [
+        "evolution_stone"
+      ]
+    },
+    "storyIntro": "骨折したゴーレムが暴れている。骨の知識で鎮めよ。",
+    "imageUrl": "/images/bosses/fracture_golem.png"
+  },
+  {
+    "id": "anemia_dragon",
+    "chapter": 4,
+    "name": "アネミアドラゴン",
+    "hp": 500,
+    "debuffPattern": [
+      {
+        "type": "misinformation",
+        "duration": 2,
+        "severity": 2
+      },
+      {
+        "type": "observation_miss",
+        "duration": 2,
+        "severity": 1
+      }
+    ],
+    "weakness": "血液・造血の知識",
+    "rewards": {
+      "cardId": "antibody_eagle",
+      "mp": 250,
+      "items": [
+        "clear_mist",
+        "experience_book"
+      ]
+    },
+    "storyIntro": "貧血を纏った竜。赤血球とヘモグロビンの知識が必要だ。",
+    "imageUrl": "/images/bosses/anemia_dragon.png"
+  },
+  {
+    "id": "metabolic_snake",
+    "chapter": 5,
+    "name": "メタボリックスネーク",
+    "hp": 550,
+    "debuffPattern": [
+      {
+        "type": "equipment_malfunction",
+        "duration": 2,
+        "severity": 2
+      }
+    ],
+    "weakness": "内臓機能の知識",
+    "rewards": {
+      "cardId": "nephron_unit",
+      "mp": 280,
+      "items": [
+        "evolution_stone"
+      ]
+    },
+    "storyIntro": "代謝異常の蛇。消化・吸収・排泄の知識で倒せ。",
+    "imageUrl": "/images/bosses/metabolic_snake.png"
+  },
+  {
+    "id": "arrhythmia_phantom",
+    "chapter": 6,
+    "name": "不整脈ファントム",
+    "hp": 700,
+    "debuffPattern": [
+      {
+        "type": "time_pressure",
+        "duration": 3,
+        "severity": 2
+      },
+      {
+        "type": "misinformation",
+        "duration": 2,
+        "severity": 1
+      }
+    ],
+    "weakness": "循環器の知識",
+    "rewards": {
+      "cardId": "coronary_line",
+      "mp": 350,
+      "items": [
+        "bond_fragment",
+        "wisdom_potion"
+      ]
+    },
+    "storyIntro": "横たわる不整脈の幽霊。心臓と血管の正しい知識で消し去れ。",
+    "imageUrl": "/images/bosses/arrhythmia_phantom.png"
+  },
+  {
+    "id": "apnea_shadow",
+    "chapter": 7,
+    "name": "無呼吸シャドウ",
+    "hp": 650,
+    "debuffPattern": [
+      {
+        "type": "observation_miss",
+        "duration": 2,
+        "severity": 2
+      },
+      {
+        "type": "equipment_malfunction",
+        "duration": 2,
+        "severity": 1
+      }
+    ],
+    "weakness": "呼吸器系の知識",
+    "rewards": {
+      "cardId": "external_respiratory_chamber",
+      "mp": 320,
+      "items": [
+        "clear_mist"
+      ]
+    },
+    "storyIntro": "息を止めた闘の化身。肺と気道の知識で光明を照らせ。",
+    "imageUrl": "/images/bosses/apnea_shadow.png"
+  },
+  {
+    "id": "neuro_chaos",
+    "chapter": 8,
+    "name": "ニューロカオス",
+    "hp": 800,
+    "debuffPattern": [
+      {
+        "type": "misinformation",
+        "duration": 2,
+        "severity": 1
+      },
+      {
+        "type": "observation_miss",
+        "duration": 2,
+        "severity": 1
+      },
+      {
+        "type": "time_pressure",
+        "duration": 2,
+        "severity": 1
+      },
+      {
+        "type": "equipment_malfunction",
+        "duration": 2,
+        "severity": 1
+      }
+    ],
+    "weakness": "神経・感覚器の知識",
+    "rewards": {
+      "cardId": "cerebral_cortex",
+      "mp": 400,
+      "items": [
+        "evolution_stone",
+        "rare_frame"
+      ]
+    },
+    "storyIntro": "神経が錯綜した混沌。脳と感覚の完全理解で制圧せよ。",
+    "imageUrl": "/images/bosses/neuro_chaos.png"
+  },
+  {
+    "id": "pandemic_king",
+    "chapter": 9,
+    "name": "パンデミックキング",
+    "hp": 1500,
+    "debuffPattern": [
+      {
+        "type": "misinformation",
+        "duration": 3,
+        "severity": 2
+      },
+      {
+        "type": "observation_miss",
+        "duration": 3,
+        "severity": 2
+      },
+      {
+        "type": "time_pressure",
+        "duration": 3,
+        "severity": 2
+      },
+      {
+        "type": "equipment_malfunction",
+        "duration": 3,
+        "severity": 2
+      }
+    ],
+    "weakness": "全章の総合知識",
+    "rewards": {
+      "cardId": null,
+      "mp": 1000,
+      "items": [
+        "evolution_stone",
+        "rare_frame",
+        "title_book",
+        "legendary_crown"
+      ]
+    },
+    "storyIntro": "全ての病を統べる王。入学前教育の総仕上げ、全力で立ち向かえ！"
+  }
+]

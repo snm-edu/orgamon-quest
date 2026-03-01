@@ -1,0 +1,647 @@
+import { useState } from "react";
+import { useGameStore } from "../stores/gameStore";
+import { useMetaStore } from "../stores/metaStore";
+import { useCollectionStore } from "../stores/collectionStore";
+import { getAllAchievements } from "../logic/achievementLogic";
+import { getTitleBonus } from "../logic/titleLogic";
+import { getHeroSkillLoadout, getSkillLearnCostMp } from "../logic/skillLogic";
+import { ScreenLayout, GlassCard, PastelButton, ProgressBar, Badge, Modal } from "../components/common";
+import heroesData from "../data/heroes.json";
+import cardsData from "../data/cards.json";
+import type { Hero, CardSkinId, Card } from "../types";
+
+const heroes = heroesData as Hero[];
+const cards = cardsData as Card[];
+const allAchievements = getAllAchievements();
+
+const heroAvatars: Record<string, string> = { minato: "👩‍⚕️", hikari: "🔬", kotoha: "🌿", leon: "💻" };
+const skinLabels: Record<CardSkinId, { name: string; emoji: string }> = {
+  normal: { name: "ノーマル", emoji: "🃏" },
+  pastel: { name: "パステル", emoji: "🌸" },
+  sparkle: { name: "キラキラ", emoji: "✨" },
+  pixel: { name: "ドット絵", emoji: "👾" },
+};
+
+type Tab = "profile" | "achievements" | "titles" | "skills" | "skins";
+
+const PAGE_SIZE: Record<Tab, number> = {
+  profile: 1,
+  achievements: 1,
+  titles: 4,
+  skills: 1,
+  skins: 2,
+};
+
+const TABS: { id: Tab; label: string; emoji: string }[] = [
+  { id: "profile", label: "プロフィール", emoji: "👤" },
+  { id: "achievements", label: "実績", emoji: "🏆" },
+  { id: "titles", label: "称号", emoji: "🏅" },
+  { id: "skills", label: "スキル", emoji: "⚡" },
+  { id: "skins", label: "スキン", emoji: "🎨" },
+];
+
+const INITIAL_TAB_PAGE: Record<Tab, number> = {
+  profile: 0,
+  achievements: 0,
+  titles: 0,
+  skills: 0,
+  skins: 0,
+};
+
+export default function ProfileScreen() {
+  const setScreen = useGameStore((s) => s.setScreen);
+  const currentRun = useGameStore((s) => s.currentRun);
+  const meta = useMetaStore((s) => s.meta);
+  const setActiveTitle = useMetaStore((s) => s.setActiveTitle);
+  const learnHeroSkill = useGameStore((s) => s.learnHeroSkill);
+  const equipHeroSkill = useGameStore((s) => s.equipHeroSkill);
+  const collection = useCollectionStore((s) => s.collection);
+
+  const [tab, setTab] = useState<Tab>("profile");
+  const [tabPage, setTabPage] = useState<Record<Tab, number>>(INITIAL_TAB_PAGE);
+  const [favoriteCards, setFavoriteCards] = useState<string[]>([]);
+  const [showCardPicker, setShowCardPicker] = useState(false);
+  const [skillNotice, setSkillNotice] = useState<string | null>(null);
+  const [selectedAchievementId, setSelectedAchievementId] = useState<string | null>(null);
+
+  if (!currentRun) return null;
+  const hero = heroes.find((h) => h.id === currentRun.selectedHeroId);
+  if (!hero) return null;
+
+  const totalAchs = allAchievements.length;
+  const unlockedCount = Object.values(meta.achievements).filter(Boolean).length;
+  const completionRate = collection.completionRate;
+  const ownedCardIds = Object.keys(currentRun.ownedCards);
+  const skillLoadout = getHeroSkillLoadout(hero, currentRun);
+
+  const counts: Record<Tab, number> = {
+    profile: 1,
+    achievements: allAchievements.length,
+    titles: meta.titles.length,
+    skills: skillLoadout.allActiveSkills.length,
+    skins: 4,
+  };
+
+  const currentPageSize = tab === "achievements" ? Math.max(1, allAchievements.length) : PAGE_SIZE[tab];
+  const totalPages = Math.max(1, Math.ceil(counts[tab] / currentPageSize));
+  const clampedPage = Math.min(tabPage[tab], totalPages - 1);
+  const pageStart = clampedPage * currentPageSize;
+  const selectedAchievement = selectedAchievementId
+    ? allAchievements.find((achievement) => achievement.id === selectedAchievementId) ?? null
+    : null;
+
+  const handleSelectFavorite = (cardId: string) => {
+    setFavoriteCards((prev) =>
+      prev.includes(cardId)
+        ? prev.filter((c) => c !== cardId)
+        : prev.length >= 3
+          ? prev
+          : [...prev, cardId]
+    );
+  };
+
+  const showSkillNotice = (message: string) => {
+    setSkillNotice(message);
+    window.setTimeout(() => setSkillNotice(null), 1800);
+  };
+
+  const handleLearnSkill = (skillId: string, skillName: string, cost: number) => {
+    const learned = learnHeroSkill(skillId, cost);
+    if (!learned) {
+      showSkillNotice(`MPが足りません（必要 ${cost}MP）`);
+      return;
+    }
+    showSkillNotice(`✨ ${skillName} を習得しました`);
+  };
+
+  const handleEquipSkill = (skillId: string, slotIndex: number, skillName: string) => {
+    const equipped = equipHeroSkill(skillId, slotIndex);
+    if (!equipped) {
+      showSkillNotice("装備の更新に失敗しました");
+      return;
+    }
+    showSkillNotice(`🧩 ${skillName} をスロット${slotIndex + 1}に装備`);
+  };
+
+  const handleShare = async () => {
+    const text = `🎮 オルガモン図鑑クエスト\n👤 ${currentRun.playerName} (${hero.name})\n🏅 ${meta.activeTitle}\n📊 Lv.${currentRun.level} / 図鑑${completionRate}%\n🏆 実績${unlockedCount}/${totalAchs}`;
+    if (navigator.share) {
+      try {
+        await navigator.share({ text });
+      } catch {
+        // cancelled
+      }
+      return;
+    }
+    await navigator.clipboard.writeText(text);
+    alert("プロフィール情報をコピーしました！");
+  };
+
+  const updateCurrentTabPage = (next: number) => {
+    setTabPage((prev) => ({ ...prev, [tab]: next }));
+  };
+
+  const getAchievementRewardLabel = (achievement: (typeof allAchievements)[number]) => {
+    if (achievement.reward.type === "mp") return `${achievement.reward.value}MP`;
+    if (achievement.reward.type === "title") return `称号「${achievement.reward.value}」`;
+    return achievement.reward.value;
+  };
+
+  return (
+    <ScreenLayout
+      onBack={() => setScreen("home")}
+      title="プロフィール"
+      titleEmoji="🏅"
+      accentColor={hero.themeColor}
+      padding="compact"
+      className="min-h-[100dvh] flex flex-col pb-[calc(env(safe-area-inset-bottom)+0.25rem)]"
+    >
+      <div className="flex-1 min-h-0 flex flex-col gap-2.5 overflow-hidden">
+        <div className="grid grid-cols-5 gap-1 bg-white/40 rounded-xl p-1 shrink-0">
+          {TABS.map((entry) => (
+            <button
+              key={entry.id}
+              onClick={() => setTab(entry.id)}
+              className={`min-h-11 text-[10px] font-medium rounded-lg transition-all ${
+                tab === entry.id
+                  ? "glass-strong shadow-sm text-warm-gray"
+                  : "text-warm-gray/45 hover:text-warm-gray/70"
+              }`}
+            >
+              <div className="leading-none mb-0.5">{entry.emoji}</div>
+              <div className="leading-none">{entry.label}</div>
+            </button>
+          ))}
+        </div>
+
+        <GlassCard variant="strong" className="shrink-0 p-2.5">
+          <div className="flex items-center gap-2.5">
+            <div
+              className="w-11 h-11 rounded-xl flex items-center justify-center text-2xl shadow-sm"
+              style={{ backgroundColor: hero.themeColor + "25" }}
+            >
+              {heroAvatars[hero.id]}
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="font-bold text-sm text-warm-gray truncate">{currentRun.playerName}</p>
+              <p className="text-[11px] text-warm-gray/50 truncate">{hero.name} Lv.{currentRun.level}</p>
+            </div>
+            <Badge variant="warning" size="xs" className="max-w-[50%] truncate">
+              {meta.activeTitle}
+            </Badge>
+          </div>
+        </GlassCard>
+
+        <GlassCard variant="strong" className="flex-1 min-h-0 p-3 flex flex-col overflow-hidden">
+          {tab === "profile" && (
+            <div className="flex-1 min-h-0 flex flex-col gap-2">
+              <div className="grid grid-cols-3 gap-2">
+                <div className="rounded-xl bg-white/60 p-2 text-center">
+                  <p className="text-[9px] text-warm-gray/35">図鑑</p>
+                  <p className="text-sm font-bold text-warm-gray">{completionRate}%</p>
+                </div>
+                <div className="rounded-xl bg-white/60 p-2 text-center">
+                  <p className="text-[9px] text-warm-gray/35">実績</p>
+                  <p className="text-sm font-bold text-warm-gray">{unlockedCount}/{totalAchs}</p>
+                </div>
+                <div className="rounded-xl bg-white/60 p-2 text-center">
+                  <p className="text-[9px] text-warm-gray/35">クリア</p>
+                  <p className="text-sm font-bold text-warm-gray">{meta.totalClears}</p>
+                </div>
+              </div>
+
+              <div className="rounded-xl bg-white/55 border border-white/70 p-2.5 flex-1 min-h-0">
+                <div className="flex items-center justify-between mb-2">
+                  <p className="text-[11px] font-bold text-warm-gray">⭐ お気に入りカード</p>
+                  <button
+                    onClick={() => setShowCardPicker(true)}
+                    className="text-[10px] text-coral hover:text-coral/70 font-medium"
+                  >
+                    編集
+                  </button>
+                </div>
+                <div className="grid grid-cols-3 gap-1.5 h-[72px]">
+                  {Array.from({ length: 3 }).map((_, index) => {
+                    const cardId = favoriteCards[index];
+                    const card = cardId ? cards.find((entry) => entry.id === cardId) : null;
+                    return (
+                      <div key={index} className="rounded-lg bg-white/65 border border-white/70 px-2 py-1.5 text-center">
+                        {card ? (
+                          <>
+                            <p className="text-[10px] font-bold text-warm-gray truncate">{card.name}</p>
+                            <p className="text-[9px] text-warm-gray/35 mt-0.5">
+                              ★{currentRun.ownedCards[card.id]?.stage || 1}
+                            </p>
+                          </>
+                        ) : (
+                          <p className="text-[10px] text-warm-gray/30 leading-[56px]">未設定</p>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-2">
+                <PastelButton
+                  variant="secondary"
+                  size="sm"
+                  icon="📋"
+                  onClick={async () => {
+                    const text = `${currentRun.playerName} | ${hero.name} | Lv.${currentRun.level} | 図鑑${completionRate}% | ${meta.activeTitle}`;
+                    try {
+                      await navigator.clipboard.writeText(text);
+                      alert("コピーしました！");
+                    } catch {
+                      alert("コピーに失敗しました");
+                    }
+                  }}
+                >
+                  コピー
+                </PastelButton>
+                <PastelButton gradient="coral" size="sm" icon="📤" onClick={handleShare}>
+                  共有
+                </PastelButton>
+              </div>
+            </div>
+          )}
+
+          {tab === "achievements" && (
+            <div className="flex-1 min-h-0 flex flex-col gap-2">
+              <GlassCard className="p-2.5 !bg-white/55 shrink-0">
+                <div className="flex items-center justify-between">
+                  <p className="text-xs font-bold text-warm-gray">解除済み実績</p>
+                  <p className="text-base font-bold text-warm-gray">{unlockedCount} / {totalAchs}</p>
+                </div>
+                <ProgressBar
+                  value={unlockedCount}
+                  max={totalAchs}
+                  gradient="from-coral to-pastel-pink"
+                  size="xs"
+                  className="mt-2"
+                />
+              </GlassCard>
+
+              <div
+                className="flex-1 min-h-0 grid grid-cols-3 gap-1.5"
+                style={{ gridTemplateRows: `repeat(${Math.ceil(allAchievements.length / 3)}, minmax(0, 1fr))` }}
+              >
+                {allAchievements.map((achievement) => {
+                  const unlocked = meta.achievements[achievement.id];
+                  const isSecret = achievement.secretFlag && !unlocked;
+                  return (
+                    <button
+                      key={achievement.id}
+                      onClick={() => setSelectedAchievementId(achievement.id)}
+                      className={`rounded-lg border px-1.5 py-1 text-center transition-all flex flex-col justify-between ${
+                        unlocked
+                          ? "bg-pastel-green/18 border-green-200/55 hover:bg-pastel-green/28 btn-press"
+                          : isSecret
+                            ? "bg-gray-100/45 border-white/65 opacity-45"
+                            : "bg-white/72 border-white/80 hover:bg-white/90 btn-press"
+                      }`}
+                    >
+                      <p className="text-base leading-none">
+                        {unlocked ? "🏆" : isSecret ? "❓" : "🔒"}
+                      </p>
+                      <p className="text-[9px] font-bold text-warm-gray truncate">
+                        {isSecret ? "???" : achievement.name}
+                      </p>
+                      <p className="text-[8px] text-warm-gray/45">{unlocked ? "達成" : "未達成"}</p>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {tab === "titles" && (
+            <div className="flex-1 min-h-0 flex flex-col gap-2">
+              <GlassCard className="p-2.5 !bg-white/55 shrink-0">
+                <p className="text-[10px] text-warm-gray/40">現在の称号</p>
+                <p className="text-sm font-bold text-warm-gray truncate">🏅 {meta.activeTitle}</p>
+              </GlassCard>
+
+              <div
+                className="flex-1 min-h-0 grid gap-2"
+                style={{ gridTemplateRows: `repeat(${PAGE_SIZE.titles}, minmax(0, 1fr))` }}
+              >
+                {meta.titles.slice(pageStart, pageStart + PAGE_SIZE.titles).map((title) => {
+                  const titleBonus = getTitleBonus(title);
+                  const isActive = meta.activeTitle === title;
+                  return (
+                    <button
+                      key={title}
+                      onClick={() => setActiveTitle(title)}
+                      className={`text-left rounded-xl border p-2.5 transition-all ${
+                        isActive
+                          ? "bg-coral/12 border-coral/35"
+                          : "bg-white/70 border-white/75 hover:bg-white/85 btn-press"
+                      }`}
+                    >
+                      <div className="flex items-center gap-2.5">
+                        <span className="text-base shrink-0">{isActive ? "👑" : "🏅"}</span>
+                        <div className="flex-1 min-w-0">
+                          <p className="font-bold text-sm text-warm-gray truncate">{title}</p>
+                          <p className="text-[10px] text-warm-gray/45 truncate">
+                            ATK +{titleBonus.atk} / DEF +{titleBonus.def} / SPD +{titleBonus.spd}
+                          </p>
+                        </div>
+                        {isActive && <Badge variant="warning" size="xs">装備中</Badge>}
+                      </div>
+                    </button>
+                  );
+                })}
+
+                {Array.from({
+                  length: Math.max(0, PAGE_SIZE.titles - meta.titles.slice(pageStart, pageStart + PAGE_SIZE.titles).length),
+                }).map((_, index) => (
+                  <div
+                    key={`title-empty-${index}`}
+                    className="rounded-xl border-2 border-dashed border-white/55 bg-white/20 grid place-items-center text-[11px] text-warm-gray/30"
+                  >
+                    称号なし
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {tab === "skills" && (
+            <div className="flex-1 min-h-0 flex flex-col gap-2">
+              <GlassCard className="p-2.5 !bg-white/55 shrink-0">
+                <div className="flex items-center justify-between mb-1">
+                  <p className="text-xs font-bold text-warm-gray">スキルセット</p>
+                  <Badge variant="warning" size="xs">MP {currentRun.mp}</Badge>
+                </div>
+                <p className="text-[10px] text-warm-gray/45 mb-1">
+                  装備枠: {skillLoadout.skillSetMax}
+                </p>
+                <div className="flex flex-wrap gap-1">
+                  {Array.from({ length: skillLoadout.skillSetMax }).map((_, slotIndex) => {
+                    const equippedId = skillLoadout.equippedSkillIds[slotIndex];
+                    const equipped = skillLoadout.equippedSkills.find((skill) => skill.id === equippedId);
+                    return (
+                      <Badge key={slotIndex} variant="default" size="xs">
+                        S{slotIndex + 1}: {equipped?.name || "未設定"}
+                      </Badge>
+                    );
+                  })}
+                </div>
+                {skillNotice && (
+                  <div className="mt-1.5 rounded-lg bg-pastel-yellow/30 px-2 py-1 text-[11px] font-bold text-amber-700 animate-pop">
+                    {skillNotice}
+                  </div>
+                )}
+              </GlassCard>
+
+              {(() => {
+                const skill = skillLoadout.allActiveSkills[pageStart];
+                if (!skill) {
+                  return (
+                    <div className="flex-1 grid place-items-center text-center text-sm text-warm-gray/35">
+                      使用可能スキルがありません
+                    </div>
+                  );
+                }
+                const isLearned = skillLoadout.learnedSkillIds.includes(skill.id);
+                const equippedSlot = skillLoadout.equippedSkillIds.indexOf(skill.id);
+                const learnCost = getSkillLearnCostMp(skill);
+                const canLearn = currentRun.mp >= learnCost;
+                const isStarter = hero.skills.some((starter) => starter.id === skill.id);
+                return (
+                  <div className="flex-1 min-h-0 rounded-xl border border-white/75 bg-white/70 p-3 flex flex-col">
+                    <div className="flex items-center gap-2 mb-1.5">
+                      <div
+                        className="w-9 h-9 rounded-lg flex items-center justify-center text-white text-base shrink-0"
+                        style={{ backgroundColor: hero.themeColor }}
+                      >
+                        ⚡
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-1.5 flex-wrap mb-0.5">
+                          <p className="font-bold text-sm text-warm-gray truncate">{skill.name}</p>
+                          {equippedSlot >= 0 ? (
+                            <Badge variant="success" size="xs">装備中 S{equippedSlot + 1}</Badge>
+                          ) : isLearned ? (
+                            <Badge variant="info" size="xs">習得済み</Badge>
+                          ) : (
+                            <Badge variant="danger" size="xs">未習得</Badge>
+                          )}
+                          {isStarter && <Badge variant="warning" size="xs">初期</Badge>}
+                        </div>
+                        <p className="text-[10px] text-warm-gray/45">{skill.description}</p>
+                      </div>
+                    </div>
+
+                    {!isLearned ? (
+                      <button
+                        onClick={() => handleLearnSkill(skill.id, skill.name, learnCost)}
+                        disabled={!canLearn}
+                        className={`mt-auto min-h-10 text-[12px] rounded-lg font-bold transition-all ${
+                          canLearn
+                            ? "bg-coral/15 text-coral hover:bg-coral/25 btn-press"
+                            : "bg-gray-100/80 text-warm-gray/35"
+                        }`}
+                      >
+                        {canLearn ? `習得する (${learnCost}MP)` : `MP不足 (${learnCost}MP)`}
+                      </button>
+                    ) : (
+                      <div className="mt-auto grid grid-cols-2 gap-1.5">
+                        {Array.from({ length: skillLoadout.skillSetMax }).map((_, slotIndex) => {
+                          const active = equippedSlot === slotIndex;
+                          return (
+                            <button
+                              key={slotIndex}
+                              onClick={() => handleEquipSkill(skill.id, slotIndex, skill.name)}
+                              className={`min-h-9 text-[10px] rounded-lg font-semibold transition-all ${
+                                active
+                                  ? "bg-pastel-green/35 text-green-700"
+                                  : "bg-indigo-100/60 text-indigo-600 hover:bg-indigo-200/60 btn-press"
+                              }`}
+                            >
+                              {active ? `S${slotIndex + 1} 装備中` : `S${slotIndex + 1}に装備`}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+                );
+              })()}
+            </div>
+          )}
+
+          {tab === "skins" && (
+            <div
+              className="flex-1 min-h-0 grid gap-2"
+              style={{ gridTemplateRows: `repeat(${PAGE_SIZE.skins}, minmax(0, 1fr))` }}
+            >
+              {(["normal", "pastel", "sparkle", "pixel"] as CardSkinId[])
+                .slice(pageStart, pageStart + PAGE_SIZE.skins)
+                .map((skinId) => {
+                  const info = skinLabels[skinId];
+                  const unlocked = meta.cardSkins.includes(skinId);
+                  return (
+                    <div
+                      key={skinId}
+                      className={`rounded-xl border p-3 ${
+                        unlocked
+                          ? "bg-white/70 border-white/75"
+                          : "bg-gray-100/45 border-white/65 opacity-45"
+                      }`}
+                    >
+                      <div className="flex items-center gap-2.5 h-full">
+                        <div className="w-11 h-11 rounded-xl bg-white/60 flex items-center justify-center text-2xl shrink-0">
+                          {info.emoji}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="font-bold text-sm text-warm-gray truncate">{info.name}</p>
+                          <p className="text-[11px] text-warm-gray/40">
+                            {unlocked ? "✅ 解放済み" : "🔒 未解放"}
+                          </p>
+                        </div>
+                        {unlocked && <Badge variant="success" size="xs">使用可</Badge>}
+                      </div>
+                    </div>
+                  );
+                })}
+
+              {Array.from({
+                length: Math.max(
+                  0,
+                  PAGE_SIZE.skins -
+                    (["normal", "pastel", "sparkle", "pixel"] as CardSkinId[])
+                      .slice(pageStart, pageStart + PAGE_SIZE.skins).length
+                ),
+              }).map((_, index) => (
+                <div
+                  key={`skin-empty-${index}`}
+                  className="rounded-xl border-2 border-dashed border-white/55 bg-white/20 grid place-items-center text-[11px] text-warm-gray/30"
+                >
+                  スキンなし
+                </div>
+              ))}
+            </div>
+          )}
+
+          <div className="mt-2 shrink-0 flex items-center gap-2">
+            <button
+              onClick={() =>
+                updateCurrentTabPage(Math.max(0, Math.min(tabPage[tab], totalPages - 1) - 1))
+              }
+              disabled={clampedPage === 0}
+              className={`flex-1 min-h-10 rounded-lg text-sm font-bold ${
+                clampedPage === 0
+                  ? "bg-gray-100 text-warm-gray/30"
+                  : "bg-indigo-100/70 text-indigo-700 btn-press"
+              }`}
+            >
+              ← 前へ
+            </button>
+            <p className="text-[11px] text-warm-gray/50 shrink-0 min-w-20 text-center">
+              {clampedPage + 1}/{totalPages} ページ
+            </p>
+            <button
+              onClick={() =>
+                updateCurrentTabPage(Math.min(totalPages - 1, Math.min(tabPage[tab], totalPages - 1) + 1))
+              }
+              disabled={clampedPage >= totalPages - 1}
+              className={`flex-1 min-h-10 rounded-lg text-sm font-bold ${
+                clampedPage >= totalPages - 1
+                  ? "bg-gray-100 text-warm-gray/30"
+                  : "bg-indigo-100/70 text-indigo-700 btn-press"
+              }`}
+            >
+              次へ →
+            </button>
+          </div>
+        </GlassCard>
+      </div>
+
+      <Modal
+        open={!!selectedAchievement}
+        onClose={() => setSelectedAchievementId(null)}
+        position="bottom"
+        showHandle
+      >
+        {selectedAchievement && (
+          <div>
+            {(() => {
+              const unlocked = meta.achievements[selectedAchievement.id];
+              const isSecret = selectedAchievement.secretFlag && !unlocked;
+              return (
+                <>
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-12 h-12 rounded-xl bg-white/70 flex items-center justify-center text-2xl shrink-0">
+                      {unlocked ? "🏆" : isSecret ? "❓" : "🔒"}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-base font-bold text-warm-gray truncate">
+                        {isSecret ? "???" : selectedAchievement.name}
+                      </p>
+                      <p className="text-[11px] text-warm-gray/45">
+                        {unlocked ? "✅ 解除済み" : "未解除"}
+                      </p>
+                    </div>
+                  </div>
+
+                  <GlassCard className="p-3 !bg-white/55">
+                    <p className="text-[11px] text-warm-gray/60 leading-relaxed">
+                      {isSecret ? "シークレット実績です。条件を満たすと内容が表示されます。" : selectedAchievement.description}
+                    </p>
+                    {!isSecret && (
+                      <p className="text-[11px] text-amber-700/85 mt-2">
+                        報酬: {getAchievementRewardLabel(selectedAchievement)}
+                      </p>
+                    )}
+                  </GlassCard>
+                </>
+              );
+            })()}
+          </div>
+        )}
+      </Modal>
+
+      <Modal open={showCardPicker} onClose={() => setShowCardPicker(false)} position="bottom" showHandle>
+        <div>
+          <p className="text-sm font-bold text-warm-gray mb-1">お気に入りカードを選択（最大3枚）</p>
+          <p className="text-[11px] text-warm-gray/45 mb-3">タップで追加/解除できます。</p>
+
+          {ownedCardIds.length === 0 ? (
+            <div className="rounded-xl bg-white/55 border border-white/70 p-4 text-center text-sm text-warm-gray/45">
+              所持カードがありません
+            </div>
+          ) : (
+            <div className="max-h-56 overflow-y-auto rounded-xl bg-white/45 border border-white/70 p-2">
+              <div className="flex flex-wrap gap-1.5">
+                {ownedCardIds.map((cardId) => {
+                  const card = cards.find((entry) => entry.id === cardId);
+                  if (!card) return null;
+                  const isFav = favoriteCards.includes(cardId);
+                  return (
+                    <button
+                      key={cardId}
+                      onClick={() => handleSelectFavorite(cardId)}
+                      className={`text-[10px] px-2 py-1 rounded-lg transition-all btn-press ${
+                        isFav
+                          ? "bg-coral/15 text-coral font-bold ring-1 ring-coral/50"
+                          : "bg-gray-100/70 text-warm-gray/55 hover:bg-gray-200/70"
+                      }`}
+                    >
+                      {card.name}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          <PastelButton fullWidth size="sm" variant="secondary" className="mt-3" onClick={() => setShowCardPicker(false)}>
+            閉じる
+          </PastelButton>
+        </div>
+      </Modal>
+    </ScreenLayout>
+  );
+}

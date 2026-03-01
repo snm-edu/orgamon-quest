@@ -1,0 +1,594 @@
+[
+  {
+    "id": "minato",
+    "name": "ミナト",
+    "profession": "看護師志望",
+    "concept": "前線ケアタイプ",
+    "themeColor": "#f08080",
+    "themeColorClass": "coral",
+    "baseStats": {
+      "atk": 20,
+      "def": 18,
+      "spd": 16
+    },
+    "skills": [
+      {
+        "id": "minato_vital_scan",
+        "name": "バイタルスキャン",
+        "type": "active",
+        "cooldown": 2,
+        "description": "キーワードをハイライトし、観察ミスデバフを解除",
+        "effects": [
+          {
+            "type": "hint",
+            "value": 1,
+            "condition": "highlight_keyword"
+          },
+          {
+            "type": "cleanse_debuff",
+            "value": 1,
+            "condition": "observation_miss"
+          }
+        ]
+      },
+      {
+        "id": "minato_triage_call",
+        "name": "トリアージコール",
+        "type": "active",
+        "cooldown": 3,
+        "description": "選択肢を1つ減少し、時間圧迫デバフを解除",
+        "effects": [
+          {
+            "type": "reduce_choices",
+            "value": 1
+          },
+          {
+            "type": "cleanse_debuff",
+            "value": 1,
+            "condition": "time_pressure"
+          }
+        ]
+      },
+      {
+        "id": "minato_care_plan",
+        "name": "ケアプラン実行",
+        "type": "active",
+        "cooldown": 3,
+        "description": "ホメオスタシス+8（直前正解時は+12）",
+        "effects": [
+          {
+            "type": "heal_homeostasis",
+            "value": 8
+          },
+          {
+            "type": "heal_homeostasis",
+            "value": 12,
+            "condition": "last_was_correct"
+          }
+        ]
+      }
+    ],
+    "learnableSkills": [
+      {
+        "id": "minato_rapid_rounds",
+        "name": "ラピッドラウンド",
+        "type": "active",
+        "cooldown": 3,
+        "learnCostMp": 120,
+        "description": "セーフティネット付与＋ホメオスタシス+4",
+        "effects": [
+          {
+            "type": "safe_net",
+            "value": 1,
+            "duration": 1
+          },
+          {
+            "type": "heal_homeostasis",
+            "value": 4
+          }
+        ]
+      },
+      {
+        "id": "minato_focus_triage",
+        "name": "フォーカストリアージ",
+        "type": "active",
+        "cooldown": 4,
+        "learnCostMp": 170,
+        "description": "選択肢をさらに1つ削減し、キーワードヒント表示",
+        "effects": [
+          {
+            "type": "reduce_choices",
+            "value": 1
+          },
+          {
+            "type": "hint",
+            "value": 1
+          }
+        ]
+      }
+    ],
+    "passive": {
+      "id": "minato_observation",
+      "name": "観察眼",
+      "type": "passive",
+      "cooldown": 0,
+      "description": "2連続正解ごとにヒントフラグメント+1",
+      "effects": [
+        {
+          "type": "hint",
+          "value": 1,
+          "condition": "every_2_consecutive_correct"
+        }
+      ]
+    },
+    "ultimate": {
+      "id": "minato_code_blue",
+      "name": "コードブルー指揮",
+      "type": "ultimate",
+      "cooldown": 0,
+      "chargeRequired": 5,
+      "description": "全員CD-1、ホメオスタシス+15、次回ペナルティ軽減",
+      "effects": [
+        {
+          "type": "reduce_cd",
+          "value": 1,
+          "condition": "all_team"
+        },
+        {
+          "type": "heal_homeostasis",
+          "value": 15
+        },
+        {
+          "type": "reduce_penalty",
+          "value": 100,
+          "duration": 1
+        }
+      ]
+    },
+    "evolutionLine": [
+      "見習いナース",
+      "トリアージナース",
+      "ホメオスタシス指揮官"
+    ],
+    "imageUrl": "/images/heroes/minato.png"
+  },
+  {
+    "id": "hikari",
+    "name": "ヒカリ",
+    "profession": "視能訓練士志望",
+    "concept": "精密解析タイプ",
+    "themeColor": "#b8a9c9",
+    "themeColorClass": "lavender",
+    "baseStats": {
+      "atk": 18,
+      "def": 15,
+      "spd": 21
+    },
+    "skills": [
+      {
+        "id": "hikari_visual_mapping",
+        "name": "視野マッピング",
+        "type": "active",
+        "cooldown": 2,
+        "description": "ノイズテキストをグレーアウトし、誤情報デバフを解除",
+        "effects": [
+          {
+            "type": "hint",
+            "value": 1,
+            "condition": "gray_out_noise"
+          },
+          {
+            "type": "cleanse_debuff",
+            "value": 1,
+            "condition": "misinformation"
+          }
+        ]
+      },
+      {
+        "id": "hikari_eye_trace",
+        "name": "眼球運動トレース",
+        "type": "active",
+        "cooldown": 3,
+        "description": "ミニゲーム成功で2ターン間、正確率+15%",
+        "effects": [
+          {
+            "type": "buff_accuracy",
+            "value": 15,
+            "duration": 2,
+            "condition": "mini_game_success"
+          }
+        ]
+      },
+      {
+        "id": "hikari_focus_calibration",
+        "name": "焦点キャリブレーション",
+        "type": "active",
+        "cooldown": 3,
+        "description": "次の誤答ペナルティを0にする（セーフティネット）",
+        "effects": [
+          {
+            "type": "safe_net",
+            "value": 1,
+            "duration": 1
+          }
+        ]
+      }
+    ],
+    "learnableSkills": [
+      {
+        "id": "hikari_phase_filter",
+        "name": "フェーズフィルタ",
+        "type": "active",
+        "cooldown": 3,
+        "learnCostMp": 130,
+        "description": "誤情報デバフ解除＋ヒント表示",
+        "effects": [
+          {
+            "type": "cleanse_debuff",
+            "value": 1,
+            "condition": "misinformation"
+          },
+          {
+            "type": "hint",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "id": "hikari_time_dilation",
+        "name": "タイムディレーション",
+        "type": "active",
+        "cooldown": 4,
+        "learnCostMp": 190,
+        "description": "セーフティネット＋ホメオスタシス+6",
+        "effects": [
+          {
+            "type": "safe_net",
+            "value": 1,
+            "duration": 1
+          },
+          {
+            "type": "heal_homeostasis",
+            "value": 6
+          }
+        ]
+      }
+    ],
+    "passive": {
+      "id": "hikari_precision",
+      "name": "精密読解",
+      "type": "passive",
+      "cooldown": 0,
+      "description": "全制限時間+20%",
+      "effects": [
+        {
+          "type": "time_extend",
+          "value": 20
+        }
+      ]
+    },
+    "ultimate": {
+      "id": "hikari_neurovision",
+      "name": "ニューロビジョン",
+      "type": "ultimate",
+      "cooldown": 0,
+      "chargeRequired": 5,
+      "description": "2ターン間オートハイライト＋1回だけ2択に減少",
+      "effects": [
+        {
+          "type": "auto_highlight",
+          "value": 1,
+          "duration": 2
+        },
+        {
+          "type": "reduce_choices",
+          "value": 2,
+          "duration": 1,
+          "condition": "once_to_2"
+        }
+      ]
+    },
+    "evolutionLine": [
+      "ビジョンアシスト",
+      "視機能アナリスト",
+      "ニューロビジョンマスター"
+    ],
+    "imageUrl": "/images/heroes/hikari.png"
+  },
+  {
+    "id": "kotoha",
+    "name": "コトハ",
+    "profession": "歯科衛生士志望",
+    "concept": "予防ケアタイプ",
+    "themeColor": "#98d4bb",
+    "themeColorClass": "mint",
+    "baseStats": {
+      "atk": 17,
+      "def": 20,
+      "spd": 14
+    },
+    "skills": [
+      {
+        "id": "kotoha_plaque_clean",
+        "name": "プラーククリーン",
+        "type": "active",
+        "cooldown": 2,
+        "description": "デバフ1つ解除＋次回ペナルティ-30%",
+        "effects": [
+          {
+            "type": "cleanse_debuff",
+            "value": 1
+          },
+          {
+            "type": "reduce_penalty",
+            "value": 30,
+            "duration": 1
+          }
+        ]
+      },
+      {
+        "id": "kotoha_whole_body_link",
+        "name": "全身リンクケア",
+        "type": "active",
+        "cooldown": 3,
+        "description": "関連器官ヒント表示＋マスタリー経験値+10%",
+        "effects": [
+          {
+            "type": "show_related",
+            "value": 1
+          },
+          {
+            "type": "mastery_boost",
+            "value": 10
+          }
+        ]
+      },
+      {
+        "id": "kotoha_self_care",
+        "name": "セルフケア指導",
+        "type": "active",
+        "cooldown": 3,
+        "description": "次の3ターン間、正解時にホメオスタシス+4",
+        "effects": [
+          {
+            "type": "hot_heal",
+            "value": 4,
+            "duration": 3,
+            "condition": "on_correct"
+          }
+        ]
+      }
+    ],
+    "learnableSkills": [
+      {
+        "id": "kotoha_recovery_loop",
+        "name": "リカバリーループ",
+        "type": "active",
+        "cooldown": 3,
+        "learnCostMp": 120,
+        "description": "3ターンの継続回復を付与（正解時ホメオスタシス+4）",
+        "effects": [
+          {
+            "type": "hot_heal",
+            "value": 4,
+            "duration": 3,
+            "condition": "on_correct"
+          }
+        ]
+      },
+      {
+        "id": "kotoha_triage_guard",
+        "name": "トリアージガード",
+        "type": "active",
+        "cooldown": 4,
+        "learnCostMp": 180,
+        "description": "デバフ1つ解除＋ホメオスタシス+5",
+        "effects": [
+          {
+            "type": "cleanse_debuff",
+            "value": 1
+          },
+          {
+            "type": "heal_homeostasis",
+            "value": 5
+          }
+        ]
+      }
+    ],
+    "passive": {
+      "id": "kotoha_continuity",
+      "name": "継続ケア習慣",
+      "type": "passive",
+      "cooldown": 0,
+      "description": "復習クエスト報酬+25%",
+      "effects": [
+        {
+          "type": "xp_boost",
+          "value": 25,
+          "condition": "review_quest"
+        }
+      ]
+    },
+    "ultimate": {
+      "id": "kotoha_oral_barrier",
+      "name": "オーラルバリア",
+      "type": "ultimate",
+      "cooldown": 0,
+      "chargeRequired": 5,
+      "description": "3ターン間、誤情報と時間圧迫を各1回ブロック",
+      "effects": [
+        {
+          "type": "safe_net",
+          "value": 1,
+          "duration": 3,
+          "condition": "block_misinformation"
+        },
+        {
+          "type": "safe_net",
+          "value": 1,
+          "duration": 3,
+          "condition": "block_time_pressure"
+        }
+      ]
+    },
+    "evolutionLine": [
+      "予防ケア担当",
+      "行動変容コーチ",
+      "ライフロングケアマスター"
+    ],
+    "imageUrl": "/images/heroes/kotoha.png"
+  },
+  {
+    "id": "leon",
+    "name": "レオン",
+    "profession": "臨床工学技士志望",
+    "concept": "システム最適化タイプ",
+    "themeColor": "#87ceeb",
+    "themeColorClass": "sky",
+    "baseStats": {
+      "atk": 19,
+      "def": 17,
+      "spd": 18
+    },
+    "skills": [
+      {
+        "id": "leon_monitor_sync",
+        "name": "モニタ同期",
+        "type": "active",
+        "cooldown": 2,
+        "description": "直近2ターンの正確率グラフ表示＋観察ミスデバフ解除",
+        "effects": [
+          {
+            "type": "show_graph",
+            "value": 2,
+            "condition": "last_2_turn_accuracy"
+          },
+          {
+            "type": "cleanse_debuff",
+            "value": 1,
+            "condition": "observation_miss"
+          }
+        ]
+      },
+      {
+        "id": "leon_troubleshoot",
+        "name": "トラブルシュート",
+        "type": "active",
+        "cooldown": 3,
+        "description": "機器故障を即座に解除＋ランダム味方CD-1",
+        "effects": [
+          {
+            "type": "cleanse_debuff",
+            "value": 1,
+            "condition": "equipment_malfunction"
+          },
+          {
+            "type": "reduce_cd",
+            "value": 1,
+            "condition": "random_ally"
+          }
+        ]
+      },
+      {
+        "id": "leon_flow_tuning",
+        "name": "流量チューニング",
+        "type": "active",
+        "cooldown": 3,
+        "description": "ホメオスタシス+10（前問がデータ問題正解時は+14）",
+        "effects": [
+          {
+            "type": "heal_homeostasis",
+            "value": 10
+          },
+          {
+            "type": "heal_homeostasis",
+            "value": 14,
+            "condition": "prev_data_question_correct"
+          }
+        ]
+      }
+    ],
+    "learnableSkills": [
+      {
+        "id": "leon_sync_boost",
+        "name": "シンクブースト",
+        "type": "active",
+        "cooldown": 3,
+        "learnCostMp": 140,
+        "description": "全員CD-1し、キーワードヒントを表示",
+        "effects": [
+          {
+            "type": "reduce_cd",
+            "value": 1,
+            "condition": "all_team"
+          },
+          {
+            "type": "hint",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "id": "leon_shield_patch",
+        "name": "シールドパッチ",
+        "type": "active",
+        "cooldown": 4,
+        "learnCostMp": 200,
+        "description": "機器故障デバフを解除し、セーフティネットを付与",
+        "effects": [
+          {
+            "type": "cleanse_debuff",
+            "value": 1,
+            "condition": "equipment_malfunction"
+          },
+          {
+            "type": "safe_net",
+            "value": 1,
+            "duration": 1
+          }
+        ]
+      }
+    ],
+    "passive": {
+      "id": "leon_preventive",
+      "name": "予防保守",
+      "type": "passive",
+      "cooldown": 0,
+      "description": "ラウンド開始時に10%確率で機器故障をブロック",
+      "effects": [
+        {
+          "type": "safe_net",
+          "value": 10,
+          "condition": "block_equipment_malfunction_round_start"
+        }
+      ]
+    },
+    "ultimate": {
+      "id": "leon_full_optimization",
+      "name": "フルシステム最適化",
+      "type": "ultimate",
+      "cooldown": 0,
+      "chargeRequired": 6,
+      "description": "全員次スキル+30%＋全員CD-1",
+      "effects": [
+        {
+          "type": "skill_power_up",
+          "value": 30,
+          "duration": 1,
+          "condition": "all_team_next_skill"
+        },
+        {
+          "type": "reduce_cd",
+          "value": 1,
+          "condition": "all_team"
+        }
+      ]
+    },
+    "evolutionLine": [
+      "モニタテック",
+      "システムエンジニア",
+      "生命維持システムマスター"
+    ],
+    "imageUrl": "/images/heroes/leon.png"
+  }
+]

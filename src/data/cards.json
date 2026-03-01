@@ -1,0 +1,838 @@
+[
+  {
+    "id": "cell_membrane",
+    "name": "細胞膜",
+    "category": "organelle",
+    "rarity": "Common",
+    "chapter": 1,
+    "evolutionLine": [
+      "膜の守護者",
+      "細胞壁",
+      "生体バリアー"
+    ],
+    "skins": [
+      "normal"
+    ],
+    "attackPower": 12,
+    "attribute": "防御",
+    "description": "細胞の境界を守る生体膜。物質の出入りを制御する。",
+    "imageUrl": "/images/cards/organelle.webp"
+  },
+  {
+    "id": "mitochondria",
+    "name": "ミトコンドリア",
+    "category": "organelle",
+    "rarity": "Common",
+    "chapter": 1,
+    "evolutionLine": [
+      "エネルギースパーク",
+      "ATPジェネレーター",
+      "パワーハウスα"
+    ],
+    "skins": [
+      "normal"
+    ],
+    "attackPower": 18,
+    "attribute": "エネルギー",
+    "description": "細胞のエネルギー工場。ATPを産生する。",
+    "imageUrl": "/images/cards/organelle.webp"
+  },
+  {
+    "id": "ribosome",
+    "name": "リボソーム",
+    "category": "organelle",
+    "rarity": "Common",
+    "chapter": 1,
+    "evolutionLine": [
+      "蛋白合成粒子",
+      "ポリペプチド工房",
+      "タンパクマスター"
+    ],
+    "skins": [
+      "normal"
+    ],
+    "attackPower": 10,
+    "attribute": "合成",
+    "description": "タンパク質合成の場。mRNAを読み翻訳する。",
+    "imageUrl": "/images/cards/organelle.webp"
+  },
+  {
+    "id": "nucleus",
+    "name": "核",
+    "category": "organelle",
+    "rarity": "Rare",
+    "chapter": 1,
+    "evolutionLine": [
+      "情報の玉座",
+      "遺伝制御室",
+      "マスターコア"
+    ],
+    "skins": [
+      "normal"
+    ],
+    "attackPower": 28,
+    "attribute": "遺伝",
+    "description": "細胞の司令塔。DNAを格納し遺伝情報を管理。",
+    "imageUrl": "/images/cards/organelle.webp"
+  },
+  {
+    "id": "dna_double_helix",
+    "name": "DNA二重らせん",
+    "category": "organelle",
+    "rarity": "Epic",
+    "chapter": 1,
+    "evolutionLine": [
+      "らせんの萌芽",
+      "ゲノムワイヤー",
+      "生命コードマスター"
+    ],
+    "skins": [
+      "normal"
+    ],
+    "attackPower": 48,
+    "attribute": "遺伝",
+    "description": "生命の設計図。二重らせん構造の遺伝物質。",
+    "imageUrl": "/images/cards/organelle.webp"
+  },
+  {
+    "id": "golgi_body",
+    "name": "ゴルジ体",
+    "category": "organelle",
+    "rarity": "Common",
+    "chapter": 1,
+    "evolutionLine": [
+      "梱包ステーション",
+      "分泌センター",
+      "タンパク宅配屋"
+    ],
+    "skins": [
+      "normal"
+    ],
+    "attackPower": 14,
+    "attribute": "分泌",
+    "description": "タンパク質の修飾・仕分け・分泌を担う。",
+    "imageUrl": "/images/cards/organelle.webp"
+  },
+  {
+    "id": "endoplasmic_reticulum",
+    "name": "小胞体",
+    "category": "organelle",
+    "rarity": "Common",
+    "chapter": 1,
+    "evolutionLine": [
+      "膜ネットワーク",
+      "蛋白製造ライン",
+      "生体工場棟"
+    ],
+    "skins": [
+      "normal"
+    ],
+    "attackPower": 15,
+    "attribute": "合成",
+    "description": "粗面・滑面小胞体がタンパク質・脂質を合成。",
+    "imageUrl": "/images/cards/organelle.webp"
+  },
+  {
+    "id": "lysosome",
+    "name": "リゾソーム",
+    "category": "organelle",
+    "rarity": "Rare",
+    "chapter": 1,
+    "evolutionLine": [
+      "消化小胞",
+      "分解ユニット",
+      "細胞掃除屋"
+    ],
+    "skins": [
+      "normal"
+    ],
+    "attackPower": 30,
+    "attribute": "分解",
+    "description": "酵素で老廃物や侵入物を分解する消化器官。",
+    "imageUrl": "/images/cards/organelle.webp"
+  },
+  {
+    "id": "homeostasis_core",
+    "name": "ホメオスタシスコア",
+    "category": "system",
+    "rarity": "Rare",
+    "chapter": 2,
+    "evolutionLine": [
+      "恒常の芽",
+      "バランスノード",
+      "体内平衡マスター"
+    ],
+    "skins": [
+      "normal"
+    ],
+    "attackPower": 32,
+    "attribute": "恒常",
+    "description": "体内環境を一定に保つ恒常性の核。",
+    "imageUrl": "/images/cards/system.webp"
+  },
+  {
+    "id": "organ_network",
+    "name": "器官ネットワーク",
+    "category": "system",
+    "rarity": "Common",
+    "chapter": 2,
+    "evolutionLine": [
+      "連携の糸",
+      "システムグリッド",
+      "全身オーケストラ"
+    ],
+    "skins": [
+      "normal"
+    ],
+    "attackPower": 16,
+    "attribute": "連携",
+    "description": "各器官が連携して生命を支えるシステム。",
+    "imageUrl": "/images/cards/system.webp"
+  },
+  {
+    "id": "autonomic_node",
+    "name": "自律神経ノード",
+    "category": "system",
+    "rarity": "Epic",
+    "chapter": 2,
+    "evolutionLine": [
+      "自律の萌芽",
+      "交感・副交感スイッチ",
+      "無意識の指揮者"
+    ],
+    "skins": [
+      "normal"
+    ],
+    "attackPower": 45,
+    "attribute": "自律",
+    "description": "交感・副交感神経の切り替え制御を行う節。",
+    "imageUrl": "/images/cards/system.webp"
+  },
+  {
+    "id": "periosteum_shield",
+    "name": "骨膜シールド",
+    "category": "organ",
+    "rarity": "Common",
+    "chapter": 3,
+    "evolutionLine": [
+      "膜の鎧",
+      "骨包み",
+      "堅牢ガード"
+    ],
+    "skins": [
+      "normal"
+    ],
+    "attackPower": 11,
+    "attribute": "防御",
+    "description": "骨表面を覆う膜。栄養供給と保護を担う。",
+    "imageUrl": "/images/cards/organ.webp"
+  },
+  {
+    "id": "red_marrow",
+    "name": "赤色骨髄",
+    "category": "organ",
+    "rarity": "Rare",
+    "chapter": 3,
+    "evolutionLine": [
+      "造血の泉",
+      "血球工房",
+      "生命の源"
+    ],
+    "skins": [
+      "normal"
+    ],
+    "attackPower": 26,
+    "attribute": "造血",
+    "description": "赤血球・白血球・血小板を産生する造血組織。",
+    "imageUrl": "/images/cards/organ.webp"
+  },
+  {
+    "id": "vertebra_chain",
+    "name": "椎骨チェーン",
+    "category": "organ",
+    "rarity": "Common",
+    "chapter": 3,
+    "evolutionLine": [
+      "背骨の一粒",
+      "脊柱リンク",
+      "柱の守護者"
+    ],
+    "skins": [
+      "normal"
+    ],
+    "attackPower": 17,
+    "attribute": "支持",
+    "description": "脊柱を構成する椎骨の連鎖。体を支える。",
+    "imageUrl": "/images/cards/organ.webp"
+  },
+  {
+    "id": "joint_link",
+    "name": "関節リンク",
+    "category": "organ",
+    "rarity": "Common",
+    "chapter": 3,
+    "evolutionLine": [
+      "つなぎ目",
+      "可動ユニット",
+      "スムーズヒンジ"
+    ],
+    "skins": [
+      "normal"
+    ],
+    "attackPower": 13,
+    "attribute": "可動",
+    "description": "骨と骨を連結し、滑らかな運動を可能にする。",
+    "imageUrl": "/images/cards/organ.webp"
+  },
+  {
+    "id": "pelvis_guardian",
+    "name": "骨盤ガーディアン",
+    "category": "organ",
+    "rarity": "Epic",
+    "chapter": 3,
+    "evolutionLine": [
+      "骨盤の核",
+      "中央サポート",
+      "体幹の要"
+    ],
+    "skins": [
+      "normal"
+    ],
+    "attackPower": 42,
+    "attribute": "支持",
+    "description": "体の中心を支える骨盤。内臓を保護する。",
+    "imageUrl": "/images/cards/organ.webp"
+  },
+  {
+    "id": "red_blood_runner",
+    "name": "赤血球ランナー",
+    "category": "organelle",
+    "rarity": "Common",
+    "chapter": 4,
+    "evolutionLine": [
+      "酸素配達員",
+      "O2キャリア",
+      "全身酸素便"
+    ],
+    "skins": [
+      "normal"
+    ],
+    "attackPower": 12,
+    "attribute": "酸素",
+    "description": "酸素を全身に運ぶ赤い細胞。ヘモグロビンを有する。",
+    "imageUrl": "/images/cards/organelle.webp"
+  },
+  {
+    "id": "white_blood_guard",
+    "name": "白血球ガード",
+    "category": "organelle",
+    "rarity": "Common",
+    "chapter": 4,
+    "evolutionLine": [
+      "免疫の尖兵",
+      "病原体ハンター",
+      "身体守護者"
+    ],
+    "skins": [
+      "normal"
+    ],
+    "attackPower": 14,
+    "attribute": "免疫",
+    "description": "病原体を攻撃し身体を守る防御細胞。",
+    "imageUrl": "/images/cards/organelle.webp"
+  },
+  {
+    "id": "platelet_mender",
+    "name": "血小板メンダー",
+    "category": "organelle",
+    "rarity": "Common",
+    "chapter": 4,
+    "evolutionLine": [
+      "凝固の因子",
+      "止血パッチ",
+      "傷の修復者"
+    ],
+    "skins": [
+      "normal"
+    ],
+    "attackPower": 10,
+    "attribute": "凝固",
+    "description": "出血を止め、血管の傷を塞ぐ。",
+    "imageUrl": "/images/cards/organelle.webp"
+  },
+  {
+    "id": "hemoglobin",
+    "name": "ヘモグロビン",
+    "category": "organelle",
+    "rarity": "Rare",
+    "chapter": 4,
+    "evolutionLine": [
+      "O2結合蛋白",
+      "酸素キャリア",
+      "赤い運搬屋"
+    ],
+    "skins": [
+      "normal"
+    ],
+    "attackPower": 27,
+    "attribute": "酸素",
+    "description": "赤血球内で酸素と結合・運搬するタンパク質。",
+    "imageUrl": "/images/cards/organelle.webp"
+  },
+  {
+    "id": "antibody_eagle",
+    "name": "抗体イーグル",
+    "category": "organelle",
+    "rarity": "Epic",
+    "chapter": 4,
+    "evolutionLine": [
+      "免疫の翼",
+      "抗原ハンター",
+      "特異的防御者"
+    ],
+    "skins": [
+      "normal"
+    ],
+    "attackPower": 50,
+    "attribute": "免疫",
+    "description": "特定の抗原に結合して無力化する免疫分子。",
+    "imageUrl": "/images/cards/organelle.webp"
+  },
+  {
+    "id": "plasma_stream",
+    "name": "血漿ストリーム",
+    "category": "organelle",
+    "rarity": "Common",
+    "chapter": 4,
+    "evolutionLine": [
+      "体液の海",
+      "栄養輸送路",
+      "生命の川"
+    ],
+    "skins": [
+      "normal"
+    ],
+    "attackPower": 15,
+    "attribute": "輸送",
+    "description": "血球を浮かべる液体成分。栄養・老廃物を運ぶ。",
+    "imageUrl": "/images/cards/organelle.webp"
+  },
+  {
+    "id": "gastric_acid_fortress",
+    "name": "胃酸フォートレス",
+    "category": "organ",
+    "rarity": "Common",
+    "chapter": 5,
+    "evolutionLine": [
+      "消化の門",
+      "pH1の壁",
+      "溶解砦"
+    ],
+    "skins": [
+      "normal"
+    ],
+    "attackPower": 18,
+    "attribute": "消化",
+    "description": "強酸性で食物を分解する胃の攻撃部隊。",
+    "imageUrl": "/images/cards/organ.webp"
+  },
+  {
+    "id": "intestinal_villa",
+    "name": "小腸ヴィラ",
+    "category": "organ",
+    "rarity": "Common",
+    "chapter": 5,
+    "evolutionLine": [
+      "吸収の突起",
+      "栄養キャッチャー",
+      "吸収マスター"
+    ],
+    "skins": [
+      "normal"
+    ],
+    "attackPower": 16,
+    "attribute": "吸収",
+    "description": "小腸の突起。表面積を増やし栄養を吸収。",
+    "imageUrl": "/images/cards/organ.webp"
+  },
+  {
+    "id": "liver_factory",
+    "name": "肝臓ファクトリー",
+    "category": "organ",
+    "rarity": "Rare",
+    "chapter": 5,
+    "evolutionLine": [
+      "代謝工場",
+      "解毒ユニット",
+      "化学工場"
+    ],
+    "skins": [
+      "normal"
+    ],
+    "attackPower": 29,
+    "attribute": "代謝",
+    "description": "解毒・代謝・胆汁産生を担う最大の臓器。",
+    "imageUrl": "/images/cards/organ.webp"
+  },
+  {
+    "id": "pancreas_dual",
+    "name": "膵臓デュアル",
+    "category": "organ",
+    "rarity": "Rare",
+    "chapter": 5,
+    "evolutionLine": [
+      "二役の臓器",
+      "内分泌・外分泌",
+      "血糖調節官"
+    ],
+    "skins": [
+      "normal"
+    ],
+    "attackPower": 31,
+    "attribute": "調節",
+    "description": "インスリン分泌と消化酵素産生の二役を担う。",
+    "imageUrl": "/images/cards/organ.webp"
+  },
+  {
+    "id": "kidney_filter",
+    "name": "腎臓フィルター",
+    "category": "organ",
+    "rarity": "Rare",
+    "chapter": 5,
+    "evolutionLine": [
+      "濾過の門",
+      "老廃物分離器",
+      "浄化マスター"
+    ],
+    "skins": [
+      "normal"
+    ],
+    "attackPower": 28,
+    "attribute": "濾過",
+    "description": "血液を濾過し尿を作る排泄器官。",
+    "imageUrl": "/images/cards/organ.webp"
+  },
+  {
+    "id": "nephron_unit",
+    "name": "ネフロンユニット",
+    "category": "organ",
+    "rarity": "Epic",
+    "chapter": 5,
+    "evolutionLine": [
+      "濾過単位",
+      "尿形成モジュール",
+      "腎臓の心臓"
+    ],
+    "skins": [
+      "normal"
+    ],
+    "attackPower": 47,
+    "attribute": "濾過",
+    "description": "腎臓の基本単位。糸球体と尿細管で尿を形成。",
+    "imageUrl": "/images/cards/organ.webp"
+  },
+  {
+    "id": "heart_pump",
+    "name": "心臓ポンプ",
+    "category": "organ",
+    "rarity": "Rare",
+    "chapter": 6,
+    "evolutionLine": [
+      "鼓動の核",
+      "血液駆動装置",
+      "生命のエンジン"
+    ],
+    "skins": [
+      "normal"
+    ],
+    "attackPower": 33,
+    "attribute": "循環",
+    "description": "全身へ血液を送り出すポンプ。1日10万回拍動。",
+    "imageUrl": "/images/cards/organ.webp"
+  },
+  {
+    "id": "coronary_line",
+    "name": "冠動脈ライン",
+    "category": "organ",
+    "rarity": "Epic",
+    "chapter": 6,
+    "evolutionLine": [
+      "心筋の血管",
+      "心臓栄養路",
+      "冠循環マスター"
+    ],
+    "skins": [
+      "normal"
+    ],
+    "attackPower": 52,
+    "attribute": "循環",
+    "description": "心臓自体に酸素と栄養を送る血管。",
+    "imageUrl": "/images/cards/organ.webp"
+  },
+  {
+    "id": "aorta_highway",
+    "name": "大動脈ハイウェイ",
+    "category": "organ",
+    "rarity": "Common",
+    "chapter": 6,
+    "evolutionLine": [
+      "大血管",
+      "体幹幹線",
+      "血液スーパーハイウェイ"
+    ],
+    "skins": [
+      "normal"
+    ],
+    "attackPower": 19,
+    "attribute": "循環",
+    "description": "心臓から出る最大の動脈。全身への幹線。",
+    "imageUrl": "/images/cards/organ.webp"
+  },
+  {
+    "id": "venous_valve",
+    "name": "静脈バルブ",
+    "category": "organ",
+    "rarity": "Common",
+    "chapter": 6,
+    "evolutionLine": [
+      "逆流防止",
+      "血還路ガード",
+      "弁の守護者"
+    ],
+    "skins": [
+      "normal"
+    ],
+    "attackPower": 11,
+    "attribute": "循環",
+    "description": "静脈内の弁。重力に逆らい血液を心臓へ戻す。",
+    "imageUrl": "/images/cards/organ.webp"
+  },
+  {
+    "id": "portal_route",
+    "name": "門脈ルート",
+    "category": "organ",
+    "rarity": "Rare",
+    "chapter": 6,
+    "evolutionLine": [
+      "消化管→肝ルート",
+      "栄養輸送路",
+      "門脈システム"
+    ],
+    "skins": [
+      "normal"
+    ],
+    "attackPower": 27,
+    "attribute": "循環",
+    "description": "消化管から肝臓へ栄養を直接運ぶ特殊な血管。",
+    "imageUrl": "/images/cards/organ.webp"
+  },
+  {
+    "id": "alveoli_bubble",
+    "name": "肺胞バブル",
+    "category": "organ",
+    "rarity": "Common",
+    "chapter": 7,
+    "evolutionLine": [
+      "ガス交換球",
+      "酸素受け渡し",
+      "呼吸の最小単位"
+    ],
+    "skins": [
+      "normal"
+    ],
+    "attackPower": 14,
+    "attribute": "呼吸",
+    "description": "肺の末端。酸素と二酸化炭素の交換を行う。",
+    "imageUrl": "/images/cards/organ.webp"
+  },
+  {
+    "id": "trachea_cartridge",
+    "name": "気管カートリッジ",
+    "category": "organ",
+    "rarity": "Common",
+    "chapter": 7,
+    "evolutionLine": [
+      "気道の筒",
+      "軟骨リング",
+      "空気の道"
+    ],
+    "skins": [
+      "normal"
+    ],
+    "attackPower": 13,
+    "attribute": "呼吸",
+    "description": "軟骨で支えられた空気の通り道。",
+    "imageUrl": "/images/cards/organ.webp"
+  },
+  {
+    "id": "diaphragm_piston",
+    "name": "横隔膜ピストン",
+    "category": "organ",
+    "rarity": "Rare",
+    "chapter": 7,
+    "evolutionLine": [
+      "呼吸の筋肉",
+      "胸腔ピストン",
+      "息の原動力"
+    ],
+    "skins": [
+      "normal"
+    ],
+    "attackPower": 30,
+    "attribute": "呼吸",
+    "description": "呼吸の主役。収縮・弛緩で肺を膨らませる。",
+    "imageUrl": "/images/cards/organ.webp"
+  },
+  {
+    "id": "epiglottis_gate",
+    "name": "喉頭蓋ゲート",
+    "category": "organ",
+    "rarity": "Common",
+    "chapter": 7,
+    "evolutionLine": [
+      "気道の門",
+      "誤嚥防止",
+      "食物と空気の分かれ道"
+    ],
+    "skins": [
+      "normal"
+    ],
+    "attackPower": 12,
+    "attribute": "呼吸",
+    "description": "嚥下時に気管を閉じ、食物が肺に入るのを防ぐ。",
+    "imageUrl": "/images/cards/organ.webp"
+  },
+  {
+    "id": "external_respiratory_chamber",
+    "name": "外呼吸チェンバー",
+    "category": "organ",
+    "rarity": "Epic",
+    "chapter": 7,
+    "evolutionLine": [
+      "肺胞クラスター",
+      "ガス交換室",
+      "外呼吸マスター"
+    ],
+    "skins": [
+      "normal"
+    ],
+    "attackPower": 44,
+    "attribute": "呼吸",
+    "description": "肺胞と毛細血管で行う外呼吸の場。",
+    "imageUrl": "/images/cards/organ.webp"
+  },
+  {
+    "id": "neuron_spark",
+    "name": "ニューロンスパーク",
+    "category": "organelle",
+    "rarity": "Common",
+    "chapter": 8,
+    "evolutionLine": [
+      "神経の電気",
+      "シナプス前",
+      "電気信号発信者"
+    ],
+    "skins": [
+      "normal"
+    ],
+    "attackPower": 16,
+    "attribute": "伝達",
+    "description": "神経細胞。電気信号で情報を伝える。",
+    "imageUrl": "/images/cards/organelle.webp"
+  },
+  {
+    "id": "synapse_bridge",
+    "name": "シナプスブリッジ",
+    "category": "organelle",
+    "rarity": "Rare",
+    "chapter": 8,
+    "evolutionLine": [
+      "神経接続",
+      "伝達の架け橋",
+      "神経間コミュニケーション"
+    ],
+    "skins": [
+      "normal"
+    ],
+    "attackPower": 28,
+    "attribute": "伝達",
+    "description": "ニューロン間の接続部。神経伝達物質で情報を渡す。",
+    "imageUrl": "/images/cards/organelle.webp"
+  },
+  {
+    "id": "cerebral_cortex",
+    "name": "大脳コルテックス",
+    "category": "organ",
+    "rarity": "Epic",
+    "chapter": 8,
+    "evolutionLine": [
+      "思考の層",
+      "高次機能の座",
+      "知性の王座"
+    ],
+    "skins": [
+      "normal"
+    ],
+    "attackPower": 55,
+    "attribute": "認知",
+    "description": "思考・記憶・言語など高次脳機能の中枢。",
+    "imageUrl": "/images/cards/organ.webp"
+  },
+  {
+    "id": "retina_screen",
+    "name": "網膜スクリーン",
+    "category": "organ",
+    "rarity": "Common",
+    "chapter": 8,
+    "evolutionLine": [
+      "光の受容板",
+      "視覚センサー",
+      "映像投影面"
+    ],
+    "skins": [
+      "normal"
+    ],
+    "attackPower": 15,
+    "attribute": "視覚",
+    "description": "光を電気信号に変換する目のスクリーン。",
+    "imageUrl": "/images/cards/organ.webp"
+  },
+  {
+    "id": "cochlea_antenna",
+    "name": "蝸牛アンテナ",
+    "category": "organ",
+    "rarity": "Rare",
+    "chapter": 8,
+    "evolutionLine": [
+      "音の受容器",
+      "振動センサー",
+      "聴覚の心臓"
+    ],
+    "skins": [
+      "normal"
+    ],
+    "attackPower": 26,
+    "attribute": "聴覚",
+    "description": "内耳の蝸牛。振動を聴覚信号に変換する。",
+    "imageUrl": "/images/cards/organ.webp"
+  },
+  {
+    "id": "cerebellum_controller",
+    "name": "小脳コントローラー",
+    "category": "organ",
+    "rarity": "Rare",
+    "chapter": 8,
+    "evolutionLine": [
+      "運動の調整器",
+      "バランスマスター",
+      "協調運動の核"
+    ],
+    "skins": [
+      "normal"
+    ],
+    "attackPower": 29,
+    "attribute": "運動",
+    "description": "平衡・協調運動・運動学習を担当する脳領域。",
+    "imageUrl": "/images/cards/organ.webp"
+  }
+]

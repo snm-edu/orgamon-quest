@@ -1,0 +1,17 @@
+[
+  {"id":"first_clear","name":"はじめてのクリア","description":"初めてチャプターをクリアした","condition":"chapter_clear_1","secretFlag":false,"reward":{"type":"mp","value":"100"}},
+  {"id":"cell_master","name":"細胞マスター","description":"第1章の全てのカードをコンプリートした","condition":"cards_chapter1_all","secretFlag":false,"reward":{"type":"title","value":"細胞博士"}},
+  {"id":"perfect_chapter","name":"パーフェクトクリア","description":"1チャプターで全問正解でボスを撃破した","condition":"perfect_quiz_chapter","secretFlag":false,"reward":{"type":"mp","value":"300"}},
+  {"id":"combo_duo","name":"二人の絆","description":"2人コンボを発動した","condition":"combo_duo_triggered","secretFlag":false,"reward":{"type":"item","value":"bond_fragment"}},
+  {"id":"combo_full","name":"四重奏","description":"4人全員コンボ「多職種カンファレンス」を発動した","condition":"combo_all_four_triggered","secretFlag":false,"reward":{"type":"mp","value":"500"}},
+  {"id":"evolution_first","name":"進化の一歩","description":"初めてカードまたはヒーローを進化させた","condition":"evolution_first","secretFlag":false,"reward":{"type":"mp","value":"150"}},
+  {"id":"streak_10","name":"連続正解の極み","description":"10問連続正解を達成した","condition":"streak_10","secretFlag":false,"reward":{"type":"mp","value":"200"}},
+  {"id":"boss_slayer","name":"ボスハンター","description":"全9チャプターのボスを撃破した","condition":"all_bosses_defeated","secretFlag":false,"reward":{"type":"title","value":"ボスハンター"}},
+  {"id":"pandemic_king_slayer","name":"キングスレイヤー","description":"パンデミックキングを撃破した","condition":"pandemic_king_defeated","secretFlag":false,"reward":{"type":"title","value":"入学前教育マスター"}},
+  {"id":"zukan_half","name":"図鑑収集家","description":"図鑑の50%を完成させた","condition":"zukan_50_percent","secretFlag":false,"reward":{"type":"mp","value":"250"}},
+  {"id":"zukan_full","name":"オルガモン図鑑完遂","description":"図鑑を100%完成させた","condition":"zukan_100_percent","secretFlag":true,"reward":{"type":"title","value":"オルガモン大師"}},
+  {"id":"no_skill_run","name":"裸一貫","description":"スキルを使わずにボスを1体撃破した","condition":"boss_defeat_no_skills","secretFlag":true,"reward":{"type":"mp","value":"400"}},
+  {"id":"speed_learner","name":"スピードラーナー","description":"1チャプターを5分以内でクリアした","condition":"chapter_under_5min","secretFlag":false,"reward":{"type":"item","value":"time_sand"}},
+  {"id":"review_master","name":"復習の達人","description":"復習クエストを累計50回クリアした","condition":"review_quest_50","secretFlag":false,"reward":{"type":"mp","value":"180"}},
+  {"id":"hero_evolution_all","name":"全ヒーロー進化","description":"4人のヒーローを全て最終進化させた","condition":"all_heroes_max_evolution","secretFlag":true,"reward":{"type":"title","value":"伝説の指揮官"}}
+]

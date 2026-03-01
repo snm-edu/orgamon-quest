@@ -1,0 +1,31 @@
+{
+  "cardEvolution": {
+    "stages": 3,
+    "requirements": {
+      "stage0_to_1": {"level": 5, "items": [], "mp": 100},
+      "stage1_to_2": {"level": 10, "items": ["evolution_stone"], "mp": 200},
+      "stage2_to_3": {"level": 15, "items": ["evolution_stone", "bond_fragment"], "mp": 350}
+    },
+    "attackPowerBonus": {
+      "stage0": 0,
+      "stage1": 5,
+      "stage2": 12,
+      "stage3": 25
+    }
+  },
+  "heroEvolution": {
+    "minato": {"stages": 3, "evolutionLine": ["見習いナース", "トリアージナース", "ホメオスタシス指揮官"], "requirements": {"stage1": {"correctAnswers": 50, "mp": 150}, "stage2": {"correctAnswers": 150, "mp": 300, "items": ["evolution_stone"]}, "stage3": {"correctAnswers": 300, "mp": 500, "items": ["evolution_stone", "bond_fragment"]}}},
+    "hikari": {"stages": 3, "evolutionLine": ["ビジョンアシスト", "視機能アナリスト", "ニューロビジョンマスター"], "requirements": {"stage1": {"correctAnswers": 50, "mp": 150}, "stage2": {"correctAnswers": 150, "mp": 300, "items": ["evolution_stone"]}, "stage3": {"correctAnswers": 300, "mp": 500, "items": ["evolution_stone", "bond_fragment"]}}},
+    "kotoha": {"stages": 3, "evolutionLine": ["予防ケア担当", "行動変容コーチ", "ライフロングケアマスター"], "requirements": {"stage1": {"correctAnswers": 50, "mp": 150}, "stage2": {"correctAnswers": 150, "mp": 300, "items": ["evolution_stone"]}, "stage3": {"correctAnswers": 300, "mp": 500, "items": ["evolution_stone", "bond_fragment"]}}},
+    "leon": {"stages": 3, "evolutionLine": ["モニタテック", "システムエンジニア", "生命維持システムマスター"], "requirements": {"stage1": {"correctAnswers": 50, "mp": 150}, "stage2": {"correctAnswers": 150, "mp": 300, "items": ["evolution_stone"]}, "stage3": {"correctAnswers": 300, "mp": 500, "items": ["evolution_stone", "bond_fragment"]}}}
+  },
+  "companionEvolution": {
+    "stages": 3,
+    "requirements": {
+      "stage0_to_1": {"exp": 500, "mp": 80},
+      "stage1_to_2": {"exp": 1500, "mp": 150, "items": ["bond_fragment"]},
+      "stage2_to_3": {"exp": 4000, "mp": 250, "items": ["evolution_stone"]}
+    },
+    "statBonusPerStage": {"hp": 15, "atk": 3, "def": 4}
+  }
+}

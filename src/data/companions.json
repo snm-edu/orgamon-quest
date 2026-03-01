@@ -1,0 +1,314 @@
+[
+  {
+    "id": "nurse_aya",
+    "name": "ナース・アヤ",
+    "heroRef": null,
+    "type": "nurse",
+    "rarity": "Common",
+    "level": 1,
+    "exp": 0,
+    "baseStats": {
+      "hp": 80,
+      "atk": 12,
+      "def": 18,
+      "spd": 16
+    },
+    "skills": [
+      {
+        "id": "gentle_heal",
+        "name": "優しい手当て",
+        "type": "active",
+        "cooldown": 2,
+        "description": "ホメオスタシス+5",
+        "effects": [
+          {
+            "type": "heal_homeostasis",
+            "value": 5
+          }
+        ]
+      }
+    ],
+    "evolutionLine": [
+      "見習いナース",
+      "熟練ナース",
+      "ケアマスター"
+    ],
+    "evolutionStage": 0,
+    "imageUrl": "/images/companions/nurse.png"
+  },
+  {
+    "id": "nurse_sora",
+    "name": "ナース・ソラ",
+    "heroRef": null,
+    "type": "nurse",
+    "rarity": "Common",
+    "level": 1,
+    "exp": 0,
+    "baseStats": {
+      "hp": 75,
+      "atk": 14,
+      "def": 16,
+      "spd": 18
+    },
+    "skills": [
+      {
+        "id": "quick_cleanse",
+        "name": "迅速浄化",
+        "type": "active",
+        "cooldown": 3,
+        "description": "デバフ1つ解除",
+        "effects": [
+          {
+            "type": "cleanse_debuff",
+            "value": 1
+          }
+        ]
+      }
+    ],
+    "evolutionLine": [
+      "実習ナース",
+      "救急ナース",
+      "緊急対応マスター"
+    ],
+    "evolutionStage": 0,
+    "imageUrl": "/images/companions/nurse.png"
+  },
+  {
+    "id": "nurse_rei",
+    "name": "ナース・レイ",
+    "heroRef": null,
+    "type": "nurse",
+    "rarity": "Rare",
+    "level": 1,
+    "exp": 0,
+    "baseStats": {
+      "hp": 90,
+      "atk": 15,
+      "def": 22,
+      "spd": 15
+    },
+    "skills": [
+      {
+        "id": "triage_support",
+        "name": "トリアージサポート",
+        "type": "active",
+        "cooldown": 2,
+        "description": "ホメオスタシス+8、観察ミス解除",
+        "effects": [
+          {
+            "type": "heal_homeostasis",
+            "value": 8
+          },
+          {
+            "type": "cleanse_debuff",
+            "value": 1,
+            "condition": "observation_miss"
+          }
+        ]
+      }
+    ],
+    "evolutionLine": [
+      "専門ナース",
+      "臨床ナース",
+      "看護スペシャリスト"
+    ],
+    "evolutionStage": 0,
+    "imageUrl": "/images/companions/nurse.png"
+  },
+  {
+    "id": "researcher_kento",
+    "name": "研究者ケント",
+    "heroRef": null,
+    "type": "researcher",
+    "rarity": "Common",
+    "level": 1,
+    "exp": 0,
+    "baseStats": {
+      "hp": 60,
+      "atk": 20,
+      "def": 10,
+      "spd": 20
+    },
+    "skills": [
+      {
+        "id": "data_analysis",
+        "name": "データ解析",
+        "type": "active",
+        "cooldown": 3,
+        "description": "ヒント+1、正解率表示",
+        "effects": [
+          {
+            "type": "hint",
+            "value": 1
+          }
+        ]
+      }
+    ],
+    "evolutionLine": [
+      "研究アシスタント",
+      "主任研究員",
+      "ラボチーフ"
+    ],
+    "evolutionStage": 0,
+    "imageUrl": "/images/companions/researcher.png"
+  },
+  {
+    "id": "researcher_yuki",
+    "name": "研究者ユキ",
+    "heroRef": null,
+    "type": "researcher",
+    "rarity": "Rare",
+    "level": 1,
+    "exp": 0,
+    "baseStats": {
+      "hp": 70,
+      "atk": 25,
+      "def": 12,
+      "spd": 21
+    },
+    "skills": [
+      {
+        "id": "precision_scan",
+        "name": "精密スキャン",
+        "type": "active",
+        "cooldown": 2,
+        "description": "誤情報デバフ解除、制限時間+10%",
+        "effects": [
+          {
+            "type": "cleanse_debuff",
+            "value": 1,
+            "condition": "misinformation"
+          },
+          {
+            "type": "time_extend",
+            "value": 10
+          }
+        ]
+      }
+    ],
+    "evolutionLine": [
+      "研究員",
+      "上級研究員",
+      "分析マスター"
+    ],
+    "evolutionStage": 0,
+    "imageUrl": "/images/companions/researcher.png"
+  },
+  {
+    "id": "guardian_takeshi",
+    "name": "ガーディアン・タケシ",
+    "heroRef": null,
+    "type": "guardian",
+    "rarity": "Common",
+    "level": 1,
+    "exp": 0,
+    "baseStats": {
+      "hp": 100,
+      "atk": 10,
+      "def": 25,
+      "spd": 10
+    },
+    "skills": [
+      {
+        "id": "shield_wall",
+        "name": "シールドウォール",
+        "type": "active",
+        "cooldown": 3,
+        "description": "次の誤答ペナルティ-20%",
+        "effects": [
+          {
+            "type": "reduce_penalty",
+            "value": 20,
+            "duration": 1
+          }
+        ]
+      }
+    ],
+    "evolutionLine": [
+      "見習いガード",
+      "堅牢ガーディアン",
+      "最前線の盾"
+    ],
+    "evolutionStage": 0,
+    "imageUrl": "/images/companions/guardian.png"
+  },
+  {
+    "id": "guardian_mio",
+    "name": "ガーディアン・ミオ",
+    "heroRef": null,
+    "type": "guardian",
+    "rarity": "Common",
+    "level": 1,
+    "exp": 0,
+    "baseStats": {
+      "hp": 95,
+      "atk": 11,
+      "def": 24,
+      "spd": 11
+    },
+    "skills": [
+      {
+        "id": "equipment_repair",
+        "name": "機器修理",
+        "type": "active",
+        "cooldown": 3,
+        "description": "機器故障デバフ解除",
+        "effects": [
+          {
+            "type": "cleanse_debuff",
+            "value": 1,
+            "condition": "equipment_malfunction"
+          }
+        ]
+      }
+    ],
+    "evolutionLine": [
+      "サポートガード",
+      "技術ガーディアン",
+      "機材マスター"
+    ],
+    "evolutionStage": 0,
+    "imageUrl": "/images/companions/guardian.png"
+  },
+  {
+    "id": "guardian_ryu",
+    "name": "ガーディアン・リュウ",
+    "heroRef": null,
+    "type": "guardian",
+    "rarity": "Rare",
+    "level": 1,
+    "exp": 0,
+    "baseStats": {
+      "hp": 110,
+      "atk": 14,
+      "def": 28,
+      "spd": 9
+    },
+    "skills": [
+      {
+        "id": "full_protection",
+        "name": "完全防護",
+        "type": "active",
+        "cooldown": 4,
+        "description": "デバフ2つ解除、ホメオスタシス+6",
+        "effects": [
+          {
+            "type": "cleanse_debuff",
+            "value": 2
+          },
+          {
+            "type": "heal_homeostasis",
+            "value": 6
+          }
+        ]
+      }
+    ],
+    "evolutionLine": [
+      "エリートガード",
+      "隊長ガーディアン",
+      "絶対防御者"
+    ],
+    "evolutionStage": 0,
+    "imageUrl": "/images/companions/guardian.png"
+  }
+]

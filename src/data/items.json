@@ -1,0 +1,132 @@
+[
+  {
+    "id": "wisdom_potion",
+    "name": "知恵の薬",
+    "type": "consumable",
+    "effect": "次の問題でヒント+1",
+    "rarity": "Common",
+    "description": "一瞬にして知識が蘇る不思議な薬。",
+    "cost": 50,
+    "imageUrl": "/images/items/wisdom_potion.webp"
+  },
+  {
+    "id": "time_sand",
+    "name": "時の砂",
+    "type": "consumable",
+    "effect": "制限時間+15秒",
+    "rarity": "Rare",
+    "description": "時間が凝縮された砂。一時的に時間の流れを遅らせる。",
+    "cost": 80,
+    "imageUrl": "/images/items/time_sand.webp"
+  },
+  {
+    "id": "experience_book",
+    "name": "経験の書",
+    "type": "consumable",
+    "effect": "獲得経験値+50%",
+    "rarity": "Rare",
+    "description": "先人たちの知恵が詰まった書。読むと経験値が増える。",
+    "cost": 100,
+    "imageUrl": "/images/items/experience_book.webp"
+  },
+  {
+    "id": "evolution_stone",
+    "name": "進化の石",
+    "type": "enhance",
+    "effect": "カードまたはヒーローを進化させる",
+    "rarity": "Epic",
+    "description": "オルガモンを次の段階へ導く神秘の石。",
+    "cost": 200,
+    "imageUrl": "/images/items/evolution_stone.webp"
+  },
+  {
+    "id": "bond_fragment",
+    "name": "絆のかけら",
+    "type": "enhance",
+    "effect": "仲間の絆Lv+1",
+    "rarity": "Rare",
+    "description": "仲間との絆を深める欠片。集めると力が発揮される。",
+    "cost": 120,
+    "imageUrl": "/images/items/bond_fragment.webp"
+  },
+  {
+    "id": "clear_mist",
+    "name": "クリアミスト",
+    "type": "cure",
+    "effect": "デバフを1つ解除",
+    "rarity": "Rare",
+    "description": "霧を吸い込むと心が澄み渡る。デバフを浄化する。",
+    "cost": 90,
+    "imageUrl": "/images/items/clear_mist.webp"
+  },
+  {
+    "id": "rare_frame",
+    "name": "レアフレーム",
+    "type": "collection",
+    "effect": "図鑑のカード枠を豪華に",
+    "rarity": "Epic",
+    "description": "図鑑のカードを装飾する特別な枠。",
+    "cost": 300,
+    "imageUrl": "/images/items/rare_frame.webp"
+  },
+  {
+    "id": "title_book",
+    "name": "称号の書",
+    "type": "collection",
+    "effect": "新しい称号を解放",
+    "rarity": "Epic",
+    "description": "新しい称号を手に入れるための書。",
+    "cost": 250,
+    "imageUrl": "/images/items/title_book.webp"
+  },
+  {
+    "id": "homeostasis_elixir",
+    "name": "恒常エリクサー",
+    "type": "consumable",
+    "effect": "ホメオスタシス+20",
+    "rarity": "Epic",
+    "description": "体内のバランスを一気に回復させる秘薬。",
+    "cost": 150,
+    "imageUrl": "/images/items/homeostasis_elixir.webp"
+  },
+  {
+    "id": "lucky_clover",
+    "name": "幸運のクローバー",
+    "type": "consumable",
+    "effect": "次のボス戦でレアカード出現率UP",
+    "rarity": "Rare",
+    "description": "四つ葉のクローバー。幸運を呼び込む。",
+    "cost": 75,
+    "imageUrl": "/images/items/lucky_clover.webp"
+  },
+  {
+    "id": "skill_amplifier",
+    "name": "スキル増幅器",
+    "type": "enhance",
+    "effect": "次のスキル効果+25%",
+    "rarity": "Rare",
+    "description": "スキルの威力を一時的に高める装置。",
+    "cost": 110,
+    "imageUrl": "/images/items/skill_amplifier.webp"
+  },
+  {
+    "id": "memory_crystal",
+    "name": "記憶の結晶",
+    "type": "collection",
+    "effect": "復習クエスト報酬+30%",
+    "rarity": "Epic",
+    "description": "学んだ知識が結晶化したもの。復習の効果を高める。",
+    "cost": 280,
+    "imageUrl": "/images/items/memory_crystal.webp"
+  },
+  {
+    "id": "legendary_crown",
+    "name": "伝説の王冠",
+    "type": "collection",
+    "effect": "パンデミックキング撃破の証",
+    "rarity": "Epic",
+    "description": "全ての病を統べる王を倒した者のみが手にできる栄冠。",
+    "cost": 0,
+    "imageUrl": "/images/items/legendary_crown.webp"
+  }
+]
