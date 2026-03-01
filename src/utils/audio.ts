@@ -20,7 +20,7 @@ class GameAudio {
     }
 
     // Keep simple UI sound effects as Web Audio API since they are just quick blips
-    playSE(type: 'success' | 'click' | 'error' | 'level_up' | 'capture' | 'impact') {
+    playSE(type: 'success' | 'click' | 'error' | 'level_up' | 'capture' | 'impact' | 'player_damage') {
         if (this.isMuted) return;
         this.init();
         if (!this.ctx) return;
@@ -64,7 +64,13 @@ class GameAudio {
                 playTone(500, t + 0.2, 0.4, 0.5, 'square');
                 break;
             case 'impact':
-                playTone(100, t, 0.3, 0.8, 'square');
+                playTone(150, t, 0.2, 0.8, 'sawtooth');
+                playTone(100, t, 0.3, 0.6, 'square');
+                playTone(50, t, 0.2, 0.9, 'square');
+                break;
+            case 'player_damage':
+                playTone(300, t, 0.2, 0.7, 'sawtooth');
+                playTone(250, t + 0.1, 0.3, 0.8, 'square');
                 break;
         }
     }

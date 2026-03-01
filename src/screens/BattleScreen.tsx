@@ -167,6 +167,7 @@ export default function BattleScreen() {
       if (!safeNet && boss) {
         const counter = getBossCounterAttack(boss, round, difficulty, averagedDefense);
         addHomeostasis(-counter.homeostasisDamage);
+        audio.playSE("player_damage");
         counter.debuffs.forEach((d) => addDebuff(d));
         const target = formation.length > 0
           ? formation[(round + 1) % formation.length]
@@ -283,6 +284,7 @@ export default function BattleScreen() {
           {won ? (
             <PastelButton fullWidth size="lg" gradient="coral" icon="📖" onClick={() => {
               useGameStore.setState((s) => ({ ...s, _storyChapter: chapter, _storyTiming: chapter === 9 ? "game_ending" : "post_boss" } as typeof s));
+              audio.playBGM("map");
               setScreen("story");
             }}>ストーリーを見る →</PastelButton>
           ) : (
@@ -291,10 +293,10 @@ export default function BattleScreen() {
                 setBattleFinished(false); setBattleResult(null); setRound(0); setBossHp(boss.hp);
                 setQuestions(getRandomQuestionsGuaranteed(chapter, BATTLE_ROUNDS, "confirm")); setHomeostasis(getInitialHomeostasis(difficulty));
               }}>再挑戦</PastelButton>
-              <PastelButton fullWidth variant="secondary" icon="🗺️" onClick={() => setScreen("chapter_map")}>章マップへ</PastelButton>
+              <PastelButton fullWidth variant="secondary" icon="🗺️" onClick={() => { audio.playBGM("map"); setScreen("chapter_map"); }}>章マップへ</PastelButton>
             </>
           )}
-          <PastelButton fullWidth variant="ghost" icon="🏠" onClick={() => setScreen("home")}>ホームへ</PastelButton>
+          <PastelButton fullWidth variant="ghost" icon="🏠" onClick={() => { audio.playBGM("title"); setScreen("home"); }}>ホームへ</PastelButton>
         </div>
       </div>
     );
@@ -321,9 +323,7 @@ export default function BattleScreen() {
     const comp = currentRun?.team.find((c) => c.id === member.id);
     return comp?.imageUrl || null;
   };
-  const choiceGridStyle = {
-    gridTemplateRows: `repeat(${Math.max(displayChoices.length, 1)}, minmax(0, 1fr))`,
-  };
+
 
   return (
     <div className="h-[100dvh] overflow-hidden px-3 pt-2.5 pb-[calc(env(safe-area-inset-bottom)+0.4rem)] flex flex-col gap-1.5 relative">
@@ -422,7 +422,7 @@ export default function BattleScreen() {
       </div>
 
       {/* Choices */}
-      <div className="flex-1 min-h-0 grid gap-1.5" style={choiceGridStyle}>
+      <div className="flex-1 min-h-0 overflow-y-auto flex flex-col gap-2 pb-1 pt-1">
         {displayChoices.map((choice, idx) => {
           const isSelected = selectedAnswer === idx;
           const isAnswer = idx === displayAnswerIdx;
@@ -434,7 +434,7 @@ export default function BattleScreen() {
           } else if (fakeHighlight === idx) bgClass = "bg-yellow-100/70 hover:bg-yellow-200/70 border-2 border-yellow-400";
           return (
             <button key={idx} onClick={() => !showResult && handleAnswer(idx)} disabled={showResult}
-              className={`w-full h-full text-left px-3 py-2.5 rounded-xl transition-all duration-200 ${bgClass} ${!showResult ? "btn-press" : ""}`}>
+              className={`w-full text-left p-3 rounded-xl transition-all duration-200 ${bgClass} ${!showResult ? "btn-press" : ""}`}>
               <div className="flex items-start gap-2">
                 <span className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${showResult && isAnswer ? "bg-green-400 text-white" : showResult && isSelected ? "bg-red-400 text-white" : "bg-gray-200/80 text-warm-gray"}`}>{idx + 1}</span>
                 <span className="text-sm text-warm-gray leading-relaxed">{choice}</span>

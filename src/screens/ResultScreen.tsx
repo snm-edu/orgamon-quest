@@ -9,9 +9,12 @@ import { checkAchievements, getAchievementReward, getTitleForChapterClear } from
 import { getChapterDropMultiplier } from "../logic/dailyLogic";
 import { GlassCard, PastelButton, ProgressBar, Badge, ParticleEffect } from "../components/common";
 import { audio } from "../utils/audio";
-import type { QuizResult, Card, Companion } from "../types";
+import heroesData from "../data/heroes.json";
+import type { QuizResult, Card, Companion, Hero } from "../types";
 
 const rarityColor: Record<string, string> = { Common: "#98d4bb", Rare: "#b8a9c9", Epic: "#f08080", Legend: "#ffd700" };
+
+const heroes = heroesData as Hero[];
 
 export default function ResultScreen() {
   const setScreen = useGameStore((s) => s.setScreen);
@@ -175,15 +178,13 @@ export default function ResultScreen() {
           <div className="text-6xl mb-4 animate-float">🤝</div>
           <h2 className="text-xl font-bold text-warm-gray mb-2">新しい仲間！</h2>
           <p className="text-sm text-warm-gray/50 mb-6">{newCompanion.name}が仲間に加わりました！</p>
-          <GlassCard variant="strong" className="w-full p-5 animate-pop">
-            <div className="flex items-center gap-4 mb-3">
-              <div className="w-16 h-16 rounded-2xl overflow-hidden flex items-center justify-center text-3xl shadow-sm" style={{ backgroundColor: rarityColor[newCompanion.rarity] + "25" }}>
-                {newCompanion.imageUrl ? <img src={newCompanion.imageUrl} alt={newCompanion.name} className="w-full h-full object-cover" /> : (newCompanion.type === "hero" ? "⭐" : newCompanion.type === "nurse" ? "💉" : newCompanion.type === "researcher" ? "🔬" : "🛡️")}
-              </div>
-              <div>
-                <div className="flex items-center gap-2"><p className="text-lg font-bold text-warm-gray">{newCompanion.name}</p><Badge variant="rarity" size="xs" color={rarityColor[newCompanion.rarity]}>{newCompanion.rarity}</Badge></div>
-                <p className="text-[11px] text-warm-gray/40">Lv.{newCompanion.level}</p>
-              </div>
+          <GlassCard variant="strong" className="w-full p-5 flex flex-col items-center animate-pop">
+            <div className="w-24 h-24 rounded-full overflow-hidden flex items-center justify-center text-4xl shadow-sm mb-3 border-4 border-white/80" style={{ backgroundColor: rarityColor[newCompanion.rarity] + "25" }}>
+              {(newCompanion.imageUrl || (newCompanion.type === "hero" ? heroes.find(h => h.id === newCompanion.heroRef)?.imageUrl : undefined)) ? <img src={(newCompanion.imageUrl || (newCompanion.type === "hero" ? heroes.find(h => h.id === newCompanion.heroRef)?.imageUrl : undefined))} alt={newCompanion.name} className="w-full h-full object-cover" /> : (newCompanion.type === "hero" ? "⭐" : newCompanion.type === "nurse" ? "💉" : newCompanion.type === "researcher" ? "🔬" : "🛡️")}
+            </div>
+            <div className="text-center mb-4">
+              <div className="flex justify-center items-center gap-2 mb-1"><p className="text-xl font-bold text-warm-gray">{newCompanion.name}</p><Badge variant="rarity" size="sm" color={rarityColor[newCompanion.rarity]}>{newCompanion.rarity}</Badge></div>
+              <p className="text-sm text-warm-gray/50">Lv.{newCompanion.level}</p>
             </div>
             <div className="flex gap-2">
               <Badge variant="danger" size="sm">HP {newCompanion.baseStats.hp}</Badge>
