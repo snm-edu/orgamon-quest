@@ -110,8 +110,15 @@ export default function StoryScreen() {
     setScenes(collected);
     setCurrentSceneIdx(0);
     setDialogueIdx(0);
+
+    if (collected.length === 0) {
+      // Auto-skip if no story exists for this chapter/timing
+      setScreen(storyTiming === "pre_boss" ? "battle" : "chapter_map");
+      return;
+    }
+
     setTimeout(() => setShowChar(true), 100);
-  }, [chapter, storyTiming, heroId]);
+  }, [chapter, storyTiming, heroId, setScreen]);
 
   if (!currentRun || scenes.length === 0) {
     const handleSkip = () => { setScreen(storyTiming === "pre_boss" ? "battle" : "chapter_map"); };

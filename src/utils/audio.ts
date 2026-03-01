@@ -130,7 +130,16 @@ if (typeof window !== 'undefined') {
         if (!audio.bgmAudio) {
             audio.bgmAudio = new Audio();
         }
-        // Unlock HTMLAudioElement for iOS Safari
+        // Unlock AudioContext for SE
+        if (audio['ctx']) {
+            const buffer = audio['ctx'].createBuffer(1, 1, 22050);
+            const source = audio['ctx'].createBufferSource();
+            source.buffer = buffer;
+            source.connect(audio['ctx'].destination);
+            source.start(0);
+        }
+
+        // Unlock HTMLAudioElement for BGM iOS Safari
         audio.bgmAudio.play().catch(() => { });
 
         // If a BGM was supposed to be playing (but was blocked), start it now
