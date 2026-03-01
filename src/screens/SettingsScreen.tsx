@@ -12,6 +12,7 @@ export default function SettingsScreen() {
   const setDifficulty = useGameStore((s) => s.setDifficulty);
   const resetRun = useGameStore((s) => s.resetRun);
   const currentRun = useGameStore((s) => s.currentRun);
+  const unlockChapter = useGameStore((s) => s.unlockChapter);
 
   const meta = useMetaStore((s) => s.meta);
   const addExternalPassword = useMetaStore((s) => s.addExternalPassword);
@@ -34,6 +35,14 @@ export default function SettingsScreen() {
   const handlePasswordSubmit = () => {
     const trimmed = passwordInput.trim().toUpperCase();
     if (!trimmed) return;
+
+    if (trimmed === "SNM8018343") {
+      for (let i = 1; i <= 9; i++) unlockChapter(i);
+      setMsg("🔧 開発者用パスワードを確認：全章を解放しました！", false);
+      setPasswordInput("");
+      return;
+    }
+
     if (!isValidPasswordFormat(trimmed)) {
       setMsg("パスワードの形式が正しくありません", true);
       return;
