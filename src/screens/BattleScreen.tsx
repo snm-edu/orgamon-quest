@@ -395,9 +395,9 @@ export default function BattleScreen() {
         style={{ backgroundImage: `url('/images/backgrounds/chapter_${chapter}.webp'), linear-gradient(to bottom right, #fdfbfb, #ebedee)` }}
       />
       {/* Boss info */}
-      <div className="bg-gradient-to-r from-red-50/80 to-orange-50/80 backdrop-blur rounded-2xl p-3 shadow-sm border border-red-100/50">
-        <div className="flex items-center gap-2.5 mb-2">
-          <div className={`w-12 h-12 rounded-xl bg-red-100/60 overflow-hidden flex items-center justify-center shrink-0 shadow-sm ${damageAnim > 0 ? "animate-shake bg-red-300 border border-red-400" : "border border-red-200"}`}>
+      <div className="bg-gradient-to-r from-red-50/80 to-orange-50/80 backdrop-blur rounded-2xl p-2 shadow-sm border border-red-100/50">
+        <div className="flex items-center gap-2 mb-1.5">
+          <div className={`w-10 h-10 rounded-xl bg-red-100/60 overflow-hidden flex items-center justify-center shrink-0 shadow-sm ${damageAnim > 0 ? "animate-shake bg-red-300 border border-red-400" : "border border-red-200"}`}>
             {boss.imageUrl ? <img src={boss.imageUrl} alt={boss.name} className="w-full h-full object-cover" /> : <span className="text-xl">👹</span>}
           </div>
           <div className="flex-1">
@@ -442,8 +442,8 @@ export default function BattleScreen() {
       )}
 
       {formation.length > 0 && (
-        <div className="glass rounded-2xl p-2 border border-white/50">
-          <div className="flex items-center justify-between mb-2">
+        <div className="glass rounded-xl p-1.5 border border-white/50 space-y-1">
+          <div className="flex items-center justify-between mb-0.5 px-1">
             <p className="text-xs font-bold text-warm-gray">👥 味方フォーメーション</p>
             <p className="text-xs text-warm-gray/45">平均DEF {partyDefense}</p>
           </div>
@@ -454,7 +454,7 @@ export default function BattleScreen() {
               return (
                 <div
                   key={member.id}
-                  className={`rounded-xl p-2 border transition-all ${isCurrentTurn
+                  className={`rounded-lg p-1.5 border transition-all ${isCurrentTurn
                     ? "bg-amber-50/80 border-amber-300 shadow-sm"
                     : "bg-white/60 border-white/70"
                     } ${isDamaged ? "bg-red-100/80 border-red-300 animate-shake" : ""}`}
@@ -480,12 +480,12 @@ export default function BattleScreen() {
       )}
 
       {/* Question */}
-      <div className="glass-strong rounded-2xl p-3 shadow-md">
-        <p className={`text-[15px] font-medium text-warm-gray leading-relaxed ${maskedText ? "blur-[2px] hover:blur-none transition-all" : ""}`}>{q.question}</p>
+      <div className="glass-strong rounded-xl p-2 shadow-sm">
+        <p className={`text-[14px] font-medium text-warm-gray leading-relaxed ${maskedText ? "blur-[2px] hover:blur-none transition-all" : ""}`}>{q.question}</p>
       </div>
 
       {/* Choices */}
-      <div className="flex-1 min-h-0 overflow-y-auto flex flex-col gap-2 pb-1 pt-1 scrollbar-hide">
+      <div className="flex-1 min-h-0 flex flex-col gap-1.5 pb-1 pt-1">
         {displayChoices.map((choice, idx) => {
           const isSelected = selectedAnswer === idx;
           const isAnswer = idx === displayAnswerIdx;
@@ -497,7 +497,7 @@ export default function BattleScreen() {
           } else if (fakeHighlight === idx) bgClass = "bg-yellow-100/70 hover:bg-yellow-200/70 border-2 border-yellow-400";
           return (
             <button key={idx} onClick={() => !showResult && handleAnswer(idx)} disabled={showResult}
-              className={`w-full text-left p-3 rounded-xl transition-all duration-200 ${bgClass} ${!showResult ? "btn-press" : ""}`}>
+              className={`w-full text-left px-3 py-2 rounded-xl transition-all duration-200 ${bgClass} ${!showResult ? "btn-press" : ""}`}>
               <div className="flex items-start gap-2">
                 <span className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${showResult && isAnswer ? "bg-green-400 text-white" : showResult && isSelected ? "bg-red-400 text-white" : "bg-gray-200/80 text-warm-gray"}`}>{idx + 1}</span>
                 <span className="text-sm text-warm-gray leading-relaxed">{choice}</span>
@@ -509,7 +509,7 @@ export default function BattleScreen() {
 
       {/* Explanation */}
       {showResult && (
-        <div className={`shrink-0 rounded-xl p-3 mb-2 animate-slide-up ${isCorrect ? "bg-green-50/80 border border-green-200" : "bg-red-50/80 border border-red-200"}`}>
+        <div className={`shrink-0 rounded-xl px-3 py-2 mb-1 animate-slide-up ${isCorrect ? "bg-green-50/80 border border-green-200" : "bg-red-50/80 border border-red-200"}`}>
           <p className={`font-bold text-xs mb-1 ${isCorrect ? "text-green-600" : "text-red-500"}`}>{isCorrect ? "🎉 正解！ ボスにダメージ！" : "😢 不正解... ボスの反撃！"}</p>
           <p className="text-xs text-warm-gray/60 leading-relaxed">{q.explanation}</p>
         </div>
