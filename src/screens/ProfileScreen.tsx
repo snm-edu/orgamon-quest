@@ -162,11 +162,10 @@ export default function ProfileScreen() {
             <button
               key={entry.id}
               onClick={() => setTab(entry.id)}
-              className={`min-h-11 text-[10px] font-medium rounded-lg transition-all ${
-                tab === entry.id
+              className={`min-h-11 text-[10px] font-medium rounded-lg transition-all ${tab === entry.id
                   ? "glass-strong shadow-sm text-warm-gray"
                   : "text-warm-gray/45 hover:text-warm-gray/70"
-              }`}
+                }`}
             >
               <div className="leading-none mb-0.5">{entry.emoji}</div>
               <div className="leading-none">{entry.label}</div>
@@ -177,10 +176,14 @@ export default function ProfileScreen() {
         <GlassCard variant="strong" className="shrink-0 p-2.5">
           <div className="flex items-center gap-2.5">
             <div
-              className="w-11 h-11 rounded-xl flex items-center justify-center text-2xl shadow-sm"
+              className="w-11 h-11 rounded-xl flex items-center justify-center shadow-sm overflow-hidden border border-white/50 shrink-0"
               style={{ backgroundColor: hero.themeColor + "25" }}
             >
-              {heroAvatars[hero.id]}
+              {hero.imageUrl ? (
+                <img src={hero.imageUrl} alt={hero.name} className="w-full h-full object-cover" />
+              ) : (
+                <span className="text-2xl">{heroAvatars[hero.id]}</span>
+              )}
             </div>
             <div className="flex-1 min-w-0">
               <p className="font-bold text-sm text-warm-gray truncate">{currentRun.playerName}</p>
@@ -293,13 +296,12 @@ export default function ProfileScreen() {
                     <button
                       key={achievement.id}
                       onClick={() => setSelectedAchievementId(achievement.id)}
-                      className={`rounded-lg border px-1.5 py-1 text-center transition-all flex flex-col justify-between ${
-                        unlocked
+                      className={`rounded-lg border px-1.5 py-1 text-center transition-all flex flex-col justify-between ${unlocked
                           ? "bg-pastel-green/18 border-green-200/55 hover:bg-pastel-green/28 btn-press"
                           : isSecret
                             ? "bg-gray-100/45 border-white/65 opacity-45"
                             : "bg-white/72 border-white/80 hover:bg-white/90 btn-press"
-                      }`}
+                        }`}
                     >
                       <p className="text-base leading-none">
                         {unlocked ? "🏆" : isSecret ? "❓" : "🔒"}
@@ -333,11 +335,10 @@ export default function ProfileScreen() {
                     <button
                       key={title}
                       onClick={() => setActiveTitle(title)}
-                      className={`text-left rounded-xl border p-2.5 transition-all ${
-                        isActive
+                      className={`text-left rounded-xl border p-2.5 transition-all ${isActive
                           ? "bg-coral/12 border-coral/35"
                           : "bg-white/70 border-white/75 hover:bg-white/85 btn-press"
-                      }`}
+                        }`}
                     >
                       <div className="flex items-center gap-2.5">
                         <span className="text-base shrink-0">{isActive ? "👑" : "🏅"}</span>
@@ -438,11 +439,10 @@ export default function ProfileScreen() {
                       <button
                         onClick={() => handleLearnSkill(skill.id, skill.name, learnCost)}
                         disabled={!canLearn}
-                        className={`mt-auto min-h-10 text-[12px] rounded-lg font-bold transition-all ${
-                          canLearn
+                        className={`mt-auto min-h-10 text-[12px] rounded-lg font-bold transition-all ${canLearn
                             ? "bg-coral/15 text-coral hover:bg-coral/25 btn-press"
                             : "bg-gray-100/80 text-warm-gray/35"
-                        }`}
+                          }`}
                       >
                         {canLearn ? `習得する (${learnCost}MP)` : `MP不足 (${learnCost}MP)`}
                       </button>
@@ -454,11 +454,10 @@ export default function ProfileScreen() {
                             <button
                               key={slotIndex}
                               onClick={() => handleEquipSkill(skill.id, slotIndex, skill.name)}
-                              className={`min-h-9 text-[10px] rounded-lg font-semibold transition-all ${
-                                active
+                              className={`min-h-9 text-[10px] rounded-lg font-semibold transition-all ${active
                                   ? "bg-pastel-green/35 text-green-700"
                                   : "bg-indigo-100/60 text-indigo-600 hover:bg-indigo-200/60 btn-press"
-                              }`}
+                                }`}
                             >
                               {active ? `S${slotIndex + 1} 装備中` : `S${slotIndex + 1}に装備`}
                             </button>
@@ -485,11 +484,10 @@ export default function ProfileScreen() {
                   return (
                     <div
                       key={skinId}
-                      className={`rounded-xl border p-3 ${
-                        unlocked
+                      className={`rounded-xl border p-3 ${unlocked
                           ? "bg-white/70 border-white/75"
                           : "bg-gray-100/45 border-white/65 opacity-45"
-                      }`}
+                        }`}
                     >
                       <div className="flex items-center gap-2.5 h-full">
                         <div className="w-11 h-11 rounded-xl bg-white/60 flex items-center justify-center text-2xl shrink-0">
@@ -511,8 +509,8 @@ export default function ProfileScreen() {
                 length: Math.max(
                   0,
                   PAGE_SIZE.skins -
-                    (["normal", "pastel", "sparkle", "pixel"] as CardSkinId[])
-                      .slice(pageStart, pageStart + PAGE_SIZE.skins).length
+                  (["normal", "pastel", "sparkle", "pixel"] as CardSkinId[])
+                    .slice(pageStart, pageStart + PAGE_SIZE.skins).length
                 ),
               }).map((_, index) => (
                 <div
@@ -531,11 +529,10 @@ export default function ProfileScreen() {
                 updateCurrentTabPage(Math.max(0, Math.min(tabPage[tab], totalPages - 1) - 1))
               }
               disabled={clampedPage === 0}
-              className={`flex-1 min-h-10 rounded-lg text-sm font-bold ${
-                clampedPage === 0
+              className={`flex-1 min-h-10 rounded-lg text-sm font-bold ${clampedPage === 0
                   ? "bg-gray-100 text-warm-gray/30"
                   : "bg-indigo-100/70 text-indigo-700 btn-press"
-              }`}
+                }`}
             >
               ← 前へ
             </button>
@@ -547,11 +544,10 @@ export default function ProfileScreen() {
                 updateCurrentTabPage(Math.min(totalPages - 1, Math.min(tabPage[tab], totalPages - 1) + 1))
               }
               disabled={clampedPage >= totalPages - 1}
-              className={`flex-1 min-h-10 rounded-lg text-sm font-bold ${
-                clampedPage >= totalPages - 1
+              className={`flex-1 min-h-10 rounded-lg text-sm font-bold ${clampedPage >= totalPages - 1
                   ? "bg-gray-100 text-warm-gray/30"
                   : "bg-indigo-100/70 text-indigo-700 btn-press"
-              }`}
+                }`}
             >
               次へ →
             </button>
@@ -623,11 +619,10 @@ export default function ProfileScreen() {
                     <button
                       key={cardId}
                       onClick={() => handleSelectFavorite(cardId)}
-                      className={`text-[10px] px-2 py-1 rounded-lg transition-all btn-press ${
-                        isFav
+                      className={`text-[10px] px-2 py-1 rounded-lg transition-all btn-press ${isFav
                           ? "bg-coral/15 text-coral font-bold ring-1 ring-coral/50"
                           : "bg-gray-100/70 text-warm-gray/55 hover:bg-gray-200/70"
-                      }`}
+                        }`}
                     >
                       {card.name}
                     </button>
