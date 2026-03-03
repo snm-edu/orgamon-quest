@@ -50,6 +50,8 @@ export default function ChapterMapScreen() {
     useGameStore.setState((s) => ({
       ...s,
       _battleChapter: chapter,
+      _storyChapter: chapter,
+      _storyTiming: "pre_boss",
     } as unknown as typeof s));
     setScreen("story");
   };
