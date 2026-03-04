@@ -34,7 +34,7 @@
       "ケアマスター"
     ],
     "evolutionStage": 0,
-    "imageUrl": "/orgamon-quest/images/companions/nurse.png"
+    "imageUrl": "/orgamon-quest/images/companions/set1/comp1_0.png"
   },
   {
     "id": "nurse_sora",
@@ -71,7 +71,7 @@
       "緊急対応マスター"
     ],
     "evolutionStage": 0,
-    "imageUrl": "/orgamon-quest/images/companions/nurse.png"
+    "imageUrl": "/orgamon-quest/images/companions/set2/comp2_0.png"
   },
   {
     "id": "nurse_rei",
@@ -113,7 +113,7 @@
       "看護スペシャリスト"
     ],
     "evolutionStage": 0,
-    "imageUrl": "/orgamon-quest/images/companions/nurse.png"
+    "imageUrl": "/orgamon-quest/images/companions/set1/comp1_0.png"
   },
   {
     "id": "researcher_kento",
@@ -150,7 +150,7 @@
       "ラボチーフ"
     ],
     "evolutionStage": 0,
-    "imageUrl": "/orgamon-quest/images/companions/researcher.png"
+    "imageUrl": "/orgamon-quest/images/companions/set1/comp1_1.png"
   },
   {
     "id": "researcher_yuki",
@@ -192,7 +192,7 @@
       "分析マスター"
     ],
     "evolutionStage": 0,
-    "imageUrl": "/orgamon-quest/images/companions/researcher.png"
+    "imageUrl": "/orgamon-quest/images/companions/set2/comp2_1.png"
   },
   {
     "id": "guardian_takeshi",
@@ -230,7 +230,7 @@
       "最前線の盾"
     ],
     "evolutionStage": 0,
-    "imageUrl": "/orgamon-quest/images/companions/guardian.png"
+    "imageUrl": "/orgamon-quest/images/companions/set1/comp1_2.png"
   },
   {
     "id": "guardian_mio",
@@ -268,7 +268,7 @@
       "機材マスター"
     ],
     "evolutionStage": 0,
-    "imageUrl": "/orgamon-quest/images/companions/guardian.png"
+    "imageUrl": "/orgamon-quest/images/companions/set2/comp2_2.png"
   },
   {
     "id": "guardian_ryu",
@@ -309,6 +309,6 @@
       "絶対防御者"
     ],
     "evolutionStage": 0,
-    "imageUrl": "/orgamon-quest/images/companions/guardian.png"
+    "imageUrl": "/orgamon-quest/images/companions/set1/comp1_2.png"
   }
 ]
