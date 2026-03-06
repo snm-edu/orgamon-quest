@@ -392,7 +392,7 @@ export default function BattleScreen() {
     const member = formation.find((unit) => unit.id === memberId);
     if (!member) return null;
     if (member.role === "hero") {
-      return getHeroById(member.id as any)?.imageUrl || null;
+      return getHeroById(member.id)?.imageUrl || null;
     }
     const comp = currentRun?.team.find((c) => c.id === member.id);
     return comp?.imageUrl || null;
@@ -432,71 +432,74 @@ export default function BattleScreen() {
         <div className={`min-w-16 px-2.5 py-1.5 rounded-lg text-sm font-bold shrink-0 text-center ${timeLeft <= 5 ? "bg-red-100 text-red-500 animate-pulse" : "glass text-warm-gray"}`}>⏱️ {timeLeft}s</div>
       </div>
 
-      {/* Status */}
-      {currentRun.debuffs.length > 0 && (
-        <div className="flex gap-1.5 flex-wrap">
-          {currentRun.debuffs.map((d, i) => (
-            <Badge key={i} variant="danger" size="xs">
-              {getDebuffLabel(d.type)} {d.duration}T
-            </Badge>
-          ))}
-        </div>
-      )}
-      {comboMessage && <div className="text-center py-1.5 bg-gradient-to-r from-pastel-yellow/60 to-pastel-pink/60 rounded-xl text-[13px] font-bold text-amber-700 animate-pulse">{comboMessage}</div>}
-      {skillMessage && <div className="text-center py-1.5 bg-pastel-yellow/60 rounded-xl text-[13px] font-bold text-amber-700 animate-pop">{skillMessage}</div>}
-      {turnMessage && <div className="text-center py-1.5 bg-pastel-blue/35 rounded-xl text-xs font-bold text-blue-700 animate-pop">{turnMessage}</div>}
-      {hintKeyword && <div className="text-center py-1.5 bg-pastel-blue/40 rounded-xl text-xs font-medium text-blue-700">💡 ヒント: 「{hintKeyword}」に注目！</div>}
-      {fakeHighlight !== null && !showResult && (
-        <div className="text-center py-1.5 bg-yellow-100/80 border border-yellow-300/80 rounded-xl text-xs font-semibold text-amber-700">
-          ⚠️ 黄枠は「誤情報」デバフのミスリードです。正解とは限りません。
-        </div>
-      )}
-
-      {formation.length > 0 && (
-        <div className="glass rounded-xl p-1.5 border border-white/50 space-y-1">
-          <div className="flex items-center justify-between mb-0.5 px-1">
-            <p className="text-xs font-bold text-warm-gray">👥 味方フォーメーション</p>
-            <p className="text-xs text-warm-gray/45">平均DEF {partyDefense}</p>
+      {/* Scrollable: status / messages / formation only */}
+      <div className="min-h-0 overflow-y-auto flex flex-col gap-1.5 overscroll-contain" style={{ maxHeight: "30vh" }}>
+        {/* Status */}
+        {currentRun.debuffs.length > 0 && (
+          <div className="flex gap-1.5 flex-wrap shrink-0">
+            {currentRun.debuffs.map((d, i) => (
+              <Badge key={i} variant="danger" size="xs">
+                {getDebuffLabel(d.type)} {d.duration}T
+              </Badge>
+            ))}
           </div>
-          <div className="grid grid-cols-3 gap-2">
-            {formation.map((member) => {
-              const isCurrentTurn = member.id === currentAttacker?.id;
-              const isDamaged = member.id === damagedMemberId;
-              return (
-                <div
-                  key={member.id}
-                  className={`rounded-lg p-1.5 border transition-all ${isCurrentTurn
-                    ? "bg-amber-50/80 border-amber-300 shadow-sm"
-                    : "bg-white/60 border-white/70"
-                    } ${isDamaged ? "bg-red-100/80 border-red-300 animate-shake" : ""}`}
-                >
-                  <div className="flex items-center justify-between mb-1">
-                    {getFormationImage(member.id) ? (
-                      <div className="w-7 h-7 rounded-full overflow-hidden shadow-sm">
-                        <img src={getFormationImage(member.id)!} alt={member.name} className="w-full h-full object-cover" />
-                      </div>
-                    ) : (
-                      <span className="text-base">{getFormationEmoji(member.id)}</span>
-                    )}
-                    <span className="text-sm text-warm-gray/45">{POSITION_LABELS[member.slot] || `${member.slot + 1}番手`}</span>
+        )}
+        {comboMessage && <div className="shrink-0 text-center py-1.5 bg-gradient-to-r from-pastel-yellow/60 to-pastel-pink/60 rounded-xl text-[13px] font-bold text-amber-700 animate-pulse">{comboMessage}</div>}
+        {skillMessage && <div className="shrink-0 text-center py-1.5 bg-pastel-yellow/60 rounded-xl text-[13px] font-bold text-amber-700 animate-pop">{skillMessage}</div>}
+        {turnMessage && <div className="shrink-0 text-center py-1.5 bg-pastel-blue/35 rounded-xl text-xs font-bold text-blue-700 animate-pop">{turnMessage}</div>}
+        {hintKeyword && <div className="shrink-0 text-center py-1.5 bg-pastel-blue/40 rounded-xl text-xs font-medium text-blue-700">💡 ヒント: 「{hintKeyword}」に注目！</div>}
+        {fakeHighlight !== null && !showResult && (
+          <div className="shrink-0 text-center py-1.5 bg-yellow-100/80 border border-yellow-300/80 rounded-xl text-xs font-semibold text-amber-700">
+            ⚠️ 黄枠は「誤情報」デバフのミスリードです。正解とは限りません。
+          </div>
+        )}
+
+        {formation.length > 0 && (
+          <div className="glass rounded-xl p-1.5 border border-white/50 space-y-1 shrink-0">
+            <div className="flex items-center justify-between mb-0.5 px-1">
+              <p className="text-xs font-bold text-warm-gray">👥 味方フォーメーション</p>
+              <p className="text-xs text-warm-gray/45">平均DEF {partyDefense}</p>
+            </div>
+            <div className="grid grid-cols-3 gap-2">
+              {formation.map((member) => {
+                const isCurrentTurn = member.id === currentAttacker?.id;
+                const isDamaged = member.id === damagedMemberId;
+                return (
+                  <div
+                    key={member.id}
+                    className={`rounded-lg p-1.5 border transition-all ${isCurrentTurn
+                      ? "bg-amber-50/80 border-amber-300 shadow-sm"
+                      : "bg-white/60 border-white/70"
+                      } ${isDamaged ? "bg-red-100/80 border-red-300 animate-shake" : ""}`}
+                  >
+                    <div className="flex items-center justify-between mb-1">
+                      {getFormationImage(member.id) ? (
+                        <div className="w-7 h-7 rounded-full overflow-hidden shadow-sm">
+                          <img src={getFormationImage(member.id)!} alt={member.name} className="w-full h-full object-cover" />
+                        </div>
+                      ) : (
+                        <span className="text-base">{getFormationEmoji(member.id)}</span>
+                      )}
+                      <span className="text-sm text-warm-gray/45">{POSITION_LABELS[member.slot] || `${member.slot + 1}番手`}</span>
+                    </div>
+                    <p className="text-sm font-semibold text-warm-gray truncate">{member.name}</p>
+                    <p className="text-sm text-warm-gray/50">A{member.effectiveStats.atk} D{member.effectiveStats.def} S{member.effectiveStats.spd}</p>
+                    {isDamaged && <p className="text-sm font-bold text-red-500 mt-0.5">被弾!</p>}
                   </div>
-                  <p className="text-sm font-semibold text-warm-gray truncate">{member.name}</p>
-                  <p className="text-sm text-warm-gray/50">A{member.effectiveStats.atk} D{member.effectiveStats.def} S{member.effectiveStats.spd}</p>
-                  {isDamaged && <p className="text-sm font-bold text-red-500 mt-0.5">被弾!</p>}
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
 
-      {/* Question */}
-      <div className="glass-strong rounded-xl p-2 shadow-sm">
+      {/* Question (pinned) */}
+      <div className="glass-strong rounded-xl p-2 shadow-sm shrink-0">
         <p className={`text-[14px] font-medium text-warm-gray leading-relaxed ${maskedText ? "blur-[2px] hover:blur-none transition-all" : ""}`}>{q.question}</p>
       </div>
 
-      {/* Choices */}
-      <div className="flex-1 min-h-0 flex flex-col gap-1.5 pb-1 pt-1">
+      {/* Choices (pinned) */}
+      <div className="flex flex-col gap-1.5 shrink-0">
         {displayChoices.map((choice, idx) => {
           const isSelected = selectedAnswer === idx;
           const isAnswer = idx === displayAnswerIdx;
@@ -518,16 +521,16 @@ export default function BattleScreen() {
         })}
       </div>
 
-      {/* Explanation */}
+      {/* Explanation (pinned) */}
       {showResult && (
-        <div className={`shrink-0 rounded-xl px-3 py-2 mb-1 animate-slide-up ${isCorrect ? "bg-green-50/80 border border-green-200" : "bg-red-50/80 border border-red-200"}`}>
-          <p className={`font-bold text-xs mb-1 ${isCorrect ? "text-green-600" : "text-red-500"}`}>{isCorrect ? "🎉 正解！ ボスにダメージ！" : "😢 不正解... ボスの反撃！"}</p>
-          <p className="text-xs text-warm-gray/60 leading-relaxed">{q.explanation}</p>
+        <div className={`shrink-0 rounded-xl px-3 py-2.5 mb-1 animate-slide-up ${isCorrect ? "bg-green-50 border border-green-300 shadow-sm" : "bg-red-50 border border-red-300 shadow-sm"}`}>
+          <p className={`font-bold text-sm mb-1 ${isCorrect ? "text-green-600" : "text-red-500"}`}>{isCorrect ? "🎉 正解！ ボスにダメージ！" : "😢 不正解... ボスの反撃！"}</p>
+          <p className={`text-sm leading-relaxed ${isCorrect ? "text-green-800" : "text-red-800"}`}>{q.explanation}</p>
         </div>
       )}
 
-      {/* Bottom */}
-      <div className="flex gap-2 pt-0.5 mt-auto shrink-0 pb-1">
+      {/* Bottom (pinned) */}
+      <div className="flex gap-2 pt-0.5 shrink-0 pb-1">
         {!showResult ? (
           <>
             <button onClick={() => { setShowSkillPanel(true); setShowItemPanel(false); }} className="flex-1 min-h-12 py-3 bg-gradient-to-r from-lavender/80 to-pastel-purple/80 text-white rounded-xl font-bold shadow-sm text-base btn-press">⚡ スキル</button>

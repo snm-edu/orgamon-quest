@@ -7,6 +7,7 @@ export default defineConfig({
   base: "/orgamon-quest/",
   plugins: [react(), tailwindcss()],
   server: {
+    host: '0.0.0.0',
     allowedHosts: true,
   },
   test: {

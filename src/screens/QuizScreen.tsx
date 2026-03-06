@@ -6,6 +6,8 @@ import {
   calculateQuizRewards,
   calculateMastery,
   applyReduceChoices,
+  shuffleChoices,
+  getQuestionDifficulty,
 } from "../logic/quizLogic";
 import { getHeroById, applySkillEffects, getHeroSkillLoadout, getQuizSkillAvailability } from "../logic/skillLogic";
 import { ProgressBar, Badge, Modal } from "../components/common";
@@ -29,6 +31,12 @@ const FORMAT_LABELS: Record<Question["format"], string> = {
   speed: "スピード",
   sort: "並び替え",
   true_false: "○×",
+};
+
+const DIFFICULTY_LABELS: Record<string, { label: string; emoji: string; color: string }> = {
+  easy: { label: "やさしい", emoji: "🌸", color: "text-emerald-500" },
+  normal: { label: "ふつう", emoji: "⚔️", color: "text-amber-500" },
+  hard: { label: "むずかしい", emoji: "🔥", color: "text-red-500" },
 };
 
 function isSingleChoiceFormat(format: Question["format"]): format is SingleChoiceFormat {
@@ -214,6 +222,22 @@ export default function QuizScreen() {
         const singleChoice = getSingleChoiceData(q);
         nextChoices = singleChoice.choices;
         nextAnswerIdx = singleChoice.answerIndex;
+
+        const diff = getQuestionDifficulty(q);
+
+        // やさしい問題は選択肢を4つまで減らす
+        if (diff === "easy" && nextChoices.length > 4 && q.format !== "true_false") {
+          const reduced = applyReduceChoices(nextChoices, nextAnswerIdx, nextChoices.length - 4);
+          nextChoices = reduced.filteredChoices;
+          nextAnswerIdx = reduced.newAnswerIndex;
+        }
+
+        // むずかしい問題は選択肢の順番をシャッフル
+        if (diff === "hard") {
+          const shuffled = shuffleChoices(nextChoices, nextAnswerIdx);
+          nextChoices = shuffled.shuffledChoices;
+          nextAnswerIdx = shuffled.newAnswerIndex;
+        }
       } else if (q.format === "sort") {
         nextChoices = shuffleArray(q.choices);
       } else {
@@ -276,12 +300,14 @@ export default function QuizScreen() {
       }
 
       const answerTimeMs = Math.max(1, Date.now() - questionStartTimeRef.current);
+      const questionDifficulty = getQuestionDifficulty(currentQuestion);
       setAnsweredQuestions((prev) => [
         ...prev,
         {
           questionId: currentQuestion.id,
           correct,
           timeMs: answerTimeMs,
+          difficulty: questionDifficulty,
         },
       ]);
 
@@ -539,7 +565,14 @@ export default function QuizScreen() {
     if (skillResult.reducedChoicesBy > 0) {
       if (q && isSingleChoiceFormat(q.format) && displayChoices.length > 2) {
         reducedFrom = displayChoices.length;
-        const reduced = applyReduceChoices(displayChoices, displayAnswerIdx, skillResult.reducedChoicesBy);
+        // やさしい問題はスキルの削減効果を+1
+        const diff = getQuestionDifficulty(q);
+        const bonusReduce = diff === "easy" ? 1 : 0;
+        const totalReduce = Math.min(
+          skillResult.reducedChoicesBy + bonusReduce,
+          displayChoices.length - 2  // 最低2択は残す
+        );
+        const reduced = applyReduceChoices(displayChoices, displayAnswerIdx, totalReduce);
         setDisplayChoices(reduced.filteredChoices);
         setDisplayAnswerIdx(reduced.newAnswerIndex);
         reducedTo = reduced.filteredChoices.length;
@@ -808,9 +841,20 @@ export default function QuizScreen() {
 
       {/* Question */}
       <div className="glass-strong rounded-2xl p-3.5 shadow-md mb-2 shrink-0">
-        <p className="text-[10px] text-warm-gray/30 mb-2 tracking-wider">
-          Ch.{q.chapter} - {mode === "mini" ? "小テスト" : "確認テスト"} / {FORMAT_LABELS[q.format]}
-        </p>
+        {(() => {
+          const diff = getQuestionDifficulty(q);
+          const diffInfo = DIFFICULTY_LABELS[diff];
+          return (
+            <div className="flex items-center justify-between mb-2">
+              <p className="text-[10px] text-warm-gray/30 tracking-wider">
+                Ch.{q.chapter} - {mode === "mini" ? "小テスト" : "確認テスト"} / {FORMAT_LABELS[q.format]}
+              </p>
+              <span className={`text-[10px] font-bold ${diffInfo.color}`}>
+                {diffInfo.emoji} {diffInfo.label}
+              </span>
+            </div>
+          );
+        })()}
 
         {isFillBlankQuestion && (
           <div className="mb-3 flex items-center justify-between gap-2 rounded-xl bg-cyan-50/60 border border-cyan-100 px-3 py-2">

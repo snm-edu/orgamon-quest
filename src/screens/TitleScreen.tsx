@@ -4,6 +4,8 @@ import { audio } from "../utils/audio";
 import { PastelButton } from "../components/common";
 import titleLogo from "../assets/title_logo.png";
 
+const PARTICLE_SIZES = Array.from({ length: 12 }, (_, i) => 4 + ((i * 7 + 3) % 8));
+
 export default function TitleScreen() {
   const setScreen = useGameStore((s) => s.setScreen);
   useEffect(() => { audio.playBGM("title"); }, []);
@@ -32,8 +34,8 @@ export default function TitleScreen() {
           key={i}
           className="absolute rounded-full opacity-40 animate-float"
           style={{
-            width: `${4 + Math.random() * 8}px`,
-            height: `${4 + Math.random() * 8}px`,
+            width: `${PARTICLE_SIZES[i]}px`,
+            height: `${PARTICLE_SIZES[i]}px`,
             background: ["#f08080", "#b8a9c9", "#98d4bb", "#87ceeb", "#ffb6c1", "#d8b4fe"][i % 6],
             left: `${5 + (i * 8)}%`,
             top: `${10 + ((i * 17) % 70)}%`,
@@ -87,7 +89,7 @@ export default function TitleScreen() {
           gradient="coral"
           icon="🎮"
           onClick={() => {
-            useGameStore.setState({ _storyTiming: "game_start", _storyChapter: 0 } as any);
+            useGameStore.setState((s) => ({ ...s, _storyTiming: "game_start", _storyChapter: 0 } as unknown as typeof s));
             setScreen("story");
           }}
         >

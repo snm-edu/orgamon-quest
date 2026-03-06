@@ -5,6 +5,7 @@ import { useCollectionStore } from "../stores/collectionStore";
 import { useDailyStore } from "../stores/dailyStore";
 import { isValidPasswordFormat } from "../logic/passwordLogic";
 import { ScreenLayout, GlassCard, PastelButton, Badge } from "../components/common";
+import TutorialModal from "../components/TutorialModal";
 
 export default function SettingsScreen() {
   const setScreen = useGameStore((s) => s.setScreen);
@@ -24,6 +25,7 @@ export default function SettingsScreen() {
   const [passwordInput, setPasswordInput] = useState("");
   const [passwordMessage, setPasswordMessage] = useState<{ text: string; isError: boolean } | null>(null);
   const [showPassword, setShowPassword] = useState(false);
+  const [showTutorial, setShowTutorial] = useState(false);
   const specialUnlocked = collection.passwordUnlocked && meta.externalPasswords.length >= 3;
 
   const difficulties = [
@@ -80,6 +82,27 @@ export default function SettingsScreen() {
       title="せってい"
       titleEmoji="⚙️"
     >
+      {/* Tutorial */}
+      <GlassCard variant="strong" className="p-5 mb-4 !bg-gradient-to-r !from-pastel-blue/20 !to-pastel-purple/20">
+        <div className="flex items-center gap-3">
+          <div className="w-12 h-12 rounded-xl bg-indigo-100/60 flex items-center justify-center text-2xl shadow-sm shrink-0">
+            📖
+          </div>
+          <div className="flex-1">
+            <h3 className="text-sm font-bold text-warm-gray">チュートリアル</h3>
+            <p className="text-[11px] text-warm-gray/50 mt-0.5">ゲームの遊び方・画面の見方を確認</p>
+          </div>
+          <PastelButton
+            variant="primary"
+            size="sm"
+            icon="▶"
+            onClick={() => setShowTutorial(true)}
+          >
+            見る
+          </PastelButton>
+        </div>
+      </GlassCard>
+
       {/* Difficulty */}
       <GlassCard variant="strong" className="p-5 mb-4">
         <h3 className="text-sm font-bold text-warm-gray mb-3">🎯 難易度</h3>
@@ -227,6 +250,8 @@ export default function SettingsScreen() {
         <p>オルガモン図鑑クエスト v1.0</p>
         <p>© 2026 入学前教育プロジェクト</p>
       </div>
+
+      <TutorialModal open={showTutorial} onClose={() => setShowTutorial(false)} />
     </ScreenLayout>
   );
 }

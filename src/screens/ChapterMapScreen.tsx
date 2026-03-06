@@ -1,6 +1,7 @@
 import { useGameStore } from "../stores/gameStore";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { getBossByChapter } from "../logic/battleLogic";
+import { getQuestionsByChapter } from "../logic/quizLogic";
 import { ScreenLayout, GlassCard, PastelButton, ProgressBar, Badge, Modal } from "../components/common";
 import { audio } from "../utils/audio";
 import chapterMapBg from "../assets/chapter_map_bg.png";
@@ -26,6 +27,22 @@ export default function ChapterMapScreen() {
   useEffect(() => { audio.playBGM("map"); }, []);
   const [selectedChapterId, setSelectedChapterId] = useState<number | null>(null);
   const [chapterPage, setChapterPage] = useState(0);
+
+  // 各章のキーワードを集約（事前学習用）
+  const chapterKeywords = useMemo(() => {
+    const map: Record<number, string[]> = {};
+    for (const ch of chapters) {
+      const qs = getQuestionsByChapter(ch.id);
+      const kwSet = new Set<string>();
+      for (const q of qs) {
+        for (const kw of q.keywords ?? []) {
+          kwSet.add(kw);
+        }
+      }
+      map[ch.id] = [...kwSet].slice(0, 6);
+    }
+    return map;
+  }, []);
 
   if (!currentRun) return null;
 
@@ -142,6 +159,20 @@ export default function ChapterMapScreen() {
                   size="xs"
                   className="mt-2"
                 />
+                {/* キーワードタグ（事前学習） */}
+                {chapterKeywords[ch.id]?.length > 0 && (
+                  <div className="mt-2 flex flex-wrap gap-1">
+                    {chapterKeywords[ch.id].map((kw) => (
+                      <span
+                        key={kw}
+                        className="text-[9px] px-1.5 py-0.5 rounded-full font-medium"
+                        style={{ backgroundColor: ch.color + "18", color: ch.color }}
+                      >
+                        {kw}
+                      </span>
+                    ))}
+                  </div>
+                )}
                 <div className="mt-auto pt-2 flex items-center justify-between gap-2">
                   <div className="text-[10px] text-warm-gray/45">
                     {bossDefeated ? "ボス撃破済み" : canChallenge ? "挑戦可能" : "未開放"}
@@ -149,12 +180,12 @@ export default function ChapterMapScreen() {
                   <button
                     onClick={() => isUnlocked && setSelectedChapterId(ch.id)}
                     disabled={!isUnlocked}
-                    className={`px-3 py-1.5 text-[11px] rounded-lg font-bold transition-all ${isUnlocked
-                      ? "bg-indigo-100/70 text-indigo-700 btn-press"
+                    className={`px-4 py-2 text-xs rounded-xl font-bold transition-all ${isUnlocked
+                      ? "bg-indigo-500 text-white shadow-md btn-press"
                       : "bg-gray-100 text-warm-gray/30"
                       }`}
                   >
-                    {canChallenge ? "挑戦メニュー" : "章メニュー"}
+                    {canChallenge ? "⚔ 挑戦メニュー" : "📖 章メニュー"}
                   </button>
                 </div>
               </GlassCard>

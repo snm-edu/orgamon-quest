@@ -23,7 +23,8 @@
       "細胞",
       "基本単位",
       "人体"
-    ]
+    ],
+    "difficulty": "easy"
   },
   {
     "id": "ch1_mini_02",
@@ -61,7 +62,8 @@
     "keywords": [
       "細胞膜",
       "選択透過"
-    ]
+    ],
+    "difficulty": "easy"
   },
   {
     "id": "ch1_mini_03",
@@ -78,7 +80,8 @@
     "keywords": [
       "核",
       "遺伝情報"
-    ]
+    ],
+    "difficulty": "easy"
   },
   {
     "id": "ch1_mini_04",
@@ -105,7 +108,8 @@
       "遺伝情報",
       "DNA",
       "染色体"
-    ]
+    ],
+    "difficulty": "easy"
   },
   {
     "id": "ch1_mini_05",
@@ -129,7 +133,8 @@
       "核",
       "リボソーム",
       "ミトコンドリア"
-    ]
+    ],
+    "difficulty": "easy"
   },
   {
     "id": "ch1_mini_06",
@@ -155,7 +160,8 @@
       "ミトコンドリア",
       "ATP",
       "エネルギー"
-    ]
+    ],
+    "difficulty": "easy"
   },
   {
     "id": "ch1_mini_07",
@@ -180,7 +186,8 @@
     "keywords": [
       "リボソーム",
       "タンパク質合成"
-    ]
+    ],
+    "difficulty": "easy"
   },
   {
     "id": "ch1_mini_08",
@@ -205,7 +212,8 @@
     "keywords": [
       "リゾソーム",
       "分解"
-    ]
+    ],
+    "difficulty": "easy"
   },
   {
     "id": "ch1_mini_09",
@@ -230,7 +238,8 @@
     "keywords": [
       "小胞体",
       "物質輸送"
-    ]
+    ],
+    "difficulty": "easy"
   },
   {
     "id": "ch1_mini_10",
@@ -255,7 +264,8 @@
     "keywords": [
       "細胞分裂",
       "増殖"
-    ]
+    ],
+    "difficulty": "easy"
   },
   {
     "id": "ch1_confirm_01",
@@ -275,7 +285,8 @@
     "keywords": [
       "細胞",
       "基本単位"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch1_confirm_02",
@@ -295,7 +306,8 @@
     "keywords": [
       "リボソーム",
       "タンパク質合成"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch1_confirm_03",
@@ -315,7 +327,8 @@
     "keywords": [
       "ミトコンドリア",
       "好気的代謝"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch1_confirm_04",
@@ -335,7 +348,8 @@
     "keywords": [
       "ゴルジ体",
       "分泌物"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch1_confirm_05",
@@ -355,7 +369,8 @@
     "keywords": [
       "細胞膜",
       "選択透過"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch1_confirm_06",
@@ -375,7 +390,8 @@
     "keywords": [
       "小胞体",
       "物質輸送"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch1_confirm_07",
@@ -395,7 +411,8 @@
     "keywords": [
       "DNA",
       "遺伝情報"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch1_confirm_08",
@@ -415,7 +432,8 @@
     "keywords": [
       "塩基",
       "遺伝子"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch1_confirm_09",
@@ -435,7 +453,8 @@
     "keywords": [
       "タンパク質",
       "アミノ酸"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch1_confirm_10",
@@ -456,7 +475,8 @@
       "DNA",
       "ウラシル",
       "塩基"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch1_confirm_11",
@@ -476,7 +496,8 @@
     "keywords": [
       "DNA",
       "らせん構造"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch1_confirm_12",
@@ -496,7 +517,8 @@
     "keywords": [
       "染色体",
       "23対"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch1_confirm_13",
@@ -516,7 +538,8 @@
     "keywords": [
       "DNA",
       "デオキシリボ核酸"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch1_confirm_14",
@@ -536,7 +559,8 @@
     "keywords": [
       "細胞分裂",
       "遺伝子"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch1_confirm_15",
@@ -557,7 +581,8 @@
       "葉緑体",
       "植物細胞",
       "光合成"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch2_confirm_01",
@@ -577,7 +602,8 @@
     "keywords": [
       "器官系",
       "連携"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch2_confirm_02",
@@ -597,7 +623,8 @@
     "keywords": [
       "ホメオスタシス",
       "恒常性"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch2_confirm_03",
@@ -617,7 +644,8 @@
     "keywords": [
       "呼吸器系",
       "肺"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch2_confirm_04",
@@ -637,7 +665,8 @@
     "keywords": [
       "消化器系",
       "腎臓"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch2_confirm_05",
@@ -657,7 +686,8 @@
     "keywords": [
       "内分泌系",
       "ホルモン"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch2_confirm_06",
@@ -678,7 +708,8 @@
       "筋骨格系",
       "骨",
       "筋肉"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch2_confirm_07",
@@ -698,7 +729,8 @@
     "keywords": [
       "血液系",
       "血液"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch2_confirm_08",
@@ -718,7 +750,8 @@
     "keywords": [
       "心臓病",
       "予防"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch2_confirm_09",
@@ -738,7 +771,8 @@
     "keywords": [
       "糖尿病",
       "予防"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch2_confirm_10",
@@ -758,7 +792,8 @@
     "keywords": [
       "喫煙",
       "危険因子"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch3_confirm_01",
@@ -779,7 +814,8 @@
       "骨格",
       "骨膜",
       "骨質"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch3_confirm_02",
@@ -799,7 +835,8 @@
     "keywords": [
       "骨",
       "関節"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch3_confirm_03",
@@ -819,7 +856,8 @@
     "keywords": [
       "骨髄",
       "造血"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch3_confirm_04",
@@ -839,7 +877,8 @@
     "keywords": [
       "背骨",
       "椎骨"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch3_confirm_05",
@@ -860,7 +899,8 @@
       "骨盤",
       "寛骨",
       "腸骨"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch4_confirm_01",
@@ -880,7 +920,8 @@
     "keywords": [
       "赤血球",
       "血球"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch4_confirm_02",
@@ -901,7 +942,8 @@
       "赤血球",
       "酸素",
       "ヘモグロビン"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch4_confirm_03",
@@ -921,7 +963,8 @@
     "keywords": [
       "白血球",
       "免疫"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch4_confirm_04",
@@ -941,7 +984,8 @@
     "keywords": [
       "血小板",
       "血液凝固"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch4_confirm_05",
@@ -961,7 +1005,8 @@
     "keywords": [
       "血漿",
       "水"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch4_confirm_06",
@@ -981,7 +1026,8 @@
     "keywords": [
       "二酸化炭素",
       "血漿"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch4_confirm_07",
@@ -1002,7 +1048,8 @@
       "アルブミン",
       "フィブリノーゲン",
       "タンパク質"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch4_confirm_08",
@@ -1022,7 +1069,8 @@
     "keywords": [
       "血清",
       "アルブミン"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch4_confirm_09",
@@ -1042,7 +1090,8 @@
     "keywords": [
       "ヘモグロビン",
       "鉄"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch4_confirm_10",
@@ -1062,7 +1111,8 @@
     "keywords": [
       "ヘモグロビン",
       "赤血球"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch4_confirm_11",
@@ -1082,7 +1132,8 @@
     "keywords": [
       "フィブリノーゲン",
       "血液凝固"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch4_confirm_12",
@@ -1102,7 +1153,8 @@
     "keywords": [
       "血液量",
       "体重"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch4_confirm_13",
@@ -1122,7 +1174,8 @@
     "keywords": [
       "血漿",
       "血球"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch4_confirm_14",
@@ -1142,7 +1195,8 @@
     "keywords": [
       "抗原",
       "免疫"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch4_confirm_15",
@@ -1162,7 +1216,8 @@
     "keywords": [
       "免疫",
       "拒絶反応"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch4_confirm_16",
@@ -1182,7 +1237,8 @@
     "keywords": [
       "リンパ球",
       "免疫"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch4_confirm_17",
@@ -1202,7 +1258,8 @@
     "keywords": [
       "ウイルス",
       "疾患"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch4_confirm_18",
@@ -1222,7 +1279,8 @@
     "keywords": [
       "ウイルス",
       "自己複製"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch4_confirm_19",
@@ -1242,7 +1300,8 @@
     "keywords": [
       "アレルギー",
       "アレルゲン"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch4_confirm_20",
@@ -1263,7 +1322,8 @@
       "血液型",
       "優性",
       "ABO"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch5_confirm_01",
@@ -1283,7 +1343,8 @@
     "keywords": [
       "脂肪",
       "エネルギー"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch5_confirm_02",
@@ -1303,7 +1364,8 @@
     "keywords": [
       "酵素",
       "タンパク質"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch5_confirm_03",
@@ -1323,7 +1385,8 @@
     "keywords": [
       "蠕動運動",
       "消化管"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch5_confirm_04",
@@ -1344,7 +1407,8 @@
       "アミラーゼ",
       "唾液",
       "デンプン"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch5_confirm_05",
@@ -1365,7 +1429,8 @@
       "ペプシン",
       "胃",
       "タンパク質"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch5_confirm_06",
@@ -1386,7 +1451,8 @@
       "リパーゼ",
       "膵臓",
       "脂肪"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch5_confirm_07",
@@ -1406,7 +1472,8 @@
     "keywords": [
       "マルターゼ",
       "麦芽糖"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch5_confirm_08",
@@ -1426,7 +1493,8 @@
       "三大栄養素",
       "ビタミン",
       "ミネラル"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch5_confirm_09",
@@ -1447,7 +1515,8 @@
       "胃",
       "幽門",
       "十二指腸"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch5_confirm_10",
@@ -1467,7 +1536,8 @@
     "keywords": [
       "胃",
       "噴門"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch5_confirm_11",
@@ -1487,7 +1557,8 @@
     "keywords": [
       "小腸",
       "十二指腸"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch5_confirm_12",
@@ -1508,7 +1579,8 @@
       "小腸",
       "大腸",
       "長さ"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch5_confirm_13",
@@ -1529,7 +1601,8 @@
       "肝臓",
       "尿",
       "腎臓"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch5_confirm_14",
@@ -1549,7 +1622,8 @@
     "keywords": [
       "肝臓",
       "色"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch5_confirm_15",
@@ -1569,7 +1643,8 @@
     "keywords": [
       "胆汁",
       "肝臓"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch5_confirm_16",
@@ -1589,7 +1664,8 @@
     "keywords": [
       "膵臓",
       "インスリン"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch5_confirm_17",
@@ -1609,7 +1685,8 @@
     "keywords": [
       "腎臓",
       "尿量調節"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch5_confirm_18",
@@ -1629,7 +1706,8 @@
     "keywords": [
       "腎臓",
       "ネフロン"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch5_confirm_19",
@@ -1649,7 +1727,8 @@
     "keywords": [
       "ネフロン",
       "膀胱"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch5_confirm_20",
@@ -1669,7 +1748,8 @@
     "keywords": [
       "尿素",
       "肝臓"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch6_confirm_01",
@@ -1689,7 +1769,8 @@
     "keywords": [
       "肺静脈",
       "酸素"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch6_confirm_02",
@@ -1709,7 +1790,8 @@
     "keywords": [
       "左心室",
       "心筋"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch6_confirm_03",
@@ -1729,7 +1811,8 @@
     "keywords": [
       "肺動脈",
       "静脈血"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch6_confirm_04",
@@ -1749,7 +1832,8 @@
     "keywords": [
       "大動脈",
       "動脈血"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch6_confirm_05",
@@ -1769,7 +1853,8 @@
     "keywords": [
       "右心房",
       "静脈血"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch6_confirm_06",
@@ -1789,7 +1874,8 @@
     "keywords": [
       "僧帽弁",
       "左房室弁"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch6_confirm_07",
@@ -1809,7 +1895,8 @@
     "keywords": [
       "冠状静脈洞",
       "心臓"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch6_confirm_08",
@@ -1829,7 +1916,8 @@
     "keywords": [
       "心臓",
       "内膜"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch6_confirm_09",
@@ -1849,7 +1937,8 @@
     "keywords": [
       "虚血性心疾患",
       "冠動脈"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch6_confirm_10",
@@ -1869,7 +1958,8 @@
     "keywords": [
       "冠状動脈",
       "心臓"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch7_confirm_01",
@@ -1889,7 +1979,8 @@
     "keywords": [
       "肺",
       "葉"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch7_confirm_02",
@@ -1909,7 +2000,8 @@
     "keywords": [
       "気道",
       "呼吸"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch7_confirm_03",
@@ -1929,7 +2021,8 @@
     "keywords": [
       "呼吸",
       "横隔膜"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch7_confirm_04",
@@ -1949,7 +2042,8 @@
     "keywords": [
       "肋骨",
       "12対"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch7_confirm_05",
@@ -1969,7 +2063,8 @@
     "keywords": [
       "胸腔",
       "腹腔"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch7_confirm_06",
@@ -1989,7 +2084,8 @@
     "keywords": [
       "好気呼吸",
       "嫌気呼吸"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch7_confirm_07",
@@ -2010,7 +2106,8 @@
       "気管",
       "異物",
       "右肺"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch7_confirm_08",
@@ -2030,7 +2127,8 @@
     "keywords": [
       "嚥下",
       "飲み込み"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch7_confirm_09",
@@ -2050,7 +2148,8 @@
     "keywords": [
       "好気呼吸",
       "ブドウ糖"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch7_confirm_10",
@@ -2069,7 +2168,8 @@
     "keywords": [
       "嫌気呼吸",
       "乳酸菌"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch8_confirm_01",
@@ -2089,7 +2189,8 @@
     "keywords": [
       "感覚器官",
       "刺激"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch8_confirm_02",
@@ -2109,7 +2210,8 @@
     "keywords": [
       "末梢神経",
       "中枢神経"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch8_confirm_03",
@@ -2129,7 +2231,8 @@
     "keywords": [
       "神経",
       "シュワン細胞"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch8_confirm_04",
@@ -2149,7 +2252,8 @@
     "keywords": [
       "自律神経",
       "脊髄神経"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch8_confirm_05",
@@ -2169,7 +2273,8 @@
     "keywords": [
       "反射",
       "脊髄"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch8_confirm_06",
@@ -2190,7 +2295,8 @@
       "交感神経",
       "瞳孔",
       "副交感神経"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch8_confirm_07",
@@ -2210,7 +2316,8 @@
     "keywords": [
       "ホルモン",
       "腎臓"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch8_confirm_08",
@@ -2230,7 +2337,8 @@
     "keywords": [
       "大脳",
       "視細胞"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch8_confirm_09",
@@ -2250,7 +2358,8 @@
     "keywords": [
       "視覚",
       "網膜"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch8_confirm_10",
@@ -2271,7 +2380,8 @@
       "聴覚",
       "外耳道",
       "中耳"
-    ]
+    ],
+    "difficulty": "normal"
   },
   {
     "id": "ch9_final_01",
@@ -2291,7 +2401,8 @@
     "keywords": [
       "ミトコンドリア",
       "エネルギー"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "ch9_final_02",
@@ -2311,7 +2422,8 @@
     "keywords": [
       "染色体",
       "23対"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "ch9_final_03",
@@ -2330,7 +2442,8 @@
     "explanation": "器官系は互いに連携して機能する。",
     "keywords": [
       "器官系"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "ch9_final_04",
@@ -2350,7 +2463,8 @@
     "keywords": [
       "内分泌系",
       "腎臓"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "ch9_final_05",
@@ -2371,7 +2485,8 @@
       "骨",
       "骨膜",
       "骨質"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "ch9_final_06",
@@ -2392,7 +2507,8 @@
       "骨",
       "連結",
       "関節"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "ch9_final_07",
@@ -2412,7 +2528,8 @@
     "keywords": [
       "赤血球",
       "血球"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "ch9_final_08",
@@ -2432,7 +2549,8 @@
     "keywords": [
       "血漿",
       "水"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "ch9_final_09",
@@ -2452,7 +2570,8 @@
     "keywords": [
       "血清",
       "アルブミン"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "ch9_final_10",
@@ -2471,7 +2590,8 @@
     "explanation": "ヘモグロビンが過剰だと疾患を引き起こすことがある。",
     "keywords": [
       "ヘモグロビン"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "ch9_final_11",
@@ -2491,7 +2611,8 @@
     "keywords": [
       "フィブリノーゲン",
       "凝固"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "ch9_final_12",
@@ -2511,7 +2632,8 @@
     "keywords": [
       "免疫",
       "リンパ球"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "ch9_final_13",
@@ -2531,7 +2653,8 @@
     "keywords": [
       "アレルギー",
       "アレルゲン"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "ch9_final_14",
@@ -2551,7 +2674,8 @@
     "keywords": [
       "アミラーゼ",
       "唾液"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "ch9_final_15",
@@ -2570,7 +2694,8 @@
     "keywords": [
       "三大栄養素",
       "ビタミン"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "ch9_final_16",
@@ -2591,7 +2716,8 @@
       "胃",
       "幽門",
       "十二指腸"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "ch9_final_17",
@@ -2611,7 +2737,8 @@
     "keywords": [
       "小腸",
       "大腸"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "ch9_final_18",
@@ -2630,7 +2757,8 @@
     "explanation": "肝臓は暗赤褐色である。",
     "keywords": [
       "肝臓"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "ch9_final_19",
@@ -2650,7 +2778,8 @@
     "keywords": [
       "腎臓",
       "尿量"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "ch9_final_20",
@@ -2670,7 +2799,8 @@
     "keywords": [
       "ネフロン",
       "膀胱"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "ch9_final_21",
@@ -2690,7 +2820,8 @@
     "keywords": [
       "肺動脈",
       "静脈血"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "ch9_final_22",
@@ -2710,7 +2841,8 @@
     "keywords": [
       "冠状動脈",
       "心臓"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "ch9_final_23",
@@ -2730,7 +2862,8 @@
     "keywords": [
       "肺",
       "葉"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "ch9_final_24",
@@ -2750,7 +2883,8 @@
     "keywords": [
       "肋骨",
       "12対"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "ch9_final_25",
@@ -2770,7 +2904,8 @@
     "keywords": [
       "好気呼吸",
       "嫌気呼吸"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "ch9_final_26",
@@ -2791,7 +2926,8 @@
       "気管",
       "異物",
       "右肺"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "ch9_final_27",
@@ -2811,7 +2947,8 @@
     "keywords": [
       "末梢神経",
       "中枢神経"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "ch9_final_28",
@@ -2831,7 +2968,8 @@
     "keywords": [
       "反射",
       "脊髄"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "ch9_final_29",
@@ -2851,7 +2989,8 @@
     "keywords": [
       "交感神経",
       "瞳孔"
-    ]
+    ],
+    "difficulty": "hard"
   },
   {
     "id": "ch9_final_30",
@@ -2871,6 +3010,7 @@
     "keywords": [
       "視覚",
       "網膜"
-    ]
+    ],
+    "difficulty": "hard"
   }
 ]

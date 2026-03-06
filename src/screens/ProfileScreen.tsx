@@ -218,9 +218,9 @@ export default function ProfileScreen() {
                   <p className="text-[11px] font-bold text-warm-gray">⭐ お気に入りカード</p>
                   <button
                     onClick={() => setShowCardPicker(true)}
-                    className="text-[10px] text-coral hover:text-coral/70 font-medium"
+                    className="text-xs px-3 py-1 rounded-lg bg-coral/10 text-coral border border-coral/30 font-bold btn-press hover:bg-coral/20 transition-all"
                   >
-                    編集
+                    ✏️ 編集
                   </button>
                 </div>
                 <div className="grid grid-cols-3 gap-1.5 h-[72px]">

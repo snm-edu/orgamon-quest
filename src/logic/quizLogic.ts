@@ -1,4 +1,4 @@
-import type { Question, QuizResult } from "../types";
+import type { Question, QuestionDifficulty, QuizResult } from "../types";
 import questionsData from "../data/questions.json";
 
 const questions = questionsData as Question[];
@@ -48,8 +48,34 @@ export function getFinalQuestions(count: number = 30): Question[] {
   return getRandomQuestionsGuaranteed(9, count, "final");
 }
 
+/** 難易度別の経験値倍率 */
+const DIFFICULTY_XP: Record<QuestionDifficulty, number> = {
+  easy: 5,
+  normal: 10,
+  hard: 20,
+};
+
+/** 問題の難易度を取得（未設定時は type から推定） */
+export function getQuestionDifficulty(q: Question): QuestionDifficulty {
+  if (q.difficulty) return q.difficulty;
+  if (q.type === "mini") return "easy";
+  if (q.type === "final") return "hard";
+  return "normal";
+}
+
 export function calculateQuizRewards(result: QuizResult) {
-  const baseXP = result.correct * 10;
+  // 問題ごとの難易度別XPを合計
+  let baseXP = 0;
+  for (const qa of result.questionsAnswered) {
+    if (qa.correct) {
+      baseXP += DIFFICULTY_XP[qa.difficulty];
+    }
+  }
+  // questionsAnswered が空の場合のフォールバック
+  if (result.questionsAnswered.length === 0) {
+    baseXP = result.correct * 10;
+  }
+
   const streakBonus = result.maxStreak * 2;
   const perfectBonus = result.correct === result.total ? 20 : 0;
   const gainedXP = baseXP + streakBonus + perfectBonus;

@@ -9,8 +9,8 @@ class GameAudio {
     init() {
         if (!this.ctx) {
             try {
-                this.ctx = new (window.AudioContext || (window as any).webkitAudioContext)();
-            } catch (e) {
+                this.ctx = new (window.AudioContext || (window as unknown as Record<string, typeof AudioContext>).webkitAudioContext)();
+            } catch {
                 console.warn("Web Audio API is not supported.");
             }
         }

@@ -94,11 +94,14 @@ export type QuizFormat =
 
 export type QuizType = "mini" | "confirm" | "final";
 
+export type QuestionDifficulty = "easy" | "normal" | "hard";
+
 export type Question = {
   id: string;
   chapter: number;
   type: QuizType;
   format: QuizFormat;
+  difficulty?: QuestionDifficulty;
   question: string;
   choices: string[];
   answerIndex: number;
@@ -356,7 +359,7 @@ export type QuizResult = {
   maxStreak: number;
   wrongQuestionIds: string[];
   timeTaken: number;
-  questionsAnswered: { questionId: string; correct: boolean; timeMs: number }[];
+  questionsAnswered: { questionId: string; correct: boolean; timeMs: number; difficulty: QuestionDifficulty }[];
 };
 
 export type Difficulty = "easy" | "normal" | "hard";

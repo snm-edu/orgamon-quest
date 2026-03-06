@@ -13,7 +13,7 @@ export default function PlayerNameScreen() {
     if (!name.trim()) return;
     const heroId: HeroId = pendingHeroId || "minato";
     startNewGame(heroId, name.trim());
-    useGameStore.setState({ _storyTiming: "hero_intro", _storyChapter: 0, screen: "story" } as any);
+    useGameStore.setState((s) => ({ ...s, _storyTiming: "hero_intro", _storyChapter: 0, screen: "story" } as unknown as typeof s));
   };
 
   return (
