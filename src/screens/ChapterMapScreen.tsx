@@ -787,16 +787,16 @@ export default function ChapterMapScreen() {
                       className="mt-2"
                       variant={bossDefeated ? "success" : canBossBattle ? "primary" : "secondary"}
                       gradient="coral"
-                      icon={bossDefeated ? "✅" : canBossBattle ? "⚔️" : "🔒"}
-                      disabled={!canBossBattle || bossDefeated}
+                      icon={bossDefeated ? "🔄" : canBossBattle ? "⚔️" : "🔒"}
+                      disabled={!canBossBattle && !bossDefeated}
                       onClick={() => {
-                        if (!canBossBattle) return;
+                        if (!canBossBattle && !bossDefeated) return;
                         setSelectedChapterId(null);
                         handleStartBattle(selectedChapter.id);
                       }}
                     >
                       {bossDefeated
-                        ? `${boss.name} 撃破済み`
+                        ? `${boss.name} に再挑戦`
                         : canBossBattle
                           ? `ボス戦: ${boss.name}`
                           : "テストで50%以上で解放"}
