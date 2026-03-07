@@ -76,7 +76,7 @@ export default function BattleScreen() {
     currentRun && hero ? getHeroSkillLoadout(hero, currentRun).equippedSkills : [];
   const formation = useMemo(() => {
     if (!hero || !currentRun) return [];
-    return buildFormation(hero, currentRun.team, activeTitle, currentRun.battleFormationIds);
+    return buildFormation(hero, currentRun.team, activeTitle, currentRun.battleFormationIds, currentRun.level);
   }, [hero, currentRun, activeTitle]);
   const turnQueue = useMemo(() => buildSpeedTurnQueue(formation, BATTLE_ROUNDS + 4), [formation]);
 
@@ -159,7 +159,7 @@ export default function BattleScreen() {
     if (correct) {
       addUltimateCharge(1);
       const comboBonus = combo ? getComboBonus(combo) : 0;
-      const damage = calcBossDamage(true, currentRun?.ownedCards || {}, allCards, comboBonus, attackerAtk);
+      const damage = calcBossDamage(true, currentRun?.ownedCards || {}, allCards, comboBonus, attackerAtk, currentRun?.level || 1);
       setBossHp((prev) => Math.max(0, prev - damage));
       setDamageAnim(damage);
       if (damage >= 40) audio.playSE("heavy_impact");

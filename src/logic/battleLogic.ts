@@ -17,7 +17,8 @@ export function calcBossDamage(
   ownedCards: Record<string, OwnedCard>,
   allCards: Card[],
   comboBonus: number = 0,
-  attackerAttack: number = 0
+  attackerAttack: number = 0,
+  playerLevel: number = 1
 ): number {
   if (!isCorrect) return 0;
 
@@ -37,7 +38,9 @@ export function calcBossDamage(
 
   const multiplier = getEvolutionMultiplier(bestStage);
   const attackerBonus = Math.round(Math.max(0, attackerAttack) * 0.65);
-  return Math.floor(bestAtk * multiplier + comboBonus + attackerBonus);
+  // レベルスケーリング: レベル1でx1.0、レベル10でx1.45、レベル20でx1.95、レベル30+でx2.5+
+  const levelMultiplier = 1.0 + (Math.max(1, playerLevel) - 1) * 0.05;
+  return Math.floor((bestAtk * multiplier + comboBonus + attackerBonus) * levelMultiplier);
 }
 
 export function getBossCounterAttack(

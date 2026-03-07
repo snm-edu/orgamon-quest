@@ -1,6 +1,31 @@
 import type { BattleStats, Companion, Hero } from "../types";
 import { applyStatBonus, getTitleBonus } from "./titleLogic";
 
+/**
+ * レベルに応じたステータスボーナスを計算する
+ * レベル1を基準に、レベルが上がるごとにATK+2, DEF+1.5, SPD+1
+ */
+export function getLevelStatBonus(level: number): BattleStats {
+  const lvl = Math.max(1, level) - 1; // レベル1では0ボーナス
+  return {
+    atk: Math.floor(lvl * 2),
+    def: Math.floor(lvl * 1.5),
+    spd: Math.floor(lvl * 1),
+  };
+}
+
+/**
+ * baseStatsにレベルボーナスを加算する
+ */
+function applyLevelBonus(stats: BattleStats, level: number): BattleStats {
+  const bonus = getLevelStatBonus(level);
+  return {
+    atk: stats.atk + bonus.atk,
+    def: stats.def + bonus.def,
+    spd: stats.spd + bonus.spd,
+  };
+}
+
 type PositionModifier = {
   atkMultiplier: number;
   defMultiplier: number;
@@ -67,10 +92,13 @@ export function buildFormation(
   hero: Hero,
   companions: Companion[],
   activeTitle: string,
-  battleFormationIds?: string[]
+  battleFormationIds?: string[],
+  playerLevel: number = 1
 ): FormationMember[] {
   const titleBonus = getTitleBonus(activeTitle);
   const heroWithTitle = applyStatBonus(hero.baseStats, titleBonus);
+  // レベルボーナスをヒーローに適用
+  const heroWithLevel = applyLevelBonus(heroWithTitle, playerLevel);
 
   const memberById = new Map<
     string,
@@ -81,7 +109,7 @@ export function buildFormation(
     id: hero.id,
     name: hero.name,
     role: "hero",
-    baseStats: heroWithTitle,
+    baseStats: heroWithLevel,
   });
 
   companions.slice(0, 2).forEach((member) => {
