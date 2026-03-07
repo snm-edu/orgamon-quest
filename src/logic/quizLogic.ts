@@ -1,4 +1,4 @@
-import type { Question, QuestionDifficulty, QuizResult } from "../types";
+import type { Question, QuestionDifficulty, QuizResult, Difficulty } from "../types";
 import questionsData from "../data/questions.json";
 
 const questions = questionsData as Question[];
@@ -60,6 +60,23 @@ export function getQuestionDifficulty(q: Question): QuestionDifficulty {
   if (q.difficulty) return q.difficulty;
   if (q.type === "mini") return "easy";
   if (q.type === "final") return "hard";
+  return "normal";
+}
+
+/**
+ * ゲーム設定の難易度を反映した実効的な難易度を返す。
+ * - ストア設定が "easy" → 常に "easy"
+ * - ストア設定が "hard" → 常に "hard"
+ * - ストア設定が "normal" → 問題自身の難易度を使用（問題にdifficultyが設定されていない場合は "normal"）
+ */
+export function getEffectiveDifficulty(
+  q: Question,
+  storeDifficulty: Difficulty
+): QuestionDifficulty {
+  if (storeDifficulty === "easy") return "easy";
+  if (storeDifficulty === "hard") return "hard";
+  // normal: 問題自身のdifficultyを使うが、typeベースのフォールバックは "normal" とする
+  if (q.difficulty) return q.difficulty;
   return "normal";
 }
 

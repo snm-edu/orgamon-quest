@@ -7,7 +7,7 @@ import {
   calculateMastery,
   applyReduceChoices,
   shuffleChoices,
-  getQuestionDifficulty,
+  getEffectiveDifficulty,
 } from "../logic/quizLogic";
 import { getHeroById, applySkillEffects, getHeroSkillLoadout, getQuizSkillAvailability } from "../logic/skillLogic";
 import { ProgressBar, Badge, Modal } from "../components/common";
@@ -187,6 +187,13 @@ export default function QuizScreen() {
   const hero = currentRun ? getHeroById(currentRun.selectedHeroId) : null;
   const equippedSkills =
     currentRun && hero ? getHeroSkillLoadout(hero, currentRun).equippedSkills : [];
+  const storeDifficulty = useGameStore((s) => s.difficulty);
+
+  // Refs to avoid re-running choice setup when currentRun/hero change mid-question
+  const currentRunRef = useRef(currentRun);
+  currentRunRef.current = currentRun;
+  const heroRef = useRef(hero);
+  heroRef.current = hero;
 
   useEffect(() => {
     const type = mode === "mini" ? "mini" : "confirm";
@@ -215,6 +222,8 @@ export default function QuizScreen() {
   useEffect(() => {
     if (questions.length > 0 && currentIdx < questions.length) {
       const q = questions[currentIdx];
+      const runSnap = currentRunRef.current;
+      const heroSnap = heroRef.current;
       let nextChoices: string[] = [];
       let nextAnswerIdx = 0;
 
@@ -223,7 +232,7 @@ export default function QuizScreen() {
         nextChoices = singleChoice.choices;
         nextAnswerIdx = singleChoice.answerIndex;
 
-        const diff = getQuestionDifficulty(q);
+        const diff = getEffectiveDifficulty(q, storeDifficulty);
 
         // やさしい問題は選択肢を4つまで減らす
         if (diff === "easy" && nextChoices.length > 4 && q.format !== "true_false") {
@@ -252,12 +261,12 @@ export default function QuizScreen() {
       setMaskedText(false);
       setFakeHighlight(null);
 
-      const hasTimePressure = currentRun?.debuffs.some((d) => d.type === "time_pressure") ?? false;
+      const hasTimePressure = runSnap?.debuffs.some((d) => d.type === "time_pressure") ?? false;
       const baseTime = q.timeLimit ?? (q.format === "speed" ? SPEED_TIME_LIMIT : BASE_TIME_LIMIT);
 
       let finalTime = hasTimePressure ? Math.ceil(baseTime / 2) : baseTime;
-      if (hero?.passive?.effects) {
-        const timeExt = hero.passive.effects.find((e) => e.type === "time_extend");
+      if (heroSnap?.passive?.effects) {
+        const timeExt = heroSnap.passive.effects.find((e) => e.type === "time_extend");
         if (timeExt) {
           finalTime = Math.ceil(finalTime * (1 + timeExt.value / 100));
         }
@@ -265,11 +274,11 @@ export default function QuizScreen() {
       setTimeLeft(finalTime);
       setCurrentTimeLimit(finalTime);
 
-      if (currentRun?.debuffs.some((d) => d.type === "observation_miss")) {
+      if (runSnap?.debuffs.some((d) => d.type === "observation_miss")) {
         setMaskedText(true);
       }
 
-      if (currentRun?.debuffs.some((d) => d.type === "misinformation") && isSingleChoiceFormat(q.format)) {
+      if (runSnap?.debuffs.some((d) => d.type === "misinformation") && isSingleChoiceFormat(q.format)) {
         const wrongIndices = nextChoices
           .map((_, index) => index)
           .filter((index) => index !== nextAnswerIdx);
@@ -282,7 +291,8 @@ export default function QuizScreen() {
 
       questionStartTimeRef.current = Date.now();
     }
-  }, [currentIdx, questions, currentRun, hero]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentIdx, questions, storeDifficulty]);
 
   const finalizeAnswer = useCallback(
     (correct: boolean, selectedChoiceIdx: number | null) => {
@@ -300,7 +310,7 @@ export default function QuizScreen() {
       }
 
       const answerTimeMs = Math.max(1, Date.now() - questionStartTimeRef.current);
-      const questionDifficulty = getQuestionDifficulty(currentQuestion);
+      const questionDifficulty = getEffectiveDifficulty(currentQuestion, storeDifficulty);
       setAnsweredQuestions((prev) => [
         ...prev,
         {
@@ -566,7 +576,7 @@ export default function QuizScreen() {
       if (q && isSingleChoiceFormat(q.format) && displayChoices.length > 2) {
         reducedFrom = displayChoices.length;
         // やさしい問題はスキルの削減効果を+1
-        const diff = getQuestionDifficulty(q);
+        const diff = getEffectiveDifficulty(q, storeDifficulty);
         const bonusReduce = diff === "easy" ? 1 : 0;
         const totalReduce = Math.min(
           skillResult.reducedChoicesBy + bonusReduce,
@@ -842,7 +852,7 @@ export default function QuizScreen() {
       {/* Question */}
       <div className="glass-strong rounded-2xl p-3.5 shadow-md mb-2 shrink-0">
         {(() => {
-          const diff = getQuestionDifficulty(q);
+          const diff = getEffectiveDifficulty(q, storeDifficulty);
           const diffInfo = DIFFICULTY_LABELS[diff];
           return (
             <div className="flex items-center justify-between mb-2">

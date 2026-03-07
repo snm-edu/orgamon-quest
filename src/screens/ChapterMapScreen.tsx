@@ -6,6 +6,157 @@ import { ScreenLayout, GlassCard, PastelButton, ProgressBar, Badge, Modal } from
 import { audio } from "../utils/audio";
 import chapterMapBg from "../assets/chapter_map_bg.png";
 
+// 事前学習キーワード解説データ
+const KEYWORD_EXPLANATIONS: Record<string, { emoji: string; title: string; summary: string; keyPoint: string; funFact: string }> = {
+  "細胞": {
+    emoji: "🔬",
+    title: "細胞（さいぼう）",
+    summary: "生物の体をつくる最も小さな単位。人間の体は約37兆個の細胞でできている！",
+    keyPoint: "細胞は生命の基本単位で、すべての生物は細胞からできています。",
+    funFact: "🤯 ヒトの体の細胞をぜんぶ並べると、地球を4周以上できるほど長くなるよ！",
+  },
+  "基本単位": {
+    emoji: "🧱",
+    title: "基本単位（きほんたんい）",
+    summary: "体の構造と機能のいちばん基礎になるもの。レンガが建物の素材なら、細胞は体の素材！",
+    keyPoint: "人体の構造と機能の基本単位＝細胞。これが生命活動のすべての基盤。",
+    funFact: "🏗️ 家を建てるにはレンガが必要。人体をつくるには…細胞が必要！",
+  },
+  "人体": {
+    emoji: "🧍",
+    title: "人体（じんたい）",
+    summary: "私たちの体のこと。頭の先からつま先まで、たくさんの器官が協力して動いている。",
+    keyPoint: "人体は細胞→組織→器官→器官系という階層構造でできています。",
+    funFact: "💪 人体にある骨の数は成人で206本。赤ちゃんはなんと約300本もあるんだよ！",
+  },
+  "細胞膜": {
+    emoji: "🛡️",
+    title: "細胞膜（さいぼうまく）",
+    summary: "細胞の外側を包む薄い膜。必要なものだけを通す門番の役割！",
+    keyPoint: "細胞膜は選択的透過性をもち、細胞の中と外の物質の出入りを調節します。",
+    funFact: "🚪 細胞膜は厚さわずか7〜8nm。髪の毛の1万分の1ぐらいの薄さ！",
+  },
+  "選択透過": {
+    emoji: "🎯",
+    title: "選択透過（せんたくとうか）",
+    summary: "細胞膜が、通していいものとダメなものを選んで通す性質。VIPクラブの入口みたい！",
+    keyPoint: "細胞膜は半透膜で、水や酸素は通すが大きな分子は簡単に通さない。",
+    funFact: "🎪 細胞膜はリン脂質二重層でできていて、まるでサンドイッチみたいな構造！",
+  },
+  "核": {
+    emoji: "🧠",
+    title: "核（かく）",
+    summary: "細胞の中にある司令塔。DNAという設計図が入っている、細胞のコントロールセンター！",
+    keyPoint: "核の中にはDNA（遺伝情報）が収められており、細胞の活動を制御します。",
+    funFact: "📜 1つの細胞の中のDNAを伸ばすと約2メートル。全細胞分だと太陽まで往復できる！",
+  },
+  "器官系": {
+    emoji: "⚙️",
+    title: "器官系（きかんけい）",
+    summary: "似た仕事をする器官のグループ。消化器系・循環器系・呼吸器系などがある。",
+    keyPoint: "器官系は複数の器官が協力して一つの大きな機能を果たすシステムです。",
+    funFact: "🎼 オーケストラみたいに、各セクション（器官系）が協力して体を動かしてるよ！",
+  },
+  "遺伝": {
+    emoji: "🧬",
+    title: "遺伝（いでん）",
+    summary: "親の特徴が子に伝わること。目の色や血液型が似るのは遺伝のおかげ！",
+    keyPoint: "遺伝情報はDNAに保存され、細胞分裂の時にコピーされて次の世代に伝わります。",
+    funFact: "🐼 パンダの白黒模様も遺伝。でも人間のDNAとパンダのDNAは約60%が同じ！",
+  },
+  "ホメオスタシス": {
+    emoji: "⚖️",
+    title: "ホメオスタシス",
+    summary: "体の中の環境を一定に保つしくみ。暑い時に汗をかくのもホメオスタシス！",
+    keyPoint: "体温・血糖値・pH値など、体内環境を安定させる自動調節機能のこと。",
+    funFact: "🌡️ 人間の体温は約36.5℃。これがたった4℃上がるだけで命に関わるんだ！",
+  },
+  "ミトコンドリア": {
+    emoji: "⚡",
+    title: "ミトコンドリア",
+    summary: "細胞のエネルギー工場！食べ物からATPというエネルギーを作り出す。",
+    keyPoint: "ミトコンドリアは酸素を使って有機物を分解し、ATPを大量に生産します。",
+    funFact: "🏭 ミトコンドリアは独自のDNAを持っている。昔は別の生物だったという説も！",
+  },
+  "リボソーム": {
+    emoji: "🏭",
+    title: "リボソーム",
+    summary: "タンパク質を作る小さな工場。DNAの設計図通りにアミノ酸を組み立てる！",
+    keyPoint: "リボソームはmRNAの情報を読み取り、アミノ酸をつなげてタンパク質を合成します。",
+    funFact: "🔧 1つの細胞に数百万個のリボソームがある。製造ラインがすごい！",
+  },
+  "組織": {
+    emoji: "🧩",
+    title: "組織（そしき）",
+    summary: "同じ形・同じ働きをする細胞が集まったグループ。筋組織・上皮組織などがある。",
+    keyPoint: "組織は同種の細胞が集合したもので、特定の機能を持つ構造単位です。",
+    funFact: "🎭 人体には4種類の組織（上皮・結合・筋・神経）がある。シンプル！",
+  },
+  "器官": {
+    emoji: "🫀",
+    title: "器官（きかん）",
+    summary: "複数の組織が組み合わさってできた、特定の仕事をする部分。心臓・肺・胃など。",
+    keyPoint: "器官は複数の組織が集まって特定の機能を果たす構造体です。",
+    funFact: "❤️ 心臓は1日に約10万回も拍動！一生で約30億回もポンプしてくれる！",
+  },
+  "骨格": {
+    emoji: "🦴",
+    title: "骨格（こっかく）",
+    summary: "体を支え、形を保ち、内臓を守る骨の集まり。体のフレーム！",
+    keyPoint: "骨格は206個の骨からなり、支持・保護・運動・造血の機能を持ちます。",
+    funFact: "💀 赤ちゃんは約300個の骨があるけど、成長するとくっついて206個になる！",
+  },
+  "筋": {
+    emoji: "💪",
+    title: "筋（きん）",
+    summary: "体を動かすための組織。骨格筋・心筋・平滑筋の3種類がある！",
+    keyPoint: "筋肉は収縮と弛緩によって運動を生み出す。随意筋と不随意筋がある。",
+    funFact: "😊 笑顔を作るには12個の筋肉、しかめっ面には62個の筋肉が必要！",
+  },
+  "血液": {
+    emoji: "🩸",
+    title: "血液（けつえき）",
+    summary: "体の中を流れる赤い液体。酸素や栄養を運び、病気と戦う！",
+    keyPoint: "血液は赤血球・白血球・血小板・血漿からなり、運搬・防御・止血の機能を持つ。",
+    funFact: "🌊 大人の体内には約5リットルの血液があり、1分で全身を1周する！",
+  },
+  "呼吸器系": {
+    emoji: "🌬️",
+    title: "呼吸器系（こきゅうきけい）",
+    summary: "空気を吸って酸素を取り入れ、二酸化炭素を出すシステム。鼻・気管・肺など。",
+    keyPoint: "呼吸器系は外呼吸（ガス交換）を行い、体中の細胞に酸素を届けます。",
+    funFact: "🫁 肺の表面積をぜんぶ広げるとテニスコート1面分の広さになる！",
+  },
+  "拍動性": {
+    emoji: "💓",
+    title: "拍動性（はくどうせい）",
+    summary: "心臓が規則正しくリズミカルに収縮する性質。自分の意志で止められない！",
+    keyPoint: "心筋は自動的にリズムを作る特殊な筋肉で、洞結節がペースメーカー役。",
+    funFact: "🎵 安静時の心拍数は1分間に約60〜80回。運動すると200回近くまで上がる！",
+  },
+  "ホメオスタシス（体液）": {
+    emoji: "💧",
+    title: "ホメオスタシス（体液）",
+    summary: "体液の量や成分を一定に保つしくみ。腎臓が大活躍！",
+    keyPoint: "腎臓は血液をろ過して老廃物を排出し、体液のバランスを維持します。",
+    funFact: "🧪 腎臓は1日に約180リットルの血液をろ過している！すごい処理能力！",
+  },
+};
+
+// デフォルトの解説を生成
+function getKeywordExplanation(keyword: string) {
+  if (KEYWORD_EXPLANATIONS[keyword]) {
+    return KEYWORD_EXPLANATIONS[keyword];
+  }
+  return {
+    emoji: "📚",
+    title: keyword,
+    summary: `「${keyword}」は看護・医療の重要なキーワードです。クイズに挑戦して理解を深めよう！`,
+    keyPoint: `${keyword}について、章のクイズで詳しく学べます。`,
+    funFact: "🎮 クイズに正解するとマスタリーが上がるよ！くり返し学習が大切！",
+  };
+}
+
 const chapters = [
   { id: 1, name: "細胞の国", subtitle: "生命の始まりを守れ", emoji: "🧬", color: "#f08080" },
   { id: 2, name: "器官の国", subtitle: "バランスの守護者", emoji: "🫀", color: "#b8a9c9" },
@@ -27,6 +178,7 @@ export default function ChapterMapScreen() {
   useEffect(() => { audio.playBGM("map"); }, []);
   const [selectedChapterId, setSelectedChapterId] = useState<number | null>(null);
   const [chapterPage, setChapterPage] = useState(0);
+  const [keywordModal, setKeywordModal] = useState<{ keyword: string; chapterColor: string } | null>(null);
 
   // 各章のキーワードを集約（事前学習用）
   const chapterKeywords = useMemo(() => {
@@ -159,28 +311,29 @@ export default function ChapterMapScreen() {
                   size="xs"
                   className="mt-2"
                 />
-                {/* キーワードタグ（事前学習） */}
+                {/* キーワードタグ（事前学習・タップで解説） */}
                 {chapterKeywords[ch.id]?.length > 0 && (
                   <div className="mt-2 flex flex-wrap gap-1">
                     {chapterKeywords[ch.id].map((kw) => (
-                      <span
+                      <button
                         key={kw}
-                        className="text-[9px] px-1.5 py-0.5 rounded-full font-medium"
-                        style={{ backgroundColor: ch.color + "18", color: ch.color }}
+                        onClick={() => setKeywordModal({ keyword: kw, chapterColor: ch.color })}
+                        className="text-[9px] px-1.5 py-0.5 rounded-full font-medium transition-all active:scale-95 hover:brightness-90"
+                        style={{ backgroundColor: ch.color + "22", color: ch.color, border: `1px solid ${ch.color}40` }}
                       >
                         {kw}
-                      </span>
+                      </button>
                     ))}
                   </div>
                 )}
-                <div className="mt-auto pt-2 flex items-center justify-between gap-2">
-                  <div className="text-[10px] text-warm-gray/45">
+                <div className="mt-auto pt-2">
+                  <div className="text-[10px] text-warm-gray/45 mb-1.5">
                     {bossDefeated ? "ボス撃破済み" : canChallenge ? "挑戦可能" : "未開放"}
                   </div>
                   <button
                     onClick={() => isUnlocked && setSelectedChapterId(ch.id)}
                     disabled={!isUnlocked}
-                    className={`px-4 py-2 text-xs rounded-xl font-bold transition-all ${isUnlocked
+                    className={`w-full py-3 text-sm rounded-xl font-bold transition-all ${isUnlocked
                       ? "bg-indigo-500 text-white shadow-md btn-press"
                       : "bg-gray-100 text-warm-gray/30"
                       }`}
@@ -341,6 +494,70 @@ export default function ChapterMapScreen() {
             })()}
           </div>
         )}
+      </Modal>
+
+      {/* キーワード解説モーダル */}
+      <Modal
+        open={!!keywordModal}
+        onClose={() => setKeywordModal(null)}
+        position="bottom"
+        showHandle
+      >
+        {keywordModal && (() => {
+          const info = getKeywordExplanation(keywordModal.keyword);
+          return (
+            <div className="pb-2">
+              {/* ヘッダー */}
+              <div className="flex items-center gap-3 mb-4">
+                <div
+                  className="w-14 h-14 rounded-2xl flex items-center justify-center text-3xl animate-float shadow-lg"
+                  style={{ background: `linear-gradient(135deg, ${keywordModal.chapterColor}30, ${keywordModal.chapterColor}15)` }}
+                >
+                  {info.emoji}
+                </div>
+                <div className="flex-1">
+                  <p className="text-[10px] font-bold tracking-widest uppercase" style={{ color: keywordModal.chapterColor }}>事前学習</p>
+                  <h3 className="text-base font-extrabold text-warm-gray">{info.title}</h3>
+                </div>
+              </div>
+
+              {/* メイン解説 */}
+              <div
+                className="rounded-2xl p-4 mb-3 border"
+                style={{ backgroundColor: keywordModal.chapterColor + "08", borderColor: keywordModal.chapterColor + "20" }}
+              >
+                <p className="text-sm text-warm-gray leading-relaxed font-medium">{info.summary}</p>
+              </div>
+
+              {/* ポイントカード */}
+              <div className="rounded-2xl p-3.5 mb-3 bg-gradient-to-r from-amber-50/80 to-yellow-50/60 border border-amber-100/60">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-sm">📌</span>
+                  <p className="text-[11px] font-bold text-amber-700 tracking-wider">おさえるポイント</p>
+                </div>
+                <p className="text-[12px] text-warm-gray/80 leading-relaxed">{info.keyPoint}</p>
+              </div>
+
+              {/* おもしろ豆知識 */}
+              <div className="rounded-2xl p-3.5 mb-4 bg-gradient-to-r from-purple-50/60 to-pink-50/60 border border-purple-100/50">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-sm animate-pulse">✨</span>
+                  <p className="text-[11px] font-bold text-purple-600 tracking-wider">おもしろ豆知識</p>
+                </div>
+                <p className="text-[12px] text-warm-gray/80 leading-relaxed">{info.funFact}</p>
+              </div>
+
+              {/* 閉じるボタン */}
+              <button
+                onClick={() => setKeywordModal(null)}
+                className="w-full py-3 rounded-xl font-bold text-sm text-white shadow-md btn-press"
+                style={{ background: `linear-gradient(135deg, ${keywordModal.chapterColor}, ${keywordModal.chapterColor}cc)` }}
+              >
+                わかった！ 💪
+              </button>
+            </div>
+          );
+        })()}
       </Modal>
     </ScreenLayout>
   );
