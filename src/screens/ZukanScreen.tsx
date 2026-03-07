@@ -8,6 +8,7 @@ import cardsData from "../data/cards.json";
 import itemsData from "../data/items.json";
 import bossesData from "../data/bosses.json";
 import heroesData from "../data/heroes.json";
+import { getLevelStatBonus } from "../logic/formationLogic";
 
 const allCards = cardsData as Card[];
 const allItems = itemsData as Item[];
@@ -303,9 +304,17 @@ export default function ZukanScreen() {
                           <p className="text-[10px] text-warm-gray/45 truncate">
                             Lv.{comp.level} EXP:{comp.exp} / 進化★{comp.evolutionStage}
                           </p>
-                          <p className="text-[10px] text-warm-gray/40 truncate">
-                            HP{comp.baseStats.hp} ATK{comp.baseStats.atk} DEF{comp.baseStats.def} SPD{comp.baseStats.spd ?? 12}
-                          </p>
+                          {(() => {
+                            const bonus = getLevelStatBonus(comp.level || 1);
+                            const atk = comp.baseStats.atk + bonus.atk;
+                            const def = comp.baseStats.def + bonus.def;
+                            const spd = (comp.baseStats.spd ?? 12) + bonus.spd;
+                            return (
+                              <p className="text-[10px] text-warm-gray/40 truncate">
+                                HP{comp.baseStats.hp} ATK{atk} DEF{def} SPD{spd}
+                              </p>
+                            );
+                          })()}
                         </div>
                       </div>
                     </div>

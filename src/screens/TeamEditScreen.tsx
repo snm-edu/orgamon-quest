@@ -8,6 +8,7 @@ import {
   normalizeBattleFormationIds,
   POSITION_EFFECT_LABELS,
   POSITION_LABELS,
+  getLevelStatBonus,
 } from "../logic/formationLogic";
 
 const heroes = heroesData as Hero[];
@@ -270,9 +271,17 @@ export default function TeamEditScreen() {
                           <p className="text-xs text-warm-gray/50 truncate">
                             Lv.{comp.level} {getCompanionTypeName(comp.type)}
                           </p>
-                          <p className="text-xs text-warm-gray/45">
-                            A{comp.baseStats.atk} D{comp.baseStats.def} S{comp.baseStats.spd ?? 12}
-                          </p>
+                          {(() => {
+                            const bonus = getLevelStatBonus(comp.level || 1);
+                            const atk = comp.baseStats.atk + bonus.atk;
+                            const def = comp.baseStats.def + bonus.def;
+                            const spd = (comp.baseStats.spd ?? 12) + bonus.spd;
+                            return (
+                              <p className="text-xs text-warm-gray/45">
+                                A{atk} D{def} S{spd}
+                              </p>
+                            );
+                          })()}
                         </div>
                       </div>
                     </button>

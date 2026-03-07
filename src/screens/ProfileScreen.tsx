@@ -4,6 +4,7 @@ import { useMetaStore } from "../stores/metaStore";
 import { useCollectionStore } from "../stores/collectionStore";
 import { getAllAchievements } from "../logic/achievementLogic";
 import { getTitleBonus } from "../logic/titleLogic";
+import { getLevelStatBonus } from "../logic/formationLogic";
 import { getHeroSkillLoadout, getSkillLearnCostMp } from "../logic/skillLogic";
 import { ScreenLayout, GlassCard, PastelButton, ProgressBar, Badge, Modal } from "../components/common";
 import heroesData from "../data/heroes.json";
@@ -163,8 +164,8 @@ export default function ProfileScreen() {
               key={entry.id}
               onClick={() => setTab(entry.id)}
               className={`min-h-11 text-[10px] font-medium rounded-lg transition-all ${tab === entry.id
-                  ? "glass-strong shadow-sm text-warm-gray"
-                  : "text-warm-gray/45 hover:text-warm-gray/70"
+                ? "glass-strong shadow-sm text-warm-gray"
+                : "text-warm-gray/45 hover:text-warm-gray/70"
                 }`}
             >
               <div className="leading-none mb-0.5">{entry.emoji}</div>
@@ -188,6 +189,18 @@ export default function ProfileScreen() {
             <div className="flex-1 min-w-0">
               <p className="font-bold text-sm text-warm-gray truncate">{currentRun.playerName}</p>
               <p className="text-[11px] text-warm-gray/50 truncate">{hero.name} Lv.{currentRun.level}</p>
+              {(() => {
+                const titleBonus = getTitleBonus(meta.activeTitle);
+                const levelBonus = getLevelStatBonus(currentRun.level);
+                const atk = hero.baseStats.atk + titleBonus.atk + levelBonus.atk;
+                const def = hero.baseStats.def + titleBonus.def + levelBonus.def;
+                const spd = hero.baseStats.spd + titleBonus.spd + levelBonus.spd;
+                return (
+                  <p className="text-[10px] text-indigo-500/80 truncate mt-0.5">
+                    ATK {atk} / DEF {def} / SPD {spd}
+                  </p>
+                );
+              })()}
             </div>
             <Badge variant="warning" size="xs" className="max-w-[50%] truncate">
               {meta.activeTitle}
@@ -297,10 +310,10 @@ export default function ProfileScreen() {
                       key={achievement.id}
                       onClick={() => setSelectedAchievementId(achievement.id)}
                       className={`rounded-lg border px-1.5 py-1 text-center transition-all flex flex-col justify-between ${unlocked
-                          ? "bg-pastel-green/18 border-green-200/55 hover:bg-pastel-green/28 btn-press"
-                          : isSecret
-                            ? "bg-gray-100/45 border-white/65 opacity-45"
-                            : "bg-white/72 border-white/80 hover:bg-white/90 btn-press"
+                        ? "bg-pastel-green/18 border-green-200/55 hover:bg-pastel-green/28 btn-press"
+                        : isSecret
+                          ? "bg-gray-100/45 border-white/65 opacity-45"
+                          : "bg-white/72 border-white/80 hover:bg-white/90 btn-press"
                         }`}
                     >
                       <p className="text-base leading-none">
@@ -336,8 +349,8 @@ export default function ProfileScreen() {
                       key={title}
                       onClick={() => setActiveTitle(title)}
                       className={`text-left rounded-xl border p-2.5 transition-all ${isActive
-                          ? "bg-coral/12 border-coral/35"
-                          : "bg-white/70 border-white/75 hover:bg-white/85 btn-press"
+                        ? "bg-coral/12 border-coral/35"
+                        : "bg-white/70 border-white/75 hover:bg-white/85 btn-press"
                         }`}
                     >
                       <div className="flex items-center gap-2.5">
@@ -440,8 +453,8 @@ export default function ProfileScreen() {
                         onClick={() => handleLearnSkill(skill.id, skill.name, learnCost)}
                         disabled={!canLearn}
                         className={`mt-auto min-h-10 text-[12px] rounded-lg font-bold transition-all ${canLearn
-                            ? "bg-coral/15 text-coral hover:bg-coral/25 btn-press"
-                            : "bg-gray-100/80 text-warm-gray/35"
+                          ? "bg-coral/15 text-coral hover:bg-coral/25 btn-press"
+                          : "bg-gray-100/80 text-warm-gray/35"
                           }`}
                       >
                         {canLearn ? `習得する (${learnCost}MP)` : `MP不足 (${learnCost}MP)`}
@@ -455,8 +468,8 @@ export default function ProfileScreen() {
                               key={slotIndex}
                               onClick={() => handleEquipSkill(skill.id, slotIndex, skill.name)}
                               className={`min-h-9 text-[10px] rounded-lg font-semibold transition-all ${active
-                                  ? "bg-pastel-green/35 text-green-700"
-                                  : "bg-indigo-100/60 text-indigo-600 hover:bg-indigo-200/60 btn-press"
+                                ? "bg-pastel-green/35 text-green-700"
+                                : "bg-indigo-100/60 text-indigo-600 hover:bg-indigo-200/60 btn-press"
                                 }`}
                             >
                               {active ? `S${slotIndex + 1} 装備中` : `S${slotIndex + 1}に装備`}
@@ -485,8 +498,8 @@ export default function ProfileScreen() {
                     <div
                       key={skinId}
                       className={`rounded-xl border p-3 ${unlocked
-                          ? "bg-white/70 border-white/75"
-                          : "bg-gray-100/45 border-white/65 opacity-45"
+                        ? "bg-white/70 border-white/75"
+                        : "bg-gray-100/45 border-white/65 opacity-45"
                         }`}
                     >
                       <div className="flex items-center gap-2.5 h-full">
@@ -530,8 +543,8 @@ export default function ProfileScreen() {
               }
               disabled={clampedPage === 0}
               className={`flex-1 min-h-10 rounded-lg text-sm font-bold ${clampedPage === 0
-                  ? "bg-gray-100 text-warm-gray/30"
-                  : "bg-indigo-100/70 text-indigo-700 btn-press"
+                ? "bg-gray-100 text-warm-gray/30"
+                : "bg-indigo-100/70 text-indigo-700 btn-press"
                 }`}
             >
               ← 前へ
@@ -545,8 +558,8 @@ export default function ProfileScreen() {
               }
               disabled={clampedPage >= totalPages - 1}
               className={`flex-1 min-h-10 rounded-lg text-sm font-bold ${clampedPage >= totalPages - 1
-                  ? "bg-gray-100 text-warm-gray/30"
-                  : "bg-indigo-100/70 text-indigo-700 btn-press"
+                ? "bg-gray-100 text-warm-gray/30"
+                : "bg-indigo-100/70 text-indigo-700 btn-press"
                 }`}
             >
               次へ →
@@ -620,8 +633,8 @@ export default function ProfileScreen() {
                       key={cardId}
                       onClick={() => handleSelectFavorite(cardId)}
                       className={`text-[10px] px-2 py-1 rounded-lg transition-all btn-press ${isFav
-                          ? "bg-coral/15 text-coral font-bold ring-1 ring-coral/50"
-                          : "bg-gray-100/70 text-warm-gray/55 hover:bg-gray-200/70"
+                        ? "bg-coral/15 text-coral font-bold ring-1 ring-coral/50"
+                        : "bg-gray-100/70 text-warm-gray/55 hover:bg-gray-200/70"
                         }`}
                     >
                       {card.name}
