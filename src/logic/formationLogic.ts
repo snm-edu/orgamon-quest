@@ -115,11 +115,13 @@ export function buildFormation(
   companions.slice(0, 2).forEach((member) => {
     const memberSpeed = typeof member.baseStats.spd === "number" ? member.baseStats.spd : 12;
     const normalizedStats = { atk: member.baseStats.atk, def: member.baseStats.def, spd: memberSpeed };
+    // 仲間キャラのレベル（未設定時は1として扱う）に基づいてステータス増強
+    const leveledStats = applyLevelBonus(normalizedStats, member.level || 1);
     memberById.set(member.id, {
       id: member.id,
       name: member.name,
       role: "companion",
-      baseStats: normalizedStats,
+      baseStats: leveledStats,
       companionType: member.type,
     });
   });
