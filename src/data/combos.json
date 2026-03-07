@@ -1,5 +1,143 @@
 [
-  {"id":"minato_leon","name":"ショック対応ライン","requiredHeroes":["minato","leon"],"effects":[{"type":"heal_homeostasis","value":6}],"description":"ミナトのケアプランとレオンの流量チューニングが連携。ホメオスタシス+6。"},
-  {"id":"hikari_kotoha","name":"観察と予防のループ","requiredHeroes":["hikari","kotoha"],"effects":[{"type":"safe_net","value":1,"condition":"block_misinformation"},{"type":"xp_boost","value":10,"condition":"review_quest"}],"description":"ヒカリの精密読解とコトハの継続ケアが相乗。誤情報ブロック＋復習報酬+10%。"},
-  {"id":"all_four","name":"多職種カンファレンス","requiredHeroes":["minato","hikari","kotoha","leon"],"effects":[{"type":"reduce_choices","value":2},{"type":"reduce_cd","value":1,"condition":"all_team"}],"description":"4人揃うと選択肢を2つに減らし、全員のスキルCD-1。多職種連携の真髄。"}
+  {
+    "id": "minato_leon",
+    "name": "ショック対応ライン",
+    "requiredHeroes": [
+      "minato",
+      "leon"
+    ],
+    "effects": [
+      {
+        "type": "heal_homeostasis",
+        "value": 8
+      }
+    ],
+    "description": "ミナトのケアプランとレオンの流量チューニングが連携。ホメオスタシス+8。"
+  },
+  {
+    "id": "hikari_kotoha",
+    "name": "観察と予防のループ",
+    "requiredHeroes": [
+      "hikari",
+      "kotoha"
+    ],
+    "effects": [
+      {
+        "type": "safe_net",
+        "value": 1,
+        "condition": "block_misinformation"
+      },
+      {
+        "type": "xp_boost",
+        "value": 15,
+        "condition": "review_quest"
+      }
+    ],
+    "description": "ヒカリの精密読解とコトハの継続ケアが相乗。誤情報ブロック＋復習報酬+15%。"
+  },
+  {
+    "id": "minato_hikari",
+    "name": "精密バイタルチェック",
+    "requiredHeroes": [
+      "minato",
+      "hikari"
+    ],
+    "effects": [
+      {
+        "type": "hint",
+        "value": 1
+      },
+      {
+        "type": "time_extend",
+        "value": 15
+      }
+    ],
+    "description": "ミナトのバイタル観察とヒカリの視覚分析が融合。ヒント表示＋制限時間+15%。"
+  },
+  {
+    "id": "minato_kotoha",
+    "name": "全身ケアプロトコル",
+    "requiredHeroes": [
+      "minato",
+      "kotoha"
+    ],
+    "effects": [
+      {
+        "type": "heal_homeostasis",
+        "value": 5
+      },
+      {
+        "type": "mastery_boost",
+        "value": 10
+      }
+    ],
+    "description": "ミナトの看護ケアとコトハの口腔→全身管理。ホメオスタシス+5、マスタリー+10%。"
+  },
+  {
+    "id": "leon_hikari",
+    "name": "データビジュアライズ",
+    "requiredHeroes": [
+      "leon",
+      "hikari"
+    ],
+    "effects": [
+      {
+        "type": "reduce_choices",
+        "value": 1
+      },
+      {
+        "type": "safe_net",
+        "value": 1,
+        "duration": 1
+      }
+    ],
+    "description": "レオンの機器データとヒカリの視覚解析。選択肢1つ削減＋セーフティネット。"
+  },
+  {
+    "id": "leon_kotoha",
+    "name": "予防メンテナンス",
+    "requiredHeroes": [
+      "leon",
+      "kotoha"
+    ],
+    "effects": [
+      {
+        "type": "reduce_cd",
+        "value": 1,
+        "condition": "all_team"
+      },
+      {
+        "type": "reduce_penalty",
+        "value": 30,
+        "duration": 1
+      }
+    ],
+    "description": "レオンの機器保守とコトハの予防管理。全員CD-1＋ペナルティ-30%。"
+  },
+  {
+    "id": "all_four",
+    "name": "多職種カンファレンス",
+    "requiredHeroes": [
+      "minato",
+      "hikari",
+      "kotoha",
+      "leon"
+    ],
+    "effects": [
+      {
+        "type": "reduce_choices",
+        "value": 2
+      },
+      {
+        "type": "reduce_cd",
+        "value": 1,
+        "condition": "all_team"
+      },
+      {
+        "type": "heal_homeostasis",
+        "value": 10
+      }
+    ],
+    "description": "4人揃うと選択肢を2択に減らし、全員のスキルCD-1、ホメオスタシス+10。多職種連携の真髄。"
+  }
 ]

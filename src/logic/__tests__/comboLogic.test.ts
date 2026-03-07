@@ -32,6 +32,20 @@ describe('checkTeamCombo', () => {
     expect(combo!.id).toBe('hikari_kotoha');
   });
 
+  it('ミナト+ヒカリで精密バイタルチェック発動', () => {
+    const team = [makeCompanion('hikari')];
+    const combo = checkTeamCombo('minato', team);
+    expect(combo).not.toBeNull();
+    expect(combo!.id).toBe('minato_hikari');
+  });
+
+  it('レオン+コトハで予防メンテナンス発動', () => {
+    const team = [makeCompanion('kotoha')];
+    const combo = checkTeamCombo('leon', team);
+    expect(combo).not.toBeNull();
+    expect(combo!.id).toBe('leon_kotoha');
+  });
+
   it('4人揃うと多職種カンファレンス発動（最優先）', () => {
     const team = [
       makeCompanion('hikari'),
@@ -64,28 +78,43 @@ describe('getComboBonus', () => {
     const combo = getAllCombos().find((c) => c.id === 'minato_leon');
     expect(combo).toBeDefined();
     const bonus = getComboBonus(combo!);
-    expect(bonus).toBe(6);
+    expect(bonus).toBe(8);
   });
 });
 
 describe('applyComboEffects', () => {
-  it('minato_leonコンボ: ホメオスタシス回復+6', () => {
+  it('minato_leonコンボ: ホメオスタシス回復+8', () => {
     const combo = getAllCombos().find((c) => c.id === 'minato_leon')!;
     const effects = applyComboEffects(combo);
-    expect(effects.healHomeostasis).toBe(6);
+    expect(effects.healHomeostasis).toBe(8);
   });
 
   it('hikari_kotohaコンボ: 誤情報ブロック + XPブースト', () => {
     const combo = getAllCombos().find((c) => c.id === 'hikari_kotoha')!;
     const effects = applyComboEffects(combo);
     expect(effects.blockMisinformation).toBe(true);
-    expect(effects.xpBoost).toBe(10);
+    expect(effects.xpBoost).toBe(15);
   });
 
-  it('all_fourコンボ: 選択肢削減 + CD減少', () => {
+  it('minato_hikariコンボ: ヒント + 時間延長', () => {
+    const combo = getAllCombos().find((c) => c.id === 'minato_hikari')!;
+    const effects = applyComboEffects(combo);
+    expect(effects.showHint).toBe(true);
+    expect(effects.timeExtend).toBe(15);
+  });
+
+  it('leon_hikariコンボ: 選択肢削減 + セーフティネット', () => {
+    const combo = getAllCombos().find((c) => c.id === 'leon_hikari')!;
+    const effects = applyComboEffects(combo);
+    expect(effects.reduceChoices).toBe(1);
+    expect(effects.safeNet).toBe(true);
+  });
+
+  it('all_fourコンボ: 選択肢削減 + CD減少 + 回復', () => {
     const combo = getAllCombos().find((c) => c.id === 'all_four')!;
     const effects = applyComboEffects(combo);
     expect(effects.reduceChoices).toBe(2);
     expect(effects.reduceCooldowns).toBe(1);
+    expect(effects.healHomeostasis).toBe(10);
   });
 });

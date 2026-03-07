@@ -310,5 +310,170 @@
     ],
     "evolutionStage": 0,
     "imageUrl": "/orgamon-quest/images/companions/set1/comp1_2.png?v=2"
+  },
+  {
+    "id": "hero_minato",
+    "name": "ミナト",
+    "heroRef": "minato",
+    "type": "hero",
+    "rarity": "Epic",
+    "level": 1,
+    "exp": 0,
+    "baseStats": {
+      "hp": 100,
+      "atk": 20,
+      "def": 18,
+      "spd": 16
+    },
+    "skills": [
+      {
+        "id": "minato_care_plan",
+        "name": "ケアプラン実行",
+        "type": "active",
+        "cooldown": 3,
+        "description": "ホメオスタシス+8",
+        "effects": [
+          {
+            "type": "heal_homeostasis",
+            "value": 8
+          }
+        ]
+      }
+    ],
+    "evolutionLine": [
+      "見習いナース",
+      "トリアージナース",
+      "ホメオスタシス指揮官"
+    ],
+    "evolutionStage": 0,
+    "imageUrl": "/orgamon-quest/images/heroes/minato.png"
+  },
+  {
+    "id": "hero_hikari",
+    "name": "ヒカリ",
+    "heroRef": "hikari",
+    "type": "hero",
+    "rarity": "Epic",
+    "level": 1,
+    "exp": 0,
+    "baseStats": {
+      "hp": 90,
+      "atk": 18,
+      "def": 15,
+      "spd": 21
+    },
+    "skills": [
+      {
+        "id": "hikari_visual_mapping",
+        "name": "視野マッピング",
+        "type": "active",
+        "cooldown": 2,
+        "description": "ヒント表示＋誤情報デバフ解除",
+        "effects": [
+          {
+            "type": "hint",
+            "value": 1,
+            "condition": "gray_out_noise"
+          },
+          {
+            "type": "cleanse_debuff",
+            "value": 1,
+            "condition": "misinformation"
+          }
+        ]
+      }
+    ],
+    "evolutionLine": [
+      "ビジョンアシスト",
+      "視機能アナリスト",
+      "ニューロビジョンマスター"
+    ],
+    "evolutionStage": 0,
+    "imageUrl": "/orgamon-quest/images/heroes/hikari.png"
+  },
+  {
+    "id": "hero_kotoha",
+    "name": "コトハ",
+    "heroRef": "kotoha",
+    "type": "hero",
+    "rarity": "Epic",
+    "level": 1,
+    "exp": 0,
+    "baseStats": {
+      "hp": 95,
+      "atk": 17,
+      "def": 20,
+      "spd": 14
+    },
+    "skills": [
+      {
+        "id": "kotoha_plaque_clean",
+        "name": "プラーククリーン",
+        "type": "active",
+        "cooldown": 2,
+        "description": "デバフ1つ解除＋ペナルティ-30%",
+        "effects": [
+          {
+            "type": "cleanse_debuff",
+            "value": 1
+          },
+          {
+            "type": "reduce_penalty",
+            "value": 30,
+            "duration": 1
+          }
+        ]
+      }
+    ],
+    "evolutionLine": [
+      "予防ケア担当",
+      "行動変容コーチ",
+      "ライフロングケアマスター"
+    ],
+    "evolutionStage": 0,
+    "imageUrl": "/orgamon-quest/images/heroes/kotoha.png"
+  },
+  {
+    "id": "hero_leon",
+    "name": "レオン",
+    "heroRef": "leon",
+    "type": "hero",
+    "rarity": "Epic",
+    "level": 1,
+    "exp": 0,
+    "baseStats": {
+      "hp": 95,
+      "atk": 19,
+      "def": 17,
+      "spd": 18
+    },
+    "skills": [
+      {
+        "id": "leon_troubleshoot",
+        "name": "トラブルシュート",
+        "type": "active",
+        "cooldown": 3,
+        "description": "機器故障解除＋ランダム味方CD-1",
+        "effects": [
+          {
+            "type": "cleanse_debuff",
+            "value": 1,
+            "condition": "equipment_malfunction"
+          },
+          {
+            "type": "reduce_cd",
+            "value": 1,
+            "condition": "random_ally"
+          }
+        ]
+      }
+    ],
+    "evolutionLine": [
+      "モニタテック",
+      "システムエンジニア",
+      "生命維持システムマスター"
+    ],
+    "evolutionStage": 0,
+    "imageUrl": "/orgamon-quest/images/heroes/leon.png"
   }
 ]

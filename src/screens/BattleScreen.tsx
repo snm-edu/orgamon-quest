@@ -13,7 +13,7 @@ import { addCompanionExp } from "../logic/companionLogic";
 import { ProgressBar, Badge, Modal, PastelButton, ParticleEffect } from "../components/common";
 import { audio } from "../utils/audio";
 import cardsData from "../data/cards.json";
-import type { Question, Skill, Card } from "../types";
+import type { Question, Skill, Card, Companion } from "../types";
 
 const allCards = cardsData as Card[];
 const BASE_TIME_LIMIT = 25;
@@ -170,6 +170,10 @@ export default function BattleScreen() {
       if (combo) {
         const comboFx = applyComboEffects(combo);
         if (comboFx.healHomeostasis > 0) addHomeostasis(comboFx.healHomeostasis);
+        if (comboFx.showHint && questions[round]?.keywords?.length) setHintKeyword(questions[round].keywords![0]);
+        if (comboFx.timeExtend > 0) setTimeLeft((p) => p + Math.ceil(p * comboFx.timeExtend / 100));
+        if (comboFx.safeNet) setSafeNet(true);
+        if (comboFx.reduceCooldowns > 0) { for (let i = 0; i < comboFx.reduceCooldowns; i++) tickCooldowns(); }
         setComboMessage(`💥 コンボ発動: ${combo.name}！`);
         setTimeout(() => setComboMessage(null), 2000);
       }
@@ -331,6 +335,10 @@ export default function BattleScreen() {
 
   if (battleFinished) {
     const won = battleResult === "win";
+    const gameState2 = useGameStore.getState() as Record<string, unknown>;
+    const recruitedHero = gameState2._lastRecruitedHero as Companion | null;
+    const updatedRun2 = useGameStore.getState().currentRun;
+    const activeCombo = updatedRun2 ? checkTeamCombo(updatedRun2.selectedHeroId, updatedRun2.team) : null;
     return (
       <div className="h-[100dvh] px-4 py-6 flex flex-col items-center justify-center relative overflow-hidden">
         <ParticleEffect type={won ? "confetti" : "stars"} active={showVictoryParticles} count={won ? 20 : 8} />
@@ -342,8 +350,29 @@ export default function BattleScreen() {
           <p className="text-sm text-warm-gray/50 mb-2">vs {boss.name} (Ch.{chapter})</p>
           <p className="text-sm text-warm-gray/50">ホメオスタシス: {currentRun.homeostasis}/100{!won && " (70以上でクリア)"}</p>
         </div>
+        {won && recruitedHero && (
+          <div className="w-full glass-strong rounded-2xl p-5 shadow-lg mt-4 relative z-10 animate-slide-up border-2 border-amber-300/60">
+            <div className="text-center mb-3">
+              <p className="text-xs text-amber-600 font-bold mb-1">⭐ 新たな仲間が加わった！</p>
+              <div className="w-16 h-16 mx-auto rounded-full overflow-hidden shadow-md border-2 border-amber-300 mb-2">
+                {recruitedHero.imageUrl
+                  ? <img src={recruitedHero.imageUrl} alt={recruitedHero.name} className="w-full h-full object-cover" />
+                  : <div className="w-full h-full bg-amber-100 flex items-center justify-center text-2xl">⭐</div>
+                }
+              </div>
+              <p className="text-lg font-extrabold text-warm-gray">{recruitedHero.name}</p>
+              <p className="text-xs text-warm-gray/50">ヒーロー仲間としてチームに加入！</p>
+            </div>
+            {activeCombo && (
+              <div className="bg-pastel-pink/20 rounded-xl p-2.5 border border-pink-200/50">
+                <p className="text-xs font-bold text-pink-600">💥 コンボ解放: {activeCombo.name}</p>
+                <p className="text-xs text-warm-gray/50">{activeCombo.description}</p>
+              </div>
+            )}
+          </div>
+        )}
         {won && boss.rewards && (
-          <div className="w-full glass-strong rounded-2xl p-5 shadow-md mt-6 relative z-10 animate-slide-up">
+          <div className="w-full glass-strong rounded-2xl p-5 shadow-md mt-4 relative z-10 animate-slide-up">
             <h3 className="text-sm font-bold text-warm-gray mb-3">🎁 撃破報酬</h3>
             <div className="grid grid-cols-2 gap-3">
               <div className="bg-pastel-blue/20 rounded-xl p-3 text-center"><p className="text-xs text-warm-gray/40">MP</p><p className="text-lg font-bold text-blue-600">+{boss.rewards.mp}</p></div>
@@ -354,10 +383,10 @@ export default function BattleScreen() {
             )}
           </div>
         )}
-        <div className="w-full space-y-3 mt-6 relative z-10">
+        <div className="w-full space-y-3 mt-4 relative z-10">
           {won ? (
             <PastelButton fullWidth size="lg" gradient="coral" icon="📖" onClick={() => {
-              useGameStore.setState((s) => ({ ...s, _storyChapter: chapter, _storyTiming: chapter === 9 ? "game_ending" : "post_boss" } as typeof s));
+              useGameStore.setState((s) => ({ ...s, _storyChapter: chapter, _storyTiming: chapter === 9 ? "game_ending" : "post_boss", _lastRecruitedHero: null } as typeof s));
               audio.playBGM("map");
               setScreen("story");
             }}>ストーリーを見る →</PastelButton>

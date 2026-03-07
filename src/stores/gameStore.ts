@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import heroesData from "../data/heroes.json";
+import companionsData from "../data/companions.json";
 import { getHeroSkillLoadout } from "../logic/skillLogic";
 import { normalizeBattleFormationIds } from "../logic/formationLogic";
 import type {
@@ -389,7 +390,36 @@ export const useGameStore = create<GameState>()(
           if (chapter < 9 && cp[chapter + 1]) {
             cp[chapter + 1] = { ...cp[chapter + 1], unlocked: true };
           }
-          return { currentRun: { ...s.currentRun, chapterProgress: cp } };
+
+          // ヒーロー仲間のランダム加入 (Ch.2, Ch.4, Ch.6 ボスクリア時)
+          let newTeam = [...s.currentRun.team];
+          let recruitedHero: Companion | null = null;
+          const RECRUIT_CHAPTERS = [2, 4, 6];
+          if (RECRUIT_CHAPTERS.includes(chapter)) {
+            const heroId = s.currentRun.selectedHeroId;
+            const existingHeroRefs = new Set(
+              newTeam.map((c) => c.heroRef).filter(Boolean)
+            );
+            existingHeroRefs.add(heroId); // 自分のヒーローも除外
+
+            const heroCompanions = (companionsData as Companion[]).filter(
+              (c) => c.type === "hero" && c.heroRef && !existingHeroRefs.has(c.heroRef)
+            );
+
+            if (heroCompanions.length > 0) {
+              const randomIdx = Math.floor(Math.random() * heroCompanions.length);
+              recruitedHero = { ...heroCompanions[randomIdx] };
+              newTeam = [...newTeam, recruitedHero];
+            }
+          }
+
+          const result: Record<string, unknown> = {
+            currentRun: { ...s.currentRun, chapterProgress: cp, team: newTeam },
+          };
+          if (recruitedHero) {
+            result._lastRecruitedHero = recruitedHero;
+          }
+          return result as Partial<GameState>;
         }),
 
       updateChapterMastery: (chapter, update) =>

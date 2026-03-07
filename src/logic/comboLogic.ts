@@ -44,6 +44,11 @@ export function applyComboEffects(
   reduceCooldowns: number;
   blockMisinformation: boolean;
   xpBoost: number;
+  showHint: boolean;
+  timeExtend: number;
+  masteryBoost: number;
+  reducePenalty: number;
+  safeNet: boolean;
 } {
   const result = {
     healHomeostasis: 0,
@@ -51,6 +56,11 @@ export function applyComboEffects(
     reduceCooldowns: 0,
     blockMisinformation: false,
     xpBoost: 0,
+    showHint: false,
+    timeExtend: 0,
+    masteryBoost: 0,
+    reducePenalty: 0,
+    safeNet: false,
   };
 
   for (const effect of combo.effects) {
@@ -67,9 +77,23 @@ export function applyComboEffects(
       case "safe_net":
         if (effect.condition === "block_misinformation")
           result.blockMisinformation = true;
+        else
+          result.safeNet = true;
         break;
       case "xp_boost":
         result.xpBoost += effect.value;
+        break;
+      case "hint":
+        result.showHint = true;
+        break;
+      case "time_extend":
+        result.timeExtend += effect.value;
+        break;
+      case "mastery_boost":
+        result.masteryBoost += effect.value;
+        break;
+      case "reduce_penalty":
+        result.reducePenalty += effect.value;
         break;
     }
   }
