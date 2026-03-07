@@ -6,6 +6,10 @@ import { useDailyStore } from "../stores/dailyStore";
 import { isValidPasswordFormat } from "../logic/passwordLogic";
 import { ScreenLayout, GlassCard, PastelButton, Badge } from "../components/common";
 import TutorialModal from "../components/TutorialModal";
+import companionsData from "../data/companions.json";
+import cardsData from "../data/cards.json";
+import itemsData from "../data/items.json";
+import type { Companion, Card } from "../types";
 
 export default function SettingsScreen() {
   const setScreen = useGameStore((s) => s.setScreen);
@@ -40,7 +44,62 @@ export default function SettingsScreen() {
 
     if (trimmed === "SNM8018343") {
       for (let i = 1; i <= 9; i++) unlockChapter(i);
-      setMsg("🔧 開発者用パスワードを確認：全章を解放しました！", false);
+
+      useGameStore.setState((s) => {
+        if (!s.currentRun) return s;
+        const heroId = s.currentRun.selectedHeroId;
+
+        const allCompanions = (companionsData as Companion[]).filter(
+          (c) => !(c.type === "hero" && c.heroRef === heroId)
+        );
+        const maxedCompanions = allCompanions.map((c) => ({
+          ...c,
+          level: 99,
+          exp: 99999,
+          evolutionStage: Math.max(0, (c.evolutionLine?.length || 1) - 1),
+        }));
+
+        const allCards = cardsData as Card[];
+        const maxedCards: Record<string, { stage: number; count: number; skin: string }> = {};
+        for (const card of allCards) {
+          maxedCards[card.id] = {
+            stage: Math.max(0, (card.evolutionLine?.length || 1) - 1),
+            count: 5,
+            skin: "normal",
+          };
+        }
+
+        const allItems = itemsData as { id: string }[];
+        const maxedItems: Record<string, number> = {};
+        for (const item of allItems) {
+          maxedItems[item.id] = 99;
+        }
+
+        const cp = { ...s.currentRun.chapterProgress };
+        for (let i = 1; i <= 9; i++) {
+          if (cp[i]) {
+            cp[i] = { ...cp[i], unlocked: true, bossDefeated: true, mastery: 100, miniQuizBest: 100, confirmQuizBest: 100 };
+          }
+        }
+
+        return {
+          currentRun: {
+            ...s.currentRun,
+            level: 99,
+            totalXP: 999999,
+            mp: 99999,
+            fragments: 9999,
+            captureEnergy: 999,
+            team: maxedCompanions.filter((c) => c.type === "hero"),
+            ownedCompanions: maxedCompanions,
+            ownedCards: maxedCards,
+            ownedItems: maxedItems,
+            chapterProgress: cp,
+          },
+        };
+      });
+
+      setMsg("🔧 開発者モード：全解放・全仲間/カード/アイテムMAX化！", false);
       setPasswordInput("");
       return;
     }
@@ -111,11 +170,10 @@ export default function SettingsScreen() {
             <button
               key={d.id}
               onClick={() => setDifficulty(d.id)}
-              className={`w-full text-left p-3 rounded-xl transition-all btn-press ${
-                difficulty === d.id
+              className={`w-full text-left p-3 rounded-xl transition-all btn-press ${difficulty === d.id
                   ? "bg-white/90 ring-2 shadow-sm"
                   : "bg-white/40 hover:bg-white/60"
-              }`}
+                }`}
               style={difficulty === d.id ? { boxShadow: `0 0 0 2px ${d.color}` } : {}}
             >
               <div className="flex items-center gap-3">
