@@ -34,7 +34,7 @@
       "ケアマスター"
     ],
     "evolutionStage": 0,
-    "imageUrl": "/orgamon-quest/images/custom/nurse_aya.png?v=4"
+    "imageUrl": "/orgamon-quest/images/custom/nurse_aya_portrait_1772861515336.png?v=5"
   },
   {
     "id": "nurse_sora",
@@ -113,7 +113,7 @@
       "看護スペシャリスト"
     ],
     "evolutionStage": 0,
-    "imageUrl": "/orgamon-quest/images/custom/nurse_rei_portrait_1772860246363.png?v=4"
+    "imageUrl": "/orgamon-quest/images/custom/nurse_rei_portrait_1772861528982.png?v=5"
   },
   {
     "id": "researcher_kento",
@@ -150,7 +150,7 @@
       "ラボチーフ"
     ],
     "evolutionStage": 0,
-    "imageUrl": "/orgamon-quest/images/companions/set1/comp1_1.png?v=2"
+    "imageUrl": "/orgamon-quest/images/custom/researcher_kent_portrait_1772861543387.png?v=5"
   },
   {
     "id": "researcher_yuki",
@@ -230,7 +230,7 @@
       "最前線の盾"
     ],
     "evolutionStage": 0,
-    "imageUrl": "/orgamon-quest/images/custom/guardian_takeshi_portrait_1772860259959.png?v=4"
+    "imageUrl": "/orgamon-quest/images/custom/guardian_takeshi_portrait_1772861556789.png?v=5"
   },
   {
     "id": "guardian_mio",
@@ -309,7 +309,7 @@
       "絶対防御者"
     ],
     "evolutionStage": 0,
-    "imageUrl": "/orgamon-quest/images/custom/guardian_ryu_portrait_1772860271801.png?v=4"
+    "imageUrl": "/orgamon-quest/images/custom/guardian_ryu_portrait_1772861569722.png?v=5"
   },
   {
     "id": "hero_minato",
