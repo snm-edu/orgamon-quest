@@ -16,7 +16,7 @@
     "attackPower": 12,
     "attribute": "防御",
     "description": "細胞の境界を守る生体膜。物質の出入りを制御する。",
-    "imageUrl": "/orgamon-quest/images/cards/set2/item2_11.png?v=2"
+    "imageUrl": "/orgamon-quest/images/custom/organ_cell.png?v=4"
   },
   {
     "id": "mitochondria",
@@ -35,7 +35,7 @@
     "attackPower": 18,
     "attribute": "エネルギー",
     "description": "細胞のエネルギー工場。ATPを産生する。",
-    "imageUrl": "/orgamon-quest/images/cards/set2/item2_5.png?v=2"
+    "imageUrl": "/orgamon-quest/images/custom/mitochondria_icon_1772860285510.png?v=4"
   },
   {
     "id": "ribosome",
@@ -54,7 +54,7 @@
     "attackPower": 10,
     "attribute": "合成",
     "description": "タンパク質合成の場。mRNAを読み翻訳する。",
-    "imageUrl": "/orgamon-quest/images/cards/set2/item2_6.png?v=2"
+    "imageUrl": "/orgamon-quest/images/custom/ribosome_icon_1772860491142.png?v=4"
   },
   {
     "id": "nucleus",
@@ -92,7 +92,7 @@
     "attackPower": 48,
     "attribute": "遺伝",
     "description": "生命の設計図。二重らせん構造の遺伝物質。",
-    "imageUrl": "/orgamon-quest/images/cards/set2/item2_3.png?v=2"
+    "imageUrl": "/orgamon-quest/images/custom/organ_dna.png?v=4"
   },
   {
     "id": "golgi_body",
@@ -130,7 +130,7 @@
     "attackPower": 15,
     "attribute": "合成",
     "description": "粗面・滑面小胞体がタンパク質・脂質を合成。",
-    "imageUrl": "/orgamon-quest/images/cards/set2/item2_12.png?v=2"
+    "imageUrl": "/orgamon-quest/images/custom/er_icon_1772860385192.png?v=4"
   },
   {
     "id": "lysosome",
@@ -263,7 +263,7 @@
     "attackPower": 17,
     "attribute": "支持",
     "description": "脊柱を構成する椎骨の連鎖。体を支える。",
-    "imageUrl": "/orgamon-quest/images/cards/set2/item2_8.png?v=2"
+    "imageUrl": "/orgamon-quest/images/custom/vertebra_chain_icon_1772860297237.png?v=4"
   },
   {
     "id": "joint_link",
@@ -320,7 +320,7 @@
     "attackPower": 12,
     "attribute": "酸素",
     "description": "酸素を全身に運ぶ赤い細胞。ヘモグロビンを有する。",
-    "imageUrl": "/orgamon-quest/images/cards/set2/item2_10.png?v=2"
+    "imageUrl": "/orgamon-quest/images/custom/organ_blood.png?v=4"
   },
   {
     "id": "white_blood_guard",
@@ -377,7 +377,7 @@
     "attackPower": 27,
     "attribute": "酸素",
     "description": "赤血球内で酸素と結合・運搬するタンパク質。",
-    "imageUrl": "/orgamon-quest/images/cards/set2/item2_13.png?v=2"
+    "imageUrl": "/orgamon-quest/images/custom/hemoglobin_icon_1772860354013.png?v=4"
   },
   {
     "id": "antibody_eagle",
@@ -415,7 +415,7 @@
     "attackPower": 15,
     "attribute": "輸送",
     "description": "血球を浮かべる液体成分。栄養・老廃物を運ぶ。",
-    "imageUrl": "/orgamon-quest/images/cards/set2/item2_14.png?v=2"
+    "imageUrl": "/orgamon-quest/images/custom/plasma_icon_1772860365805.png?v=4"
   },
   {
     "id": "gastric_acid_fortress",
@@ -453,7 +453,7 @@
     "attackPower": 16,
     "attribute": "吸収",
     "description": "小腸の突起。表面積を増やし栄養を吸収。",
-    "imageUrl": "/orgamon-quest/images/cards/set2/item2_7.png?v=2"
+    "imageUrl": "/orgamon-quest/images/custom/organ_stomach.png?v=4"
   },
   {
     "id": "liver_factory",
@@ -472,7 +472,7 @@
     "attackPower": 29,
     "attribute": "代謝",
     "description": "解毒・代謝・胆汁産生を担う最大の臓器。",
-    "imageUrl": "/orgamon-quest/images/cards/set2/item2_2.png?v=2"
+    "imageUrl": "/orgamon-quest/images/custom/organ_liver.png?v=4"
   },
   {
     "id": "pancreas_dual",
@@ -491,7 +491,7 @@
     "attackPower": 31,
     "attribute": "調節",
     "description": "インスリン分泌と消化酵素産生の二役を担う。",
-    "imageUrl": "/orgamon-quest/images/cards/set2/item2_4.png?v=2"
+    "imageUrl": "/orgamon-quest/images/custom/pancreas_icon_1772860399973.png?v=4"
   },
   {
     "id": "kidney_filter",
@@ -567,7 +567,7 @@
     "attackPower": 52,
     "attribute": "循環",
     "description": "心臓自体に酸素と栄養を送る血管。",
-    "imageUrl": "/orgamon-quest/images/cards/set2/item2_1.png?v=2"
+    "imageUrl": "/orgamon-quest/images/custom/organ_heart.png?v=4"
   },
   {
     "id": "aorta_highway",
@@ -700,7 +700,7 @@
     "attackPower": 12,
     "attribute": "呼吸",
     "description": "嚥下時に気管を閉じ、食物が肺に入るのを防ぐ。",
-    "imageUrl": "/orgamon-quest/images/cards/set2/item2_9.png?v=2"
+    "imageUrl": "/orgamon-quest/images/custom/epiglottis_icon_1772860412980.png?v=4"
   },
   {
     "id": "external_respiratory_chamber",
