@@ -187,13 +187,7 @@ export default function StoryScreen() {
         </button>
       </div>
 
-      {/* Chapter */}
-      <div className="text-center mb-4">
-        <p className="text-[11px] text-warm-gray/30 tracking-wider">
-          {chapter > 0 ? `Ch.${chapter}` : ""}{" "}
-          {storyTiming === "pre_boss" ? "ボス戦前" : storyTiming === "post_boss" ? "ボス撃破後" : storyTiming === "game_ending" ? "エンディング" : storyTiming === "intro" ? "章の始まり" : ""}
-        </p>
-      </div>
+
 
       {/* Speaker */}
       <div className={`flex-1 flex flex-col items-center justify-center transition-all duration-300 ${showChar ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>

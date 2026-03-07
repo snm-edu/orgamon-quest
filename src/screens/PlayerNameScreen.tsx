@@ -60,7 +60,9 @@ export default function PlayerNameScreen() {
               disabled={!name.trim()}
               onClick={handleStart}
             >
-              冒険スタート！
+              <span className="whitespace-nowrap">冒険</span>
+              <br />
+              <span className="whitespace-nowrap">スタート！</span>
             </PastelButton>
           </div>
         </div>

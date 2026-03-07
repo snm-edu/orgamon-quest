@@ -313,12 +313,12 @@ export default function ChapterMapScreen() {
                 />
                 {/* キーワードタグ（事前学習・タップで解説） */}
                 {chapterKeywords[ch.id]?.length > 0 && (
-                  <div className="mt-2 flex flex-wrap gap-1">
+                  <div className="mt-2 flex flex-wrap gap-1.5">
                     {chapterKeywords[ch.id].map((kw) => (
                       <button
                         key={kw}
                         onClick={() => setKeywordModal({ keyword: kw, chapterColor: ch.color })}
-                        className="text-[9px] px-1.5 py-0.5 rounded-full font-medium transition-all active:scale-95 hover:brightness-90"
+                        className="text-[11px] px-2.5 py-1 rounded-full font-bold transition-all active:scale-95 hover:brightness-90 shadow-sm"
                         style={{ backgroundColor: ch.color + "22", color: ch.color, border: `1px solid ${ch.color}40` }}
                       >
                         {kw}

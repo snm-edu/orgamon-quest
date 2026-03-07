@@ -65,19 +65,15 @@ export function getQuestionDifficulty(q: Question): QuestionDifficulty {
 
 /**
  * ゲーム設定の難易度を反映した実効的な難易度を返す。
- * - ストア設定が "easy" → 常に "easy"
- * - ストア設定が "hard" → 常に "hard"
- * - ストア設定が "normal" → 問題自身の難易度を使用（問題にdifficultyが設定されていない場合は "normal"）
+ * ストア設定（プレイヤーが選んだ難易度）を常に優先して返す。
+ * 問題データのdifficultyフィールドはメタデータとして残すが、
+ * 表示や動作にはストア設定を使用する。
  */
 export function getEffectiveDifficulty(
-  q: Question,
+  _q: Question,
   storeDifficulty: Difficulty
 ): QuestionDifficulty {
-  if (storeDifficulty === "easy") return "easy";
-  if (storeDifficulty === "hard") return "hard";
-  // normal: 問題自身のdifficultyを使うが、typeベースのフォールバックは "normal" とする
-  if (q.difficulty) return q.difficulty;
-  return "normal";
+  return storeDifficulty;
 }
 
 export function calculateQuizRewards(result: QuizResult) {
