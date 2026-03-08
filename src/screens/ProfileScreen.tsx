@@ -151,7 +151,7 @@ export default function ProfileScreen() {
       className="h-[100dvh] flex flex-col pb-[calc(env(safe-area-inset-bottom)+0.25rem)]"
     >
       <div className="flex-1 min-h-0 flex flex-col gap-2.5 overflow-hidden">
-        <div className="grid grid-cols-5 gap-1 bg-white/40 rounded-xl p-1 shrink-0">
+        <div className="grid grid-cols-4 gap-1 bg-white/40 rounded-xl p-1 shrink-0">
           {TABS.map((entry) => (
             <button
               key={entry.id}
@@ -227,12 +227,16 @@ export default function ProfileScreen() {
               <div className="rounded-xl bg-white/55 border border-white/70 p-2.5 flex-1 min-h-0">
                 <div className="flex items-center justify-between mb-2">
                   <p className="text-[11px] font-bold text-warm-gray">⚔️ 装備カード (バトルATK上昇)</p>
-                  <button
+                  <PastelButton
                     onClick={() => setShowCardPicker(true)}
-                    className="text-xs px-3 py-1 rounded-lg bg-coral/10 text-coral border border-coral/30 font-bold btn-press hover:bg-coral/20 transition-all"
+                    variant="primary"
+                    gradient="coral"
+                    size="sm"
+                    className="flex-shrink-0 min-w-[80px]"
+                    icon="✏️"
                   >
-                    ✏️ 編成
-                  </button>
+                    編成
+                  </PastelButton>
                 </div>
                 <div className="grid grid-cols-3 gap-1.5 h-[96px]">
                   {Array.from({ length: 3 }).map((_, index) => {

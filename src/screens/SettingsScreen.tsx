@@ -4,6 +4,7 @@ import { useMetaStore } from "../stores/metaStore";
 import { useCollectionStore } from "../stores/collectionStore";
 import { useDailyStore } from "../stores/dailyStore";
 import { isValidPasswordFormat } from "../logic/passwordLogic";
+import { getAllAchievements } from "../logic/achievementLogic";
 import { ScreenLayout, GlassCard, PastelButton, Badge } from "../components/common";
 import TutorialModal from "../components/TutorialModal";
 import companionsData from "../data/companions.json";
@@ -44,6 +45,21 @@ export default function SettingsScreen() {
 
     if (trimmed === "SNM8018343") {
       for (let i = 1; i <= 9; i++) unlockChapter(i);
+
+      useMetaStore.setState((m) => {
+        const achs = getAllAchievements().reduce((acc, a) => {
+          acc[a.id] = true;
+          return acc;
+        }, {} as Record<string, boolean>);
+        const allTitles = ["冒険者", "細胞博士", "ボスハンター", "入学前教育マスター", "オルガモン大師", "伝説の指揮官", "細胞マスター", "器官系の守護者", "骨格博士", "免疫の守護者", "内臓の探求者", "循環の支配者", "呼吸の達人", "感覚の覚醒者", "修了マスター", "ナースの鑑", "精密の眼", "予防の達人", "システムの匠"];
+        return {
+          meta: {
+            ...m.meta,
+            achievements: achs,
+            titles: allTitles,
+          }
+        };
+      });
 
       useGameStore.setState((s) => {
         if (!s.currentRun) return s;
@@ -171,8 +187,8 @@ export default function SettingsScreen() {
               key={d.id}
               onClick={() => setDifficulty(d.id)}
               className={`w-full text-left p-3 rounded-xl transition-all btn-press ${difficulty === d.id
-                  ? "bg-white/90 ring-2 shadow-sm"
-                  : "bg-white/40 hover:bg-white/60"
+                ? "bg-white/90 ring-2 shadow-sm"
+                : "bg-white/40 hover:bg-white/60"
                 }`}
               style={difficulty === d.id ? { boxShadow: `0 0 0 2px ${d.color}` } : {}}
             >

@@ -327,7 +327,6 @@ export default function BattleScreen() {
         themeColor: "#facc15", // yellow-400
         imageUrl: itemData?.imageUrl,
         isItem: true,
-        videoType: "heal",
       });
 
       setSkillMessage(message);

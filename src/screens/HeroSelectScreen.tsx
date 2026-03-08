@@ -82,7 +82,7 @@ export default function HeroSelectScreen() {
                 }}
               >
                 <div
-                  className="w-20 h-20 rounded-2xl mx-auto mb-2 flex items-center justify-center overflow-hidden shadow-md"
+                  className="w-28 h-28 rounded-2xl mx-auto mb-2 flex items-center justify-center overflow-hidden shadow-md"
                   style={{ backgroundColor: hero.themeColor + "15" }}
                 >
                   <img
@@ -205,8 +205,8 @@ export default function HeroSelectScreen() {
                       onClick={() => setDetailPage((prev) => Math.max(0, Math.min(prev, DETAIL_PAGES.length - 1) - 1))}
                       disabled={clampedDetailPage === 0}
                       className={`flex-1 min-h-8 rounded-lg text-[11px] font-bold ${clampedDetailPage === 0
-                          ? "bg-gray-100 text-warm-gray/30"
-                          : "bg-indigo-100/70 text-indigo-700 btn-press"
+                        ? "bg-gray-100 text-warm-gray/30"
+                        : "bg-indigo-100/70 text-indigo-700 btn-press"
                         }`}
                     >
                       ← 前へ
@@ -218,8 +218,8 @@ export default function HeroSelectScreen() {
                       onClick={() => setDetailPage((prev) => Math.min(DETAIL_PAGES.length - 1, Math.min(prev, DETAIL_PAGES.length - 1) + 1))}
                       disabled={clampedDetailPage >= DETAIL_PAGES.length - 1}
                       className={`flex-1 min-h-8 rounded-lg text-[11px] font-bold ${clampedDetailPage >= DETAIL_PAGES.length - 1
-                          ? "bg-gray-100 text-warm-gray/30"
-                          : "bg-indigo-100/70 text-indigo-700 btn-press"
+                        ? "bg-gray-100 text-warm-gray/30"
+                        : "bg-indigo-100/70 text-indigo-700 btn-press"
                         }`}
                     >
                       次へ →
