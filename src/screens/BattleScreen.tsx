@@ -346,7 +346,7 @@ export default function BattleScreen() {
       imageUrl: hero.imageUrl,
     });
     setShowMagicCircle(true);
-    setTimeout(() => setShowMagicCircle(false), 1500);
+    setTimeout(() => setShowMagicCircle(false), 1100);
 
     setSkillMessage(`✨ ${skill.name} 発動！${choiceReducedLabel}`);
     setTimeout(() => setSkillMessage(null), 1500);
@@ -459,7 +459,7 @@ export default function BattleScreen() {
   const shakeClass = isShaking ? "animate-screen-shake" : "";
 
   return (
-    <div className={`h-[100dvh] flex flex-col bg-slate-900 pb-[calc(env(safe-area-inset-bottom)+0.25rem)] overflow-hidden ${shakeClass}`}>
+    <div className={`h-[100dvh] overflow-hidden px-3 pt-2.5 pb-[calc(env(safe-area-inset-bottom)+0.4rem)] flex flex-col gap-1.5 relative ${shakeClass}`}>
       {/* Pattern C: Flash Screen */}
       {isFlashing && <div className="animate-flash-screen" />}
 

@@ -20,10 +20,10 @@ export default function SkillCutin({
     const [stage, setStage] = useState<"enter" | "hold" | "exit">("enter");
 
     useEffect(() => {
-        // 0.3s for entering, 1.2s for holding, 0.3s for exiting
-        const t1 = setTimeout(() => setStage("hold"), 300);
-        const t2 = setTimeout(() => setStage("exit"), 1400);
-        const t3 = setTimeout(() => onComplete(), 1700);
+        // 0.25s for entering, 0.6s for holding, 0.25s for exiting
+        const t1 = setTimeout(() => setStage("hold"), 250);
+        const t2 = setTimeout(() => setStage("exit"), 850);
+        const t3 = setTimeout(() => onComplete(), 1100);
 
         return () => {
             clearTimeout(t1);
