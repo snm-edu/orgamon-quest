@@ -146,6 +146,7 @@ export type Companion = {
   skills: Skill[];
   evolutionLine: string[];
   evolutionStage: number;
+  bondLevel?: number;
   imageUrl?: string;
 };
 
@@ -276,6 +277,7 @@ export type OwnedCard = {
   stage: number;
   count: number;
   skin: string;
+  foil?: boolean;
 };
 
 export type UserCurrentRun = {
@@ -284,6 +286,7 @@ export type UserCurrentRun = {
   team: Companion[];
   battleFormationIds?: string[];
   level: number;
+  heroEvolutionLevel?: number;
   totalXP: number;
   mp: number;
   learnedSkillIds?: string[];

@@ -76,6 +76,7 @@ type GameState = {
   // Items
   addItem: (itemId: string, count?: number) => void;
   removeItem: (itemId: string, count?: number) => void;
+  useItemOutsideBattle: (itemId: string, targetId?: string) => void;
 
   // Fragments & Energy
   addFragments: (count: number) => void;
@@ -118,6 +119,7 @@ const createInitialRun = (heroId: HeroId, playerName: string): UserCurrentRun =>
   selectedHeroId: heroId,
   playerName,
   team: [],
+  heroEvolutionLevel: 0,
   battleFormationIds: [heroId],
   level: 1,
   totalXP: 0,
@@ -511,6 +513,40 @@ export const useGameStore = create<GameState>()(
           if (next === 0) delete items[itemId];
           else items[itemId] = next;
           return { currentRun: { ...s.currentRun, ownedItems: items } };
+        }),
+
+      useItemOutsideBattle: (itemId, targetId) =>
+        set((s) => {
+          if (!s.currentRun) return s;
+          const count = s.currentRun.ownedItems[itemId] || 0;
+          if (count <= 0) return s;
+
+          const next = Math.max(0, count - 1);
+          const items = { ...s.currentRun.ownedItems };
+          if (next === 0) delete items[itemId];
+          else items[itemId] = next;
+
+          let nextRun = { ...s.currentRun, ownedItems: items };
+
+          if (itemId === "evolution_stone") {
+            nextRun.heroEvolutionLevel = (nextRun.heroEvolutionLevel || 0) + 1;
+          } else if (itemId === "bond_fragment" && targetId) {
+            nextRun.ownedCompanions = nextRun.ownedCompanions.map(c =>
+              c.id === targetId ? { ...c, bondLevel: (c.bondLevel || 0) + 1 } : c
+            );
+            nextRun.team = nextRun.team.map(c =>
+              c.id === targetId ? { ...c, bondLevel: (c.bondLevel || 0) + 1 } : c
+            );
+          } else if (itemId === "rare_frame" && targetId) {
+            if (nextRun.ownedCards[targetId]) {
+              nextRun.ownedCards = {
+                ...nextRun.ownedCards,
+                [targetId]: { ...nextRun.ownedCards[targetId], foil: true }
+              };
+            }
+          }
+
+          return { currentRun: nextRun };
         }),
 
       addFragments: (count) =>

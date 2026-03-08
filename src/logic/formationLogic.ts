@@ -91,12 +91,15 @@ export function buildFormation(
   activeTitle: string,
   battleFormationIds?: string[],
   playerLevel: number = 1,
-  playerName?: string
+  playerName?: string,
+  heroEvolutionLevel: number = 0
 ): FormationMember[] {
   const titleBonus = getTitleBonus(activeTitle);
   const heroWithTitle = applyStatBonus(hero.baseStats, titleBonus);
-  // レベルボーナスをヒーローに適用
-  const heroWithLevel = applyLevelBonus(heroWithTitle, playerLevel);
+  const evStats = { atk: 10 * heroEvolutionLevel, def: 10 * heroEvolutionLevel, spd: 5 * heroEvolutionLevel };
+
+  // レベルボーナスと進化ボーナスをヒーローに適用
+  const heroWithLevel = applyStatBonus(applyLevelBonus(heroWithTitle, playerLevel), evStats);
 
   const memberById = new Map<
     string,
@@ -113,8 +116,11 @@ export function buildFormation(
   companions.slice(0, 2).forEach((member) => {
     const memberSpeed = typeof member.baseStats.spd === "number" ? member.baseStats.spd : 12;
     const normalizedStats = { atk: member.baseStats.atk, def: member.baseStats.def, spd: memberSpeed };
-    // 仲間キャラのレベル（未設定時は1として扱う）に基づいてステータス増強
-    const leveledStats = applyLevelBonus(normalizedStats, member.level || 1);
+
+    // 仲間キャラのレベルと絆レベルに基づいてステータス増強
+    const bondLvl = member.bondLevel || 0;
+    const bondStats = { atk: 5 * bondLvl, def: 5 * bondLvl, spd: 2 * bondLvl };
+    const leveledStats = applyStatBonus(applyLevelBonus(normalizedStats, member.level || 1), bondStats);
     memberById.set(member.id, {
       id: member.id,
       name: member.name,

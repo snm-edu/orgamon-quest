@@ -36,7 +36,7 @@
     "effect": "カードまたはヒーローを進化させる",
     "rarity": "Epic",
     "description": "オルガモンを次の段階へ導く神秘の石。",
-    "cost": 200,
+    "cost": 1000,
     "imageUrl": "/orgamon-quest/images/items/evolution_stone.webp"
   },
   {
@@ -46,7 +46,7 @@
     "effect": "仲間の絆Lv+1",
     "rarity": "Rare",
     "description": "仲間との絆を深める欠片。集めると力が発揮される。",
-    "cost": 120,
+    "cost": 500,
     "imageUrl": "/orgamon-quest/images/items/bond_fragment.webp"
   },
   {
@@ -66,7 +66,7 @@
     "effect": "図鑑のカード枠を豪華に",
     "rarity": "Epic",
     "description": "図鑑のカードを装飾する特別な枠。",
-    "cost": 300,
+    "cost": 800,
     "imageUrl": "/orgamon-quest/images/items/rare_frame.webp"
   },
   {

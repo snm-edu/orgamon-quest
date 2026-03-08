@@ -87,6 +87,8 @@ export default function ZukanScreen() {
   const [tabPage, setTabPage] = useState<Record<Tab, number>>(INITIAL_TAB_PAGE);
   const [selectedCardId, setSelectedCardId] = useState<string | null>(null);
   const [showSkinPicker, setShowSkinPicker] = useState(false);
+  const [usingItemId, setUsingItemId] = useState<string | null>(null);
+  const useItemOutsideBattle = useGameStore((s) => s.useItemOutsideBattle);
 
   if (!currentRun) return null;
 
@@ -353,7 +355,17 @@ export default function ZukanScreen() {
                           <p className="font-bold text-sm text-warm-gray truncate">{item.name}</p>
                           <p className="text-[10px] text-warm-gray/45 truncate">効果: {item.effect}</p>
                         </div>
-                        <p className="text-sm font-bold text-warm-gray shrink-0">×{count}</p>
+                        <div className="flex flex-col items-end shrink-0 gap-1">
+                          <p className="text-sm font-bold text-warm-gray">×{count}</p>
+                          {count > 0 && ["evolution_stone", "bond_fragment", "rare_frame"].includes(item.id) && (
+                            <button
+                              onClick={() => setUsingItemId(item.id)}
+                              className="px-2 py-0.5 glass rounded-lg text-[10px] text-coral font-bold shadow-sm btn-press"
+                            >
+                              使う
+                            </button>
+                          )}
+                        </div>
                       </div>
                     </div>
                   );
@@ -627,6 +639,72 @@ export default function ZukanScreen() {
             </PastelButton>
           </div>
         )}
+      </Modal>
+
+      <Modal
+        open={!!usingItemId}
+        onClose={() => setUsingItemId(null)}
+      >
+        <div className="flex items-center gap-2 mb-4">
+          <span className="text-2xl">✨</span>
+          <h2 className="text-xl font-bold text-warm-gray">アイテムを使用</h2>
+        </div>
+        <div className="flex flex-col gap-3">
+          <p className="text-sm text-warm-gray mb-2">誰（どれ）にアイテムを使用しますか？</p>
+          {usingItemId === "evolution_stone" && (
+            <button
+              onClick={() => {
+                const conf = confirm(`主人公 ${currentRun.playerName}（${heroes.find(h => h.id === currentRun.selectedHeroId)?.name}）の進化段階を1つ上げ、永続的にステータスを強化しますか？`);
+                if (conf) {
+                  useItemOutsideBattle(usingItemId);
+                  setUsingItemId(null);
+                  alert("主人公が目覚ましい成長を遂げた！");
+                }
+              }}
+              className="text-left p-3 rounded-xl border border-coral bg-coral/10 text-warm-gray font-bold text-sm btn-press"
+            >
+              主人公 ({currentRun.playerName}) を進化
+            </button>
+          )}
+
+          {usingItemId === "bond_fragment" && mergedCompanions.map((comp) => {
+            const hasBond = currentRun.ownedCompanions.find(c => c.id === comp.id);
+            if (!hasBond) return null;
+            return (
+              <button
+                key={comp.id}
+                onClick={() => {
+                  useItemOutsideBattle(usingItemId, comp.id);
+                  setUsingItemId(null);
+                  alert(`仲間 ${comp.name} との絆が深まり、強くなった！`);
+                }}
+                className="text-left p-3 rounded-xl border border-pastel-pink/50 bg-white/50 text-warm-gray flex justify-between items-center text-sm btn-press"
+              >
+                <span>{comp.name}</span>
+                <span className="text-[10px] text-coral">絆Lv+1</span>
+              </button>
+            );
+          })}
+
+          {usingItemId === "rare_frame" && Object.entries(mergedCards).map(([cardId, _card]) => {
+            const hasCard = currentRun.ownedCards[cardId];
+            if (!hasCard) return null;
+            return (
+              <button
+                key={cardId}
+                onClick={() => {
+                  useItemOutsideBattle(usingItemId, cardId);
+                  setUsingItemId(null);
+                  alert(`図鑑カード ${allCards.find(c => c.id === cardId)?.name} にレアフレームを適用しました！`);
+                }}
+                className="text-left p-2 rounded-xl border border-pastel-yellow/50 bg-white/50 text-warm-gray flex justify-between items-center text-xs btn-press"
+              >
+                <span>{allCards.find(c => c.id === cardId)?.name}</span>
+                <span className="text-[10px] text-amber-500">{hasCard.foil ? "豪華枠適用済" : "未適用"}</span>
+              </button>
+            );
+          })}
+        </div>
       </Modal>
     </ScreenLayout>
   );

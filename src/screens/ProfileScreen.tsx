@@ -185,9 +185,10 @@ export default function ProfileScreen() {
               {(() => {
                 const titleBonus = getTitleBonus(meta.activeTitle);
                 const levelBonus = getLevelStatBonus(currentRun.level);
-                const atk = hero.baseStats.atk + titleBonus.atk + levelBonus.atk;
-                const def = hero.baseStats.def + titleBonus.def + levelBonus.def;
-                const spd = hero.baseStats.spd + titleBonus.spd + levelBonus.spd;
+                const evLvl = currentRun.heroEvolutionLevel || 0;
+                const atk = hero.baseStats.atk + titleBonus.atk + levelBonus.atk + (10 * evLvl);
+                const def = hero.baseStats.def + titleBonus.def + levelBonus.def + (10 * evLvl);
+                const spd = hero.baseStats.spd + titleBonus.spd + levelBonus.spd + (5 * evLvl);
                 return (
                   <p className="text-[10px] text-indigo-500/80 truncate mt-0.5">
                     ATK {atk} / DEF {def} / SPD {spd}

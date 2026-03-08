@@ -77,7 +77,7 @@ export default function BattleScreen() {
     currentRun && hero ? getHeroSkillLoadout(hero, currentRun).equippedSkills : [];
   const formation = useMemo(() => {
     if (!hero || !currentRun) return [];
-    return buildFormation(hero, currentRun.team, activeTitle, currentRun.battleFormationIds, currentRun.level, currentRun.playerName);
+    return buildFormation(hero, currentRun.team, activeTitle, currentRun.battleFormationIds, currentRun.level, currentRun.playerName, currentRun.heroEvolutionLevel || 0);
   }, [hero, currentRun, activeTitle]);
   const turnQueue = useMemo(() => buildSpeedTurnQueue(formation, BATTLE_ROUNDS + 4), [formation]);
 
