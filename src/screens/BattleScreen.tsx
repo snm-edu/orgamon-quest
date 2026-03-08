@@ -166,7 +166,15 @@ export default function BattleScreen() {
     if (correct) {
       addUltimateCharge(1);
       const comboBonus = combo ? getComboBonus(combo) : 0;
-      const damage = calcBossDamage(true, currentRun?.ownedCards || {}, allCards, comboBonus, attackerAtk, currentRun?.level || 1);
+      const damage = calcBossDamage(
+        true,
+        currentRun?.ownedCards || {},
+        allCards,
+        comboBonus,
+        attackerAtk,
+        currentRun?.level || 1,
+        currentRun?.equippedCardIds || []
+      );
       setBossHp((prev) => Math.max(0, prev - damage));
       setDamageAnim(damage);
       if (damage >= 40) audio.playSE("heavy_impact");

@@ -60,7 +60,6 @@ export default function ProfileScreen() {
 
   const [tab, setTab] = useState<Tab>("profile");
   const [tabPage, setTabPage] = useState<Record<Tab, number>>(INITIAL_TAB_PAGE);
-  const [favoriteCards, setFavoriteCards] = useState<string[]>([]);
   const [showCardPicker, setShowCardPicker] = useState(false);
   const [skillNotice, setSkillNotice] = useState<string | null>(null);
   const [selectedAchievementId, setSelectedAchievementId] = useState<string | null>(null);
@@ -90,15 +89,18 @@ export default function ProfileScreen() {
   const selectedAchievement = selectedAchievementId
     ? allAchievements.find((achievement) => achievement.id === selectedAchievementId) ?? null
     : null;
+  const setEquippedCards = useGameStore((s) => s.setEquippedCards);
+  const equippedCardIds = currentRun.equippedCardIds || [];
 
   const handleSelectFavorite = (cardId: string) => {
-    setFavoriteCards((prev) =>
-      prev.includes(cardId)
-        ? prev.filter((c) => c !== cardId)
-        : prev.length >= 3
-          ? prev
-          : [...prev, cardId]
-    );
+    let prev = equippedCardIds;
+    if (prev.includes(cardId)) {
+      setEquippedCards(prev.filter((c) => c !== cardId));
+    } else {
+      if (prev.length < 3) {
+        setEquippedCards([...prev, cardId]);
+      }
+    }
   };
 
   const showSkillNotice = (message: string) => {
@@ -228,25 +230,30 @@ export default function ProfileScreen() {
 
               <div className="rounded-xl bg-white/55 border border-white/70 p-2.5 flex-1 min-h-0">
                 <div className="flex items-center justify-between mb-2">
-                  <p className="text-[11px] font-bold text-warm-gray">⭐ お気に入りカード</p>
+                  <p className="text-[11px] font-bold text-warm-gray">⚔️ 装備カード (バトルATK上昇)</p>
                   <button
                     onClick={() => setShowCardPicker(true)}
                     className="text-xs px-3 py-1 rounded-lg bg-coral/10 text-coral border border-coral/30 font-bold btn-press hover:bg-coral/20 transition-all"
                   >
-                    ✏️ 編集
+                    ✏️ 編成
                   </button>
                 </div>
                 <div className="grid grid-cols-3 gap-1.5 h-[72px]">
                   {Array.from({ length: 3 }).map((_, index) => {
-                    const cardId = favoriteCards[index];
+                    const cardId = equippedCardIds[index];
                     const card = cardId ? cards.find((entry) => entry.id === cardId) : null;
+                    const ownedInfo = cardId ? currentRun.ownedCards[cardId] : null;
+                    const bonusAtk = (card && ownedInfo)
+                      ? Math.round((card.attackPower + (ownedInfo.stage * 10)) * (1.0 + ownedInfo.stage * 0.2) * (ownedInfo.count >= 5 ? 1.5 : ownedInfo.count === 4 ? 1.3 : ownedInfo.count === 3 ? 1.2 : ownedInfo.count === 2 ? 1.1 : 1.0))
+                      : 0;
+
                     return (
-                      <div key={index} className="rounded-lg bg-white/65 border border-white/70 px-2 py-1.5 text-center">
+                      <div key={index} className="rounded-lg bg-white/65 border border-white/70 px-2 py-1.5 text-center flex flex-col items-center justify-center">
                         {card ? (
                           <>
-                            <p className="text-[10px] font-bold text-warm-gray truncate">{card.name}</p>
-                            <p className="text-[9px] text-warm-gray/35 mt-0.5">
-                              ★{currentRun.ownedCards[card.id]?.stage || 1}
+                            <p className="text-[9px] font-bold text-warm-gray truncate w-full">{card.name}</p>
+                            <p className="text-[9px] text-coral font-bold mt-0.5">
+                              ATK +{bonusAtk}
                             </p>
                           </>
                         ) : (
@@ -614,8 +621,8 @@ export default function ProfileScreen() {
 
       <Modal open={showCardPicker} onClose={() => setShowCardPicker(false)} position="bottom" showHandle>
         <div>
-          <p className="text-sm font-bold text-warm-gray mb-1">お気に入りカードを選択（最大3枚）</p>
-          <p className="text-[11px] text-warm-gray/45 mb-3">タップで追加/解除できます。</p>
+          <p className="text-sm font-bold text-warm-gray mb-1">装備カードを選択（最大3枚）</p>
+          <p className="text-[11px] text-warm-gray/45 mb-3">所持数（最大5）が多いほどステータスが上がります。</p>
 
           {ownedCardIds.length === 0 ? (
             <div className="rounded-xl bg-white/55 border border-white/70 p-4 text-center text-sm text-warm-gray/45">
@@ -623,21 +630,36 @@ export default function ProfileScreen() {
             </div>
           ) : (
             <div className="max-h-56 overflow-y-auto rounded-xl bg-white/45 border border-white/70 p-2">
-              <div className="flex flex-wrap gap-1.5">
+              <div className="flex flex-col gap-1.5">
                 {ownedCardIds.map((cardId) => {
                   const card = cards.find((entry) => entry.id === cardId);
                   if (!card) return null;
-                  const isFav = favoriteCards.includes(cardId);
+                  const isFav = equippedCardIds.includes(cardId);
+
+                  const ownedInfo = currentRun.ownedCards[cardId];
+                  const bonusAtk = Math.round((card.attackPower + (ownedInfo.stage * 10)) * (1.0 + ownedInfo.stage * 0.2) * (ownedInfo.count >= 5 ? 1.5 : ownedInfo.count === 4 ? 1.3 : ownedInfo.count === 3 ? 1.2 : ownedInfo.count === 2 ? 1.1 : 1.0));
+
                   return (
                     <button
                       key={cardId}
                       onClick={() => handleSelectFavorite(cardId)}
-                      className={`text-[10px] px-2 py-1 rounded-lg transition-all btn-press ${isFav
-                        ? "bg-coral/15 text-coral font-bold ring-1 ring-coral/50"
-                        : "bg-gray-100/70 text-warm-gray/55 hover:bg-gray-200/70"
+                      className={`text-left w-full px-3 py-2 rounded-lg transition-all btn-press border flex items-center justify-between ${isFav
+                        ? "bg-coral/15 border-coral/50 text-warm-gray font-bold shadow-sm"
+                        : "bg-white/70 border-white/80 text-warm-gray/70 hover:bg-white/90"
                         }`}
                     >
-                      {card.name}
+                      <div className="flex flex-col min-w-0 flex-1 pr-2">
+                        <span className="text-xs truncate font-bold">{card.name}</span>
+                        <div className="flex items-center gap-1.5 mt-0.5 text-[10px]">
+                          <span className={ownedInfo.count >= 5 ? "text-coral font-bold" : "text-emerald-600 font-bold"}>所持 {ownedInfo.count}枚</span>
+                          <span className="text-indigo-600">★{ownedInfo.stage}</span>
+                        </div>
+                      </div>
+                      <div className="shrink-0 text-right">
+                        <Badge variant={isFav ? "info" : "default"} size="sm">
+                          ATK +{bonusAtk}
+                        </Badge>
+                      </div>
                     </button>
                   );
                 })}

@@ -71,6 +71,7 @@ type GameState = {
   addCard: (cardId: string, card?: OwnedCard) => void;
   updateCard: (cardId: string, card: OwnedCard) => void;
   evolveCard: (cardId: string) => void;
+  setEquippedCards: (cardIds: string[]) => void;
 
   // Items
   addItem: (itemId: string, count?: number) => void;
@@ -137,6 +138,7 @@ const createInitialRun = (heroId: HeroId, playerName: string): UserCurrentRun =>
     9: { unlocked: false, mastery: 0, bossDefeated: false, miniQuizBest: 0, confirmQuizBest: 0, reviewCount: 0 },
   },
   ownedCards: {},
+  equippedCardIds: [],
   ownedCompanions: [],
   ownedItems: {},
   fragments: 0,
@@ -477,6 +479,14 @@ export const useGameStore = create<GameState>()(
                 [cardId]: { ...card, stage: card.stage + 1 },
               },
             },
+          };
+        }),
+
+      setEquippedCards: (cardIds) =>
+        set((s) => {
+          if (!s.currentRun) return s;
+          return {
+            currentRun: { ...s.currentRun, equippedCardIds: cardIds },
           };
         }),
 

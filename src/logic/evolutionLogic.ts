@@ -38,6 +38,14 @@ export function getEvolutionMultiplier(stage: number): number {
   }
 }
 
+export function getCardCountMultiplier(count: number): number {
+  if (count >= 5) return 1.5;
+  if (count === 4) return 1.3;
+  if (count === 3) return 1.2;
+  if (count === 2) return 1.1;
+  return 1.0;
+}
+
 export function canEvolveCard(
   card: OwnedCard,
   playerLevel: number,

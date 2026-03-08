@@ -294,6 +294,7 @@ export type UserCurrentRun = {
   ultimateCharge: number;
   chapterProgress: Record<number, ChapterProgress>;
   ownedCards: Record<string, OwnedCard>;
+  equippedCardIds?: string[];
   ownedCompanions: Companion[];
   ownedItems: Record<string, number>;
   fragments: number;

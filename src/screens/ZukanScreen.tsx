@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useGameStore } from "../stores/gameStore";
-import { useMetaStore } from "../stores/metaStore";
 import { useCollectionStore } from "../stores/collectionStore";
 import { ScreenLayout, GlassCard, Badge, Modal, PastelButton } from "../components/common";
 import type { Card, Item, Boss, CardSkinId, Companion, OwnedCard } from "../types";
@@ -83,7 +82,6 @@ export default function ZukanScreen() {
   const setScreen = useGameStore((s) => s.setScreen);
   const currentRun = useGameStore((s) => s.currentRun);
   const updateCard = useGameStore((s) => s.updateCard);
-  const meta = useMetaStore((s) => s.meta);
   const collection = useCollectionStore((s) => s.collection);
   const [tab, setTab] = useState<Tab>("cards");
   const [tabPage, setTabPage] = useState<Record<Tab, number>>(INITIAL_TAB_PAGE);
@@ -581,23 +579,32 @@ export default function ZukanScreen() {
                 </div>
 
                 {showSkinPicker && canEditSelectedSkin && (
-                  <div className="flex flex-wrap gap-1.5">
+                  <div className="flex flex-col gap-1.5 mt-1">
                     {(["normal", "pastel", "sparkle", "pixel"] as CardSkinId[]).map((skinId) => {
-                      const unlocked = meta.cardSkins.includes(skinId);
+                      const count = selectedOwnedCard.count;
+                      let unlocked = false;
+                      let req = "";
+                      if (skinId === "normal") { unlocked = true; }
+                      else if (skinId === "pastel") { unlocked = count >= 2; req = "所持2枚"; }
+                      else if (skinId === "sparkle") { unlocked = count >= 3; req = "所持3枚"; }
+                      else if (skinId === "pixel") { unlocked = count >= 5; req = "所持5枚"; }
+
                       const style = skinStyles[skinId];
                       return (
                         <button
                           key={skinId}
                           onClick={() => unlocked && handleChangeSkin(selectedCard.id, skinId)}
                           disabled={!unlocked}
-                          className={`text-[10px] px-2 py-1 rounded-lg border transition-all btn-press ${selectedOwnedCard.skin === skinId
+                          className={`text-left text-xs px-3 py-2 rounded-xl border transition-all btn-press flex justify-between items-center ${selectedOwnedCard.skin === skinId
                             ? `${style.border} bg-coral/10 font-bold text-coral`
                             : unlocked
                               ? `${style.border} hover:bg-white/60 text-warm-gray`
-                              : "border-gray-200 text-gray-300"
+                              : "border-gray-200 text-gray-400 opacity-60 bg-gray-50/50"
                             }`}
                         >
-                          {unlocked ? style.label : `🔒 ${style.label}`}
+                          <span className="min-w-0 pr-2">{style.label}</span>
+                          {!unlocked && <span className="text-[10px] text-gray-400 shrink-0">🔒 {req}で解放</span>}
+                          {selectedOwnedCard.skin === skinId && <span className="text-[10px] shrink-0">✅</span>}
                         </button>
                       );
                     })}
