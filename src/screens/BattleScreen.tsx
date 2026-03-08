@@ -297,8 +297,18 @@ export default function BattleScreen() {
     if (used) {
       removeItem(itemId, 1);
       audio.playSE("success");
+
+      const itemData = getItemById(itemId);
+      setActiveSkillCutin({
+        heroId: "item",
+        heroName: itemData?.name || "アイテム",
+        skillName: itemData?.name || "アイテム",
+        themeColor: "#facc15", // yellow-400
+        imageUrl: itemData?.imageUrl,
+      });
+
       setSkillMessage(message);
-      setTimeout(() => setSkillMessage(null), 2000);
+      setTimeout(() => setSkillMessage(null), 1500);
       setShowItemPanel(false);
     } else if (message) {
       audio.playSE("error");
