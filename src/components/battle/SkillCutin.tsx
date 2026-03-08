@@ -7,6 +7,7 @@ type Props = {
     skillName: string;
     themeColor: string;
     imageUrl?: string;
+    isItem?: boolean;
     onComplete: () => void;
 };
 
@@ -15,6 +16,7 @@ export default function SkillCutin({
     skillName,
     themeColor,
     imageUrl,
+    isItem,
     onComplete,
 }: Props) {
     const [stage, setStage] = useState<"enter" | "hold" | "exit">("enter");
@@ -48,12 +50,12 @@ export default function SkillCutin({
                 }}
             />
 
-            {/* Character Image */}
+            {/* Character / Item Image */}
             {imageUrl && (
                 <img
                     src={imageUrl}
                     alt={heroName}
-                    className="skill-cutin-character"
+                    className={`skill-cutin-character ${isItem ? 'skill-cutin-item' : ''}`}
                     style={{ filter: `drop-shadow(0 0 15px ${themeColor})` }}
                 />
             )}

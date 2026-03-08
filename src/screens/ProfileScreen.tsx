@@ -238,7 +238,7 @@ export default function ProfileScreen() {
                     ✏️ 編成
                   </button>
                 </div>
-                <div className="grid grid-cols-3 gap-1.5 h-[72px]">
+                <div className="grid grid-cols-3 gap-1.5 h-[96px]">
                   {Array.from({ length: 3 }).map((_, index) => {
                     const cardId = equippedCardIds[index];
                     const card = cardId ? cards.find((entry) => entry.id === cardId) : null;
@@ -248,16 +248,28 @@ export default function ProfileScreen() {
                       : 0;
 
                     return (
-                      <div key={index} className="rounded-lg bg-white/65 border border-white/70 px-2 py-1.5 text-center flex flex-col items-center justify-center">
+                      <div key={index} className="rounded-lg bg-white/65 border border-white/70 p-1 text-center flex flex-col items-center justify-center relative overflow-hidden">
                         {card ? (
                           <>
-                            <p className="text-[9px] font-bold text-warm-gray truncate w-full">{card.name}</p>
-                            <p className="text-[9px] text-coral font-bold mt-0.5">
-                              ATK +{bonusAtk}
-                            </p>
+                            {card.imageUrl && (
+                              <img src={card.imageUrl} alt={card.name} className="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none" />
+                            )}
+                            <div className="w-10 h-10 mb-0.5 rounded shadow-sm border border-white/50 overflow-hidden bg-white/40 shrink-0 relative z-10">
+                              {card.imageUrl ? (
+                                <img src={card.imageUrl} alt={card.name} className="w-full h-full object-contain p-0.5" />
+                              ) : (
+                                <div className="w-full h-full grid place-items-center text-[10px] text-warm-gray/40">Img</div>
+                              )}
+                            </div>
+                            <p className="text-[9px] font-bold text-warm-gray truncate w-full relative z-10 drop-shadow-md">{card.name}</p>
+                            <div className="relative z-10 mt-0.5">
+                              <Badge variant="warning" size="xs">ATK +{bonusAtk}</Badge>
+                            </div>
                           </>
                         ) : (
-                          <p className="text-[10px] text-warm-gray/30 leading-[56px]">未設定</p>
+                          <div className="grid place-items-center w-full h-full">
+                            <p className="text-[10px] text-warm-gray/30">未設定</p>
+                          </div>
                         )}
                       </div>
                     );
@@ -416,78 +428,73 @@ export default function ProfileScreen() {
                 )}
               </GlassCard>
 
-              {(() => {
-                const skill = skillLoadout.allActiveSkills[pageStart];
-                if (!skill) {
+              <div className="flex-1 overflow-y-auto space-y-2 pr-1">
+                {skillLoadout.allActiveSkills.map((skill) => {
+                  const isLearned = skillLoadout.learnedSkillIds.includes(skill.id);
+                  const equippedSlot = skillLoadout.equippedSkillIds.indexOf(skill.id);
+                  const learnCost = getSkillLearnCostMp(skill);
+                  const canLearn = currentRun.mp >= learnCost;
+                  const isStarter = hero.skills.some((starter) => starter.id === skill.id);
+
                   return (
-                    <div className="flex-1 grid place-items-center text-center text-sm text-warm-gray/35">
-                      使用可能スキルがありません
+                    <div key={skill.id} className={`rounded-xl border p-2 flex flex-col transition-all ${equippedSlot >= 0 ? "bg-pastel-green/20 border-green-300" : "bg-white/70 border-white/75"}`}>
+                      <div className="flex items-start gap-2 mb-1.5">
+                        <div
+                          className="w-8 h-8 rounded-lg flex items-center justify-center text-white text-[10px] shrink-0"
+                          style={{ backgroundColor: hero.themeColor }}
+                        >
+                          ⚡
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-1.5 flex-wrap mb-0.5">
+                            <p className="font-bold text-xs text-warm-gray truncate">{skill.name}</p>
+                            {equippedSlot >= 0 ? (
+                              <Badge variant="success" size="xs">装備中 S{equippedSlot + 1}</Badge>
+                            ) : isLearned ? (
+                              <Badge variant="info" size="xs">習得済み</Badge>
+                            ) : (
+                              <Badge variant="danger" size="xs">未習得</Badge>
+                            )}
+                            {isStarter && <Badge variant="warning" size="xs">初期</Badge>}
+                          </div>
+                          <p className="text-[10px] text-warm-gray/50 line-clamp-2 leading-tight">{skill.description}</p>
+                        </div>
+                      </div>
+
+                      {!isLearned ? (
+                        <button
+                          onClick={() => handleLearnSkill(skill.id, skill.name, learnCost)}
+                          disabled={!canLearn}
+                          className={`mt-1 min-h-8 text-[11px] rounded-lg font-bold transition-all ${canLearn
+                            ? "bg-coral/15 text-coral hover:bg-coral/25 btn-press"
+                            : "bg-gray-100/80 text-warm-gray/35"
+                            }`}
+                        >
+                          {canLearn ? `習得する (${learnCost}MP)` : `MP不足 (${learnCost}MP)`}
+                        </button>
+                      ) : (
+                        <div className="mt-1 flex gap-1.5">
+                          {Array.from({ length: skillLoadout.skillSetMax }).map((_, slotIndex) => {
+                            const active = equippedSlot === slotIndex;
+                            return (
+                              <button
+                                key={slotIndex}
+                                onClick={() => handleEquipSkill(skill.id, slotIndex, skill.name)}
+                                className={`flex-1 min-h-7 text-[10px] rounded-lg font-bold transition-all border ${active
+                                  ? "bg-pastel-green/40 text-green-700 border-green-400 shadow-sm"
+                                  : "bg-indigo-50/50 text-indigo-500 hover:bg-indigo-100 btn-press border-indigo-100/50"
+                                  }`}
+                              >
+                                S{slotIndex + 1}に装備
+                              </button>
+                            );
+                          })}
+                        </div>
+                      )}
                     </div>
                   );
-                }
-                const isLearned = skillLoadout.learnedSkillIds.includes(skill.id);
-                const equippedSlot = skillLoadout.equippedSkillIds.indexOf(skill.id);
-                const learnCost = getSkillLearnCostMp(skill);
-                const canLearn = currentRun.mp >= learnCost;
-                const isStarter = hero.skills.some((starter) => starter.id === skill.id);
-                return (
-                  <div className="flex-1 min-h-0 rounded-xl border border-white/75 bg-white/70 p-3 flex flex-col">
-                    <div className="flex items-center gap-2 mb-1.5">
-                      <div
-                        className="w-9 h-9 rounded-lg flex items-center justify-center text-white text-base shrink-0"
-                        style={{ backgroundColor: hero.themeColor }}
-                      >
-                        ⚡
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-1.5 flex-wrap mb-0.5">
-                          <p className="font-bold text-sm text-warm-gray truncate">{skill.name}</p>
-                          {equippedSlot >= 0 ? (
-                            <Badge variant="success" size="xs">装備中 S{equippedSlot + 1}</Badge>
-                          ) : isLearned ? (
-                            <Badge variant="info" size="xs">習得済み</Badge>
-                          ) : (
-                            <Badge variant="danger" size="xs">未習得</Badge>
-                          )}
-                          {isStarter && <Badge variant="warning" size="xs">初期</Badge>}
-                        </div>
-                        <p className="text-[10px] text-warm-gray/45">{skill.description}</p>
-                      </div>
-                    </div>
-
-                    {!isLearned ? (
-                      <button
-                        onClick={() => handleLearnSkill(skill.id, skill.name, learnCost)}
-                        disabled={!canLearn}
-                        className={`mt-auto min-h-10 text-[12px] rounded-lg font-bold transition-all ${canLearn
-                          ? "bg-coral/15 text-coral hover:bg-coral/25 btn-press"
-                          : "bg-gray-100/80 text-warm-gray/35"
-                          }`}
-                      >
-                        {canLearn ? `習得する (${learnCost}MP)` : `MP不足 (${learnCost}MP)`}
-                      </button>
-                    ) : (
-                      <div className="mt-auto grid grid-cols-2 gap-1.5">
-                        {Array.from({ length: skillLoadout.skillSetMax }).map((_, slotIndex) => {
-                          const active = equippedSlot === slotIndex;
-                          return (
-                            <button
-                              key={slotIndex}
-                              onClick={() => handleEquipSkill(skill.id, slotIndex, skill.name)}
-                              className={`min-h-9 text-[10px] rounded-lg font-semibold transition-all ${active
-                                ? "bg-pastel-green/35 text-green-700"
-                                : "bg-indigo-100/60 text-indigo-600 hover:bg-indigo-200/60 btn-press"
-                                }`}
-                            >
-                              {active ? `S${slotIndex + 1} 装備中` : `S${slotIndex + 1}に装備`}
-                            </button>
-                          );
-                        })}
-                      </div>
-                    )}
-                  </div>
-                );
-              })()}
+                })}
+              </div>
             </div>
           )}
 
@@ -543,35 +550,37 @@ export default function ProfileScreen() {
             </div>
           )}
 
-          <div className="mt-2 shrink-0 flex items-center gap-2">
-            <button
-              onClick={() =>
-                updateCurrentTabPage(Math.max(0, Math.min(tabPage[tab], totalPages - 1) - 1))
-              }
-              disabled={clampedPage === 0}
-              className={`flex-1 min-h-10 rounded-lg text-sm font-bold ${clampedPage === 0
-                ? "bg-gray-100 text-warm-gray/30"
-                : "bg-indigo-100/70 text-indigo-700 btn-press"
-                }`}
-            >
-              ← 前へ
-            </button>
-            <p className="text-[11px] text-warm-gray/50 shrink-0 min-w-20 text-center">
-              {clampedPage + 1}/{totalPages} ページ
-            </p>
-            <button
-              onClick={() =>
-                updateCurrentTabPage(Math.min(totalPages - 1, Math.min(tabPage[tab], totalPages - 1) + 1))
-              }
-              disabled={clampedPage >= totalPages - 1}
-              className={`flex-1 min-h-10 rounded-lg text-sm font-bold ${clampedPage >= totalPages - 1
-                ? "bg-gray-100 text-warm-gray/30"
-                : "bg-indigo-100/70 text-indigo-700 btn-press"
-                }`}
-            >
-              次へ →
-            </button>
-          </div>
+          {tab !== "profile" && tab !== "skills" && totalPages > 1 && (
+            <div className="mt-2 shrink-0 flex items-center gap-2">
+              <button
+                onClick={() =>
+                  updateCurrentTabPage(Math.max(0, Math.min(tabPage[tab], totalPages - 1) - 1))
+                }
+                disabled={clampedPage === 0}
+                className={`flex-1 min-h-10 rounded-lg text-sm font-bold ${clampedPage === 0
+                  ? "bg-gray-100 text-warm-gray/30"
+                  : "bg-indigo-100/70 text-indigo-700 btn-press"
+                  }`}
+              >
+                ← 前へ
+              </button>
+              <p className="text-[11px] text-warm-gray/50 shrink-0 min-w-20 text-center">
+                {clampedPage + 1}/{totalPages} ページ
+              </p>
+              <button
+                onClick={() =>
+                  updateCurrentTabPage(Math.min(totalPages - 1, Math.min(tabPage[tab], totalPages - 1) + 1))
+                }
+                disabled={clampedPage >= totalPages - 1}
+                className={`flex-1 min-h-10 rounded-lg text-sm font-bold ${clampedPage >= totalPages - 1
+                  ? "bg-gray-100 text-warm-gray/30"
+                  : "bg-indigo-100/70 text-indigo-700 btn-press"
+                  }`}
+              >
+                次へ →
+              </button>
+            </div>
+          )}
         </GlassCard>
       </div>
 

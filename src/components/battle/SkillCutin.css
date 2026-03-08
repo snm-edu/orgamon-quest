@@ -16,6 +16,7 @@
   opacity: 0;
   transition: opacity 0.3s;
 }
+
 .enter .skill-cutin-backdrop,
 .hold .skill-cutin-backdrop {
   opacity: 1;
@@ -27,12 +28,10 @@
   height: 200vh;
   left: -50vw;
   top: -50vh;
-  background-image: repeating-conic-gradient(
-    currentColor 0%,
-    currentColor 2%,
-    transparent 2%,
-    transparent 4%
-  );
+  background-image: repeating-conic-gradient(currentColor 0%,
+      currentColor 2%,
+      transparent 2%,
+      transparent 4%);
   opacity: 0.15;
   animation: skillCutinSpin 5s linear infinite;
 }
@@ -52,6 +51,7 @@
   transform: translateY(-50%) scaleY(0);
   transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
+
 .enter .skill-cutin-band,
 .hold .skill-cutin-band {
   transform: translateY(-50%) scaleY(1);
@@ -60,21 +60,30 @@
 .skill-cutin-character {
   position: absolute;
   bottom: 0px;
-  right: 0px; /* modified from original left */
+  right: 0px;
   height: 85%;
   object-fit: contain;
   transform: translateX(100%) scale(1.1);
   transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   opacity: 0;
 }
+
+.skill-cutin-character.skill-cutin-item {
+  height: 40%;
+  bottom: 30%;
+  right: 15%;
+}
+
 .enter .skill-cutin-character {
   opacity: 0;
   transform: translateX(100%) scale(1.1);
 }
+
 .hold .skill-cutin-character {
   opacity: 1;
   transform: translateX(0%) scale(1);
 }
+
 .exit .skill-cutin-character {
   opacity: 0;
   transform: translateX(-100%) scale(1.1);
@@ -87,9 +96,11 @@
   transform: translateY(-50%) translateX(-100vw);
   transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s;
 }
+
 .hold .skill-cutin-text-container {
   transform: translateY(-50%) translateX(0);
 }
+
 .exit .skill-cutin-text-container {
   transform: translateY(-50%) translateX(100vw);
   transition-delay: 0s;

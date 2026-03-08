@@ -107,7 +107,7 @@ export default function BattleScreen() {
   const [showVictoryParticles, setShowVictoryParticles] = useState(false);
 
   // Cutin, Camera Shake, Flash
-  const [activeSkillCutin, setActiveSkillCutin] = useState<{ heroId: string, heroName: string, skillName: string, themeColor: string, imageUrl?: string } | null>(null);
+  const [activeSkillCutin, setActiveSkillCutin] = useState<{ heroId: string, heroName: string, skillName: string, themeColor: string, imageUrl?: string, isItem?: boolean } | null>(null);
   const [isShaking, setIsShaking] = useState(false);
   const [isFlashing, setIsFlashing] = useState(false);
 
@@ -326,6 +326,7 @@ export default function BattleScreen() {
         skillName: itemData?.name || "アイテム",
         themeColor: "#facc15", // yellow-400
         imageUrl: itemData?.imageUrl,
+        isItem: true,
       });
 
       setSkillMessage(message);
@@ -739,6 +740,7 @@ export default function BattleScreen() {
           skillName={activeSkillCutin.skillName}
           themeColor={activeSkillCutin.themeColor}
           imageUrl={activeSkillCutin.imageUrl}
+          isItem={activeSkillCutin.isItem}
           onComplete={() => setActiveSkillCutin(null)}
         />
       )}
