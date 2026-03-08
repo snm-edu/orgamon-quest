@@ -1,4 +1,4 @@
-import type { TeamCombo, Companion } from "../types";
+import type { TeamCombo, Companion, HeroId } from "../types";
 import combosData from "../data/combos.json";
 
 const combos = combosData as TeamCombo[];
@@ -9,9 +9,24 @@ export function getAllCombos(): TeamCombo[] {
 
 export function checkTeamCombo(
   heroId: string,
-  team: Companion[]
+  team: Companion[],
+  ownedCompanions: Companion[] = [],
+  isBossBattle: boolean = false
 ): TeamCombo | null {
-  const teamHeroIds = [heroId, ...team.map((c) => c.heroRef).filter(Boolean)];
+  const teamHeroIds: string[] = [heroId, ...(team.map((c) => c.heroRef).filter(Boolean) as string[])];
+
+  if (isBossBattle && teamHeroIds.length === 3) {
+    const ownedHeroRefs = ownedCompanions.map(c => c.heroRef).filter(Boolean);
+    const allFour = ["minato", "hikari", "kotoha", "leon"];
+    const missingHero = allFour.find(h => !teamHeroIds.includes(h));
+
+    if (missingHero && ownedHeroRefs.includes(missingHero as HeroId)) {
+      if (Math.random() < 0.2) {
+        teamHeroIds.push(missingHero);
+      }
+    }
+  }
+
   const prioritizedCombos = [...combos].sort(
     (a, b) => b.requiredHeroes.length - a.requiredHeroes.length
   );

@@ -115,6 +115,89 @@
     "description": "レオンの機器保守とコトハの予防管理。全員CD-1＋ペナルティ-30%。"
   },
   {
+    "id": "minato_hikari_kotoha",
+    "name": "チームアプローチ・アドバンス",
+    "requiredHeroes": [
+      "minato",
+      "hikari",
+      "kotoha"
+    ],
+    "effects": [
+      {
+        "type": "heal_homeostasis",
+        "value": 15
+      },
+      {
+        "type": "reduce_choices",
+        "value": 1
+      }
+    ],
+    "description": "ミナト、ヒカリ、コトハの連携技。ホメオスタシス+15、選択肢1つ削減。"
+  },
+  {
+    "id": "minato_hikari_leon",
+    "name": "クリティカル・マネジメント",
+    "requiredHeroes": [
+      "minato",
+      "hikari",
+      "leon"
+    ],
+    "effects": [
+      {
+        "type": "reduce_cd",
+        "value": 1,
+        "condition": "all_team"
+      },
+      {
+        "type": "time_extend",
+        "value": 20
+      }
+    ],
+    "description": "ミナト、ヒカリ、レオンの連携技。全員のスキルCD-1、制限時間+20秒。"
+  },
+  {
+    "id": "minato_kotoha_leon",
+    "name": "コンプリート・プロケア",
+    "requiredHeroes": [
+      "minato",
+      "kotoha",
+      "leon"
+    ],
+    "effects": [
+      {
+        "type": "heal_homeostasis",
+        "value": 10
+      },
+      {
+        "type": "reduce_penalty",
+        "value": 50,
+        "duration": 1
+      }
+    ],
+    "description": "ミナト、コトハ、レオンの無駄のないケア。ホメオスタシス+10、ペナルティ半減。"
+  },
+  {
+    "id": "hikari_kotoha_leon",
+    "name": "インターベンション・コア",
+    "requiredHeroes": [
+      "hikari",
+      "kotoha",
+      "leon"
+    ],
+    "effects": [
+      {
+        "type": "safe_net",
+        "value": 1,
+        "duration": 2
+      },
+      {
+        "type": "hint",
+        "value": 1
+      }
+    ],
+    "description": "ヒカリ、コトハ、レオンの情報・介入連携。セーフティネット(2T)＋ヒント表示。"
+  },
+  {
     "id": "all_four",
     "name": "多職種カンファレンス",
     "requiredHeroes": [

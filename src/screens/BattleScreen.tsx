@@ -11,10 +11,11 @@ import { buildFormation, buildSpeedTurnQueue, getPartyDefense, POSITION_LABELS }
 import { getItemById } from "../logic/itemLogic";
 import { addCompanionExp } from "../logic/companionLogic";
 import { ProgressBar, Badge, Modal, PastelButton, ParticleEffect } from "../components/common";
+import ComboCutin from "../components/battle/ComboCutin";
 import SkillCutin from "../components/battle/SkillCutin";
 import { audio } from "../utils/audio";
 import cardsData from "../data/cards.json";
-import type { Question, Skill, Card, Companion } from "../types";
+import type { Question, Skill, Card, Companion, TeamCombo } from "../types";
 
 const allCards = cardsData as Card[];
 const BASE_TIME_LIMIT = 25;
@@ -72,7 +73,7 @@ export default function BattleScreen() {
   const chapter = (gameState._battleChapter as number) || 1;
   const boss = getBossByChapter(chapter);
   const hero = currentRun ? getHeroById(currentRun.selectedHeroId) : null;
-  const combo = currentRun ? checkTeamCombo(currentRun.selectedHeroId, currentRun.team) : null;
+  const combo = currentRun ? checkTeamCombo(currentRun.selectedHeroId, currentRun.team, currentRun.ownedCompanions, boss !== undefined) : null;
   const equippedSkills =
     currentRun && hero ? getHeroSkillLoadout(hero, currentRun).equippedSkills : [];
   const formation = useMemo(() => {
@@ -108,6 +109,7 @@ export default function BattleScreen() {
 
   // Cutin, Camera Shake, Flash
   const [activeSkillCutin, setActiveSkillCutin] = useState<{ heroId: string, heroName: string, skillName: string, themeColor: string, imageUrl?: string, isItem?: boolean, videoType?: "attack" | "heal" } | null>(null);
+  const [activeComboCutin, setActiveComboCutin] = useState<TeamCombo | null>(null);
   const [isShaking, setIsShaking] = useState(false);
   const [isFlashing, setIsFlashing] = useState(false);
 
@@ -198,6 +200,7 @@ export default function BattleScreen() {
         if (comboFx.safeNet) setSafeNet(true);
         if (comboFx.reduceCooldowns > 0) { for (let i = 0; i < comboFx.reduceCooldowns; i++) tickCooldowns(); }
         setComboMessage(`💥 コンボ発動: ${combo.name}！`);
+        setActiveComboCutin(combo);
         setTimeout(() => setComboMessage(null), 2000);
       }
       if (currentRun?.activeBuffs?.some((b) => b.type === "hot_heal")) {
@@ -416,7 +419,7 @@ export default function BattleScreen() {
     const gameState2 = useGameStore.getState() as Record<string, unknown>;
     const recruitedHero = gameState2._lastRecruitedHero as Companion | null;
     const updatedRun2 = useGameStore.getState().currentRun;
-    const activeCombo = updatedRun2 ? checkTeamCombo(updatedRun2.selectedHeroId, updatedRun2.team) : null;
+    const activeCombo = updatedRun2 ? checkTeamCombo(updatedRun2.selectedHeroId, updatedRun2.team, updatedRun2.ownedCompanions, boss !== undefined) : null;
     return (
       <div className="h-[100dvh] px-4 py-6 flex flex-col items-center justify-center relative overflow-hidden">
         <ParticleEffect type={won ? "confetti" : "stars"} active={showVictoryParticles} count={won ? 20 : 8} />
@@ -747,6 +750,21 @@ export default function BattleScreen() {
           isItem={activeSkillCutin.isItem}
           videoType={activeSkillCutin.videoType}
           onComplete={() => setActiveSkillCutin(null)}
+        />
+      )}
+      {activeComboCutin && (
+        <ComboCutin
+          combo={activeComboCutin}
+          heroImages={activeComboCutin.requiredHeroes.map(hid => {
+            const h = getHeroById(hid);
+            return {
+              id: hid,
+              name: h?.name || hid,
+              url: h?.imageUrl,
+              color: h?.themeColor || "#f08080"
+            };
+          })}
+          onComplete={() => setActiveComboCutin(null)}
         />
       )}
     </div>
