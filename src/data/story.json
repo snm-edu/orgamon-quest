@@ -89,6 +89,78 @@
     ]
   },
   {
+    "id": "ending_minato",
+    "chapter": 0,
+    "timing": "ending",
+    "heroVariant": "minato",
+    "dialogue": [
+      {
+        "speaker": "ミナト",
+        "text": "看護師への道、ここから本番だけど… 基礎はバッチリ！ 患者さんを笑顔にしたい。",
+        "emotion": "happy"
+      },
+      {
+        "speaker": "ミコト先輩",
+        "text": "ミナト、あなたなら素敵なナースになれるわ。応援してる！",
+        "emotion": "happy"
+      }
+    ]
+  },
+  {
+    "id": "ending_hikari",
+    "chapter": 0,
+    "timing": "ending",
+    "heroVariant": "hikari",
+    "dialogue": [
+      {
+        "speaker": "ヒカリ",
+        "text": "視能訓練士として、患者さんの「見える」を守りたい。精密さを磨き続けるわ。",
+        "emotion": "happy"
+      },
+      {
+        "speaker": "ミコト先輩",
+        "text": "ヒカリの精密な目が、多くの人の視覚を守るのね。",
+        "emotion": "happy"
+      }
+    ]
+  },
+  {
+    "id": "ending_kotoha",
+    "chapter": 0,
+    "timing": "ending",
+    "heroVariant": "kotoha",
+    "dialogue": [
+      {
+        "speaker": "コトハ",
+        "text": "歯科衛生士として、口腔ケアから全身の健康を支えていく。予防が一番大切！",
+        "emotion": "happy"
+      },
+      {
+        "speaker": "ミコト先輩",
+        "text": "コトハの予防ケアの精神が、多くの患者さんを救うわ。",
+        "emotion": "happy"
+      }
+    ]
+  },
+  {
+    "id": "ending_leon",
+    "chapter": 0,
+    "timing": "ending",
+    "heroVariant": "leon",
+    "dialogue": [
+      {
+        "speaker": "レオン",
+        "text": "臨床工学技士として、生命維持の最前線に立つ。システムは完璧に。",
+        "emotion": "happy"
+      },
+      {
+        "speaker": "ミコト先輩",
+        "text": "レオン、あなたの技術力が命を支えるの。信頼してるわ。",
+        "emotion": "happy"
+      }
+    ]
+  },
+  {
     "id": "ch1_intro",
     "chapter": 1,
     "timing": "intro",
@@ -414,6 +486,78 @@
     ]
   },
   {
+    "id": "ch2_pre_boss_minato",
+    "chapter": 2,
+    "timing": "pre_boss",
+    "heroVariant": "minato",
+    "dialogue": [
+      {
+        "speaker": "ミナト",
+        "text": "器官の連携が崩れかけてる…！ みんなのバイタルは私が安定させるから！",
+        "emotion": "determined"
+      },
+      {
+        "speaker": "ミコト先輩",
+        "text": "ミナト、その意気よ！ 全力で突破しましょう！",
+        "emotion": "cheerful"
+      }
+    ]
+  },
+  {
+    "id": "ch2_pre_boss_hikari",
+    "chapter": 2,
+    "timing": "pre_boss",
+    "heroVariant": "hikari",
+    "dialogue": [
+      {
+        "speaker": "ヒカリ",
+        "text": "カオスオルガンの不規則な動き、私の視野マッピングで完璧に捉えるわ！",
+        "emotion": "determined"
+      },
+      {
+        "speaker": "ミコト先輩",
+        "text": "ヒカリ、その意気よ！ 全力で突破しましょう！",
+        "emotion": "cheerful"
+      }
+    ]
+  },
+  {
+    "id": "ch2_pre_boss_kotoha",
+    "chapter": 2,
+    "timing": "pre_boss",
+    "heroVariant": "kotoha",
+    "dialogue": [
+      {
+        "speaker": "コトハ",
+        "text": "ホメオスタシスを取り戻すのよ！ バランスを整えて一気に叩きましょう！",
+        "emotion": "determined"
+      },
+      {
+        "speaker": "ミコト先輩",
+        "text": "コトハ、その意気よ！ 全力で突破しましょう！",
+        "emotion": "cheerful"
+      }
+    ]
+  },
+  {
+    "id": "ch2_pre_boss_leon",
+    "chapter": 2,
+    "timing": "pre_boss",
+    "heroVariant": "leon",
+    "dialogue": [
+      {
+        "speaker": "レオン",
+        "text": "器官ネットワークの異常を検知。システム復旧シーケンス、開始する！",
+        "emotion": "determined"
+      },
+      {
+        "speaker": "ミコト先輩",
+        "text": "レオン、その意気よ！ 全力で突破しましょう！",
+        "emotion": "cheerful"
+      }
+    ]
+  },
+  {
     "id": "ch3_intro",
     "chapter": 3,
     "timing": "intro",
@@ -465,6 +609,78 @@
     ]
   },
   {
+    "id": "ch3_pre_boss_minato",
+    "chapter": 3,
+    "timing": "pre_boss",
+    "heroVariant": "minato",
+    "dialogue": [
+      {
+        "speaker": "ミナト",
+        "text": "骨格は体を支える土台だよ！ フラクチャーゴーレム、みんなの体は傷つけさせない！",
+        "emotion": "determined"
+      },
+      {
+        "speaker": "ミコト先輩",
+        "text": "ミナト、その意気よ！ 全力で突破しましょう！",
+        "emotion": "cheerful"
+      }
+    ]
+  },
+  {
+    "id": "ch3_pre_boss_hikari",
+    "chapter": 3,
+    "timing": "pre_boss",
+    "heroVariant": "hikari",
+    "dialogue": [
+      {
+        "speaker": "ヒカリ",
+        "text": "動きは鈍いけど装甲が硬い…関節の脆い部分をピンポイントで狙い撃つわ！",
+        "emotion": "determined"
+      },
+      {
+        "speaker": "ミコト先輩",
+        "text": "ヒカリ、その意気よ！ 全力で突破しましょう！",
+        "emotion": "cheerful"
+      }
+    ]
+  },
+  {
+    "id": "ch3_pre_boss_kotoha",
+    "chapter": 3,
+    "timing": "pre_boss",
+    "heroVariant": "kotoha",
+    "dialogue": [
+      {
+        "speaker": "コトハ",
+        "text": "カルシウムの要、骨を砕くなんて許せない！ オーラルバリアで攻撃を弾くわ！",
+        "emotion": "determined"
+      },
+      {
+        "speaker": "ミコト先輩",
+        "text": "コトハ、その意気よ！ 全力で突破しましょう！",
+        "emotion": "cheerful"
+      }
+    ]
+  },
+  {
+    "id": "ch3_pre_boss_leon",
+    "chapter": 3,
+    "timing": "pre_boss",
+    "heroVariant": "leon",
+    "dialogue": [
+      {
+        "speaker": "レオン",
+        "text": "物理的な破壊力は厄介だな。ゴーレムの行動パターンを解析、回避ルートを構築する。",
+        "emotion": "determined"
+      },
+      {
+        "speaker": "ミコト先輩",
+        "text": "レオン、その意気よ！ 全力で突破しましょう！",
+        "emotion": "cheerful"
+      }
+    ]
+  },
+  {
     "id": "ch4_intro",
     "chapter": 4,
     "timing": "intro",
@@ -507,6 +723,78 @@
         "speaker": "ミコト先輩",
         "text": "抗体イーグルを入手！ 免疫の仕組みは医療の基本中の基本よ。",
         "emotion": "happy"
+      }
+    ]
+  },
+  {
+    "id": "ch4_pre_boss_minato",
+    "chapter": 4,
+    "timing": "pre_boss",
+    "heroVariant": "minato",
+    "dialogue": [
+      {
+        "speaker": "ミナト",
+        "text": "貧血なんてさせない！ アネミアドラゴン、私が赤血球の代わりにみんなに酸素を届ける！",
+        "emotion": "determined"
+      },
+      {
+        "speaker": "ミコト先輩",
+        "text": "ミナト、その意気よ！ 全力で突破しましょう！",
+        "emotion": "cheerful"
+      }
+    ]
+  },
+  {
+    "id": "ch4_pre_boss_hikari",
+    "chapter": 4,
+    "timing": "pre_boss",
+    "heroVariant": "hikari",
+    "dialogue": [
+      {
+        "speaker": "ヒカリ",
+        "text": "視界が奪われても問題ないわ。私の精密観察なら、霞の中の敵でも見逃さない！",
+        "emotion": "determined"
+      },
+      {
+        "speaker": "ミコト先輩",
+        "text": "ヒカリ、その意気よ！ 全力で突破しましょう！",
+        "emotion": "cheerful"
+      }
+    ]
+  },
+  {
+    "id": "ch4_pre_boss_kotoha",
+    "chapter": 4,
+    "timing": "pre_boss",
+    "heroVariant": "kotoha",
+    "dialogue": [
+      {
+        "speaker": "コトハ",
+        "text": "血液の異常は全身の危機よ！ 免疫バリアを展開して、デバフをシャットアウトする！",
+        "emotion": "determined"
+      },
+      {
+        "speaker": "ミコト先輩",
+        "text": "コトハ、その意気よ！ 全力で突破しましょう！",
+        "emotion": "cheerful"
+      }
+    ]
+  },
+  {
+    "id": "ch4_pre_boss_leon",
+    "chapter": 4,
+    "timing": "pre_boss",
+    "heroVariant": "leon",
+    "dialogue": [
+      {
+        "speaker": "レオン",
+        "text": "血液循環シミュレーション完了。ドラゴンのブレスが来る前に、防御システムを起動する！",
+        "emotion": "determined"
+      },
+      {
+        "speaker": "ミコト先輩",
+        "text": "レオン、その意気よ！ 全力で突破しましょう！",
+        "emotion": "cheerful"
       }
     ]
   },
@@ -557,6 +845,78 @@
     ]
   },
   {
+    "id": "ch5_pre_boss_minato",
+    "chapter": 5,
+    "timing": "pre_boss",
+    "heroVariant": "minato",
+    "dialogue": [
+      {
+        "speaker": "ミナト",
+        "text": "消化吸収を邪魔するなんて！ メタボリックスネーク、患者さんの健康は私が守る！",
+        "emotion": "determined"
+      },
+      {
+        "speaker": "ミコト先輩",
+        "text": "ミナト、その意気よ！ 全力で突破しましょう！",
+        "emotion": "cheerful"
+      }
+    ]
+  },
+  {
+    "id": "ch5_pre_boss_hikari",
+    "chapter": 5,
+    "timing": "pre_boss",
+    "heroVariant": "hikari",
+    "dialogue": [
+      {
+        "speaker": "ヒカリ",
+        "text": "代謝の乱れを誘発する毒…！ 見えたわ、次の攻撃軌道。みんな、私の指示に合わせて！",
+        "emotion": "determined"
+      },
+      {
+        "speaker": "ミコト先輩",
+        "text": "ヒカリ、その意気よ！ 全力で突破しましょう！",
+        "emotion": "cheerful"
+      }
+    ]
+  },
+  {
+    "id": "ch5_pre_boss_kotoha",
+    "chapter": 5,
+    "timing": "pre_boss",
+    "heroVariant": "kotoha",
+    "dialogue": [
+      {
+        "speaker": "コトハ",
+        "text": "栄養が摂れないなんて大問題じゃない！ 口腔から内臓へ、正しいサイクルを取り戻すわ！",
+        "emotion": "determined"
+      },
+      {
+        "speaker": "ミコト先輩",
+        "text": "コトハ、その意気よ！ 全力で突破しましょう！",
+        "emotion": "cheerful"
+      }
+    ]
+  },
+  {
+    "id": "ch5_pre_boss_leon",
+    "chapter": 5,
+    "timing": "pre_boss",
+    "heroVariant": "leon",
+    "dialogue": [
+      {
+        "speaker": "レオン",
+        "text": "化学工場の機能不全か。毒素の成分を解析し、最適な無効化プログラムを実行する！",
+        "emotion": "determined"
+      },
+      {
+        "speaker": "ミコト先輩",
+        "text": "レオン、その意気よ！ 全力で突破しましょう！",
+        "emotion": "cheerful"
+      }
+    ]
+  },
+  {
     "id": "ch6_intro",
     "chapter": 6,
     "timing": "intro",
@@ -599,6 +959,78 @@
         "speaker": "ミコト先輩",
         "text": "冠動脈ラインを入手！ 心臓自体への血液供給、とても大事な知識よ。",
         "emotion": "happy"
+      }
+    ]
+  },
+  {
+    "id": "ch6_pre_boss_minato",
+    "chapter": 6,
+    "timing": "pre_boss",
+    "heroVariant": "minato",
+    "dialogue": [
+      {
+        "speaker": "ミナト",
+        "text": "心拍が乱れてる…！ 不整脈ファントム、これ以上みんなの心臓には指一本触れさせない！",
+        "emotion": "determined"
+      },
+      {
+        "speaker": "ミコト先輩",
+        "text": "ミナト、その意気よ！ 全力で突破しましょう！",
+        "emotion": "cheerful"
+      }
+    ]
+  },
+  {
+    "id": "ch6_pre_boss_hikari",
+    "chapter": 6,
+    "timing": "pre_boss",
+    "heroVariant": "hikari",
+    "dialogue": [
+      {
+        "speaker": "ヒカリ",
+        "text": "時間が圧迫されても焦らないで。心停止の前に、ファントムのコアを正確に射抜くわ！",
+        "emotion": "determined"
+      },
+      {
+        "speaker": "ミコト先輩",
+        "text": "ヒカリ、その意気よ！ 全力で突破しましょう！",
+        "emotion": "cheerful"
+      }
+    ]
+  },
+  {
+    "id": "ch6_pre_boss_kotoha",
+    "chapter": 6,
+    "timing": "pre_boss",
+    "heroVariant": "kotoha",
+    "dialogue": [
+      {
+        "speaker": "コトハ",
+        "text": "循環の要が乱れるなんて！ ペースを崩される前に、こちらから速攻で仕掛けるわよ！",
+        "emotion": "determined"
+      },
+      {
+        "speaker": "ミコト先輩",
+        "text": "コトハ、その意気よ！ 全力で突破しましょう！",
+        "emotion": "cheerful"
+      }
+    ]
+  },
+  {
+    "id": "ch6_pre_boss_leon",
+    "chapter": 6,
+    "timing": "pre_boss",
+    "heroVariant": "leon",
+    "dialogue": [
+      {
+        "speaker": "レオン",
+        "text": "不整脈パターンの解析完了。ノイズを排除し、味方の行動タイムラインを強制同期させる！",
+        "emotion": "determined"
+      },
+      {
+        "speaker": "ミコト先輩",
+        "text": "レオン、その意気よ！ 全力で突破しましょう！",
+        "emotion": "cheerful"
       }
     ]
   },
@@ -649,6 +1081,78 @@
     ]
   },
   {
+    "id": "ch7_pre_boss_minato",
+    "chapter": 7,
+    "timing": "pre_boss",
+    "heroVariant": "minato",
+    "dialogue": [
+      {
+        "speaker": "ミナト",
+        "text": "息が、苦しい…！ でも負けない！ 無呼吸シャドウ、私がみんなに新しい空気を届ける！",
+        "emotion": "determined"
+      },
+      {
+        "speaker": "ミコト先輩",
+        "text": "ミナト、その意気よ！ 全力で突破しましょう！",
+        "emotion": "cheerful"
+      }
+    ]
+  },
+  {
+    "id": "ch7_pre_boss_hikari",
+    "chapter": 7,
+    "timing": "pre_boss",
+    "heroVariant": "hikari",
+    "dialogue": [
+      {
+        "speaker": "ヒカリ",
+        "text": "暗闇での妨害…私には通じないわ。ガス交換の隙間を縫って、決定打を撃ち込む！",
+        "emotion": "determined"
+      },
+      {
+        "speaker": "ミコト先輩",
+        "text": "ヒカリ、その意気よ！ 全力で突破しましょう！",
+        "emotion": "cheerful"
+      }
+    ]
+  },
+  {
+    "id": "ch7_pre_boss_kotoha",
+    "chapter": 7,
+    "timing": "pre_boss",
+    "heroVariant": "kotoha",
+    "dialogue": [
+      {
+        "speaker": "コトハ",
+        "text": "呼吸の乱れは全身の機能を止めてしまう！ 私の予防ケアでシャドウの妨害を浄化するわ！",
+        "emotion": "determined"
+      },
+      {
+        "speaker": "ミコト先輩",
+        "text": "コトハ、その意気よ！ 全力で突破しましょう！",
+        "emotion": "cheerful"
+      }
+    ]
+  },
+  {
+    "id": "ch7_pre_boss_leon",
+    "chapter": 7,
+    "timing": "pre_boss",
+    "heroVariant": "leon",
+    "dialogue": [
+      {
+        "speaker": "レオン",
+        "text": "酸素濃度の低下を感知。補助システムを起動し、パーティの行動制約を強制解除する！",
+        "emotion": "determined"
+      },
+      {
+        "speaker": "ミコト先輩",
+        "text": "レオン、その意気よ！ 全力で突破しましょう！",
+        "emotion": "cheerful"
+      }
+    ]
+  },
+  {
     "id": "ch8_intro",
     "chapter": 8,
     "timing": "intro",
@@ -691,6 +1195,78 @@
         "speaker": "ミコト先輩",
         "text": "大脳コルテックスを入手！ 知性の王座を手に入れたわね。最終章へ進みましょう！",
         "emotion": "happy"
+      }
+    ]
+  },
+  {
+    "id": "ch8_pre_boss_minato",
+    "chapter": 8,
+    "timing": "pre_boss",
+    "heroVariant": "minato",
+    "dialogue": [
+      {
+        "speaker": "ミナト",
+        "text": "感覚がおかしくなる…っ！ でも、心までは奪わせない！ ニューロカオス、覚悟して！",
+        "emotion": "determined"
+      },
+      {
+        "speaker": "ミコト先輩",
+        "text": "ミナト、その意気よ！ 全力で突破しましょう！",
+        "emotion": "cheerful"
+      }
+    ]
+  },
+  {
+    "id": "ch8_pre_boss_hikari",
+    "chapter": 8,
+    "timing": "pre_boss",
+    "heroVariant": "hikari",
+    "dialogue": [
+      {
+        "speaker": "ヒカリ",
+        "text": "視覚、聴覚のフェイク…すべて幻よ。私の『本当の目』で、本物だけを見つけ出すわ！",
+        "emotion": "determined"
+      },
+      {
+        "speaker": "ミコト先輩",
+        "text": "ヒカリ、その意気よ！ 全力で突破しましょう！",
+        "emotion": "cheerful"
+      }
+    ]
+  },
+  {
+    "id": "ch8_pre_boss_kotoha",
+    "chapter": 8,
+    "timing": "pre_boss",
+    "heroVariant": "kotoha",
+    "dialogue": [
+      {
+        "speaker": "コトハ",
+        "text": "全デバフなんて関係ないわ！ 歯科衛生士の誇りにかけて、全身の感覚をクリアにする！",
+        "emotion": "determined"
+      },
+      {
+        "speaker": "ミコト先輩",
+        "text": "コトハ、その意気よ！ 全力で突破しましょう！",
+        "emotion": "cheerful"
+      }
+    ]
+  },
+  {
+    "id": "ch8_pre_boss_leon",
+    "chapter": 8,
+    "timing": "pre_boss",
+    "heroVariant": "leon",
+    "dialogue": [
+      {
+        "speaker": "レオン",
+        "text": "エラーデータが大量発生している…！ 大脳皮質サーバーにアクセス、全てのノイズを上書きする！",
+        "emotion": "determined"
+      },
+      {
+        "speaker": "ミコト先輩",
+        "text": "レオン、その意気よ！ 全力で突破しましょう！",
+        "emotion": "cheerful"
       }
     ]
   },
@@ -818,78 +1394,6 @@
       {
         "speaker": "ミコト先輩",
         "text": "これからの医療の学びの土台が出来上がったわ。自信を持って進学してね！",
-        "emotion": "happy"
-      }
-    ]
-  },
-  {
-    "id": "ending_minato",
-    "chapter": 0,
-    "timing": "ending",
-    "heroVariant": "minato",
-    "dialogue": [
-      {
-        "speaker": "ミナト",
-        "text": "看護師への道、ここから本番だけど… 基礎はバッチリ！ 患者さんを笑顔にしたい。",
-        "emotion": "happy"
-      },
-      {
-        "speaker": "ミコト先輩",
-        "text": "ミナト、あなたなら素敵なナースになれるわ。応援してる！",
-        "emotion": "happy"
-      }
-    ]
-  },
-  {
-    "id": "ending_hikari",
-    "chapter": 0,
-    "timing": "ending",
-    "heroVariant": "hikari",
-    "dialogue": [
-      {
-        "speaker": "ヒカリ",
-        "text": "視能訓練士として、患者さんの「見える」を守りたい。精密さを磨き続けるわ。",
-        "emotion": "happy"
-      },
-      {
-        "speaker": "ミコト先輩",
-        "text": "ヒカリの精密な目が、多くの人の視覚を守るのね。",
-        "emotion": "happy"
-      }
-    ]
-  },
-  {
-    "id": "ending_kotoha",
-    "chapter": 0,
-    "timing": "ending",
-    "heroVariant": "kotoha",
-    "dialogue": [
-      {
-        "speaker": "コトハ",
-        "text": "歯科衛生士として、口腔ケアから全身の健康を支えていく。予防が一番大切！",
-        "emotion": "happy"
-      },
-      {
-        "speaker": "ミコト先輩",
-        "text": "コトハの予防ケアの精神が、多くの患者さんを救うわ。",
-        "emotion": "happy"
-      }
-    ]
-  },
-  {
-    "id": "ending_leon",
-    "chapter": 0,
-    "timing": "ending",
-    "heroVariant": "leon",
-    "dialogue": [
-      {
-        "speaker": "レオン",
-        "text": "臨床工学技士として、生命維持の最前線に立つ。システムは完璧に。",
-        "emotion": "happy"
-      },
-      {
-        "speaker": "ミコト先輩",
-        "text": "レオン、あなたの技術力が命を支えるの。信頼してるわ。",
         "emotion": "happy"
       }
     ]

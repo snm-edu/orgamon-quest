@@ -14,15 +14,12 @@ export function getLevelStatBonus(level: number): BattleStats {
   };
 }
 
-/**
- * baseStatsにレベルボーナスを加算する
- */
 function applyLevelBonus(stats: BattleStats, level: number): BattleStats {
   const bonus = getLevelStatBonus(level);
   return {
-    atk: stats.atk + bonus.atk,
-    def: stats.def + bonus.def,
-    spd: stats.spd + bonus.spd,
+    atk: (stats.atk || 10) + bonus.atk,
+    def: (stats.def || 10) + bonus.def,
+    spd: (stats.spd || 12) + bonus.spd,
   };
 }
 
