@@ -9,28 +9,22 @@ import { getHeroSkillLoadout, getSkillLearnCostMp } from "../logic/skillLogic";
 import { ScreenLayout, GlassCard, PastelButton, ProgressBar, Badge, Modal } from "../components/common";
 import heroesData from "../data/heroes.json";
 import cardsData from "../data/cards.json";
-import type { Hero, CardSkinId, Card } from "../types";
+import type { Hero, Card } from "../types";
 
 const heroes = heroesData as Hero[];
 const cards = cardsData as Card[];
 const allAchievements = getAllAchievements();
 
 const heroAvatars: Record<string, string> = { minato: "👩‍⚕️", hikari: "🔬", kotoha: "🌿", leon: "💻" };
-const skinLabels: Record<CardSkinId, { name: string; emoji: string }> = {
-  normal: { name: "ノーマル", emoji: "🃏" },
-  pastel: { name: "パステル", emoji: "🌸" },
-  sparkle: { name: "キラキラ", emoji: "✨" },
-  pixel: { name: "ドット絵", emoji: "👾" },
-};
 
-type Tab = "profile" | "achievements" | "titles" | "skills" | "skins";
+
+type Tab = "profile" | "achievements" | "titles" | "skills";
 
 const PAGE_SIZE: Record<Tab, number> = {
   profile: 1,
   achievements: 1,
   titles: 4,
   skills: 1,
-  skins: 2,
 };
 
 const TABS: { id: Tab; label: string; emoji: string }[] = [
@@ -38,7 +32,6 @@ const TABS: { id: Tab; label: string; emoji: string }[] = [
   { id: "achievements", label: "実績", emoji: "🏆" },
   { id: "titles", label: "称号", emoji: "🏅" },
   { id: "skills", label: "スキル", emoji: "⚡" },
-  { id: "skins", label: "スキン", emoji: "🎨" },
 ];
 
 const INITIAL_TAB_PAGE: Record<Tab, number> = {
@@ -46,7 +39,6 @@ const INITIAL_TAB_PAGE: Record<Tab, number> = {
   achievements: 0,
   titles: 0,
   skills: 0,
-  skins: 0,
 };
 
 export default function ProfileScreen() {
@@ -79,7 +71,6 @@ export default function ProfileScreen() {
     achievements: allAchievements.length,
     titles: meta.titles.length,
     skills: skillLoadout.allActiveSkills.length,
-    skins: 4,
   };
 
   const currentPageSize = tab === "achievements" ? Math.max(1, allAchievements.length) : PAGE_SIZE[tab];
@@ -204,9 +195,14 @@ export default function ProfileScreen() {
                 );
               })()}
             </div>
-            <Badge variant="warning" size="xs" className="max-w-[50%] truncate">
-              {meta.activeTitle}
-            </Badge>
+            <div className="flex flex-col items-end justify-center gap-1.5 shrink-0">
+              <Badge variant="warning" size="xs" className="max-w-[100px] truncate">
+                {meta.activeTitle}
+              </Badge>
+              <Badge variant="info" size="xs" className="font-bold">
+                MP {currentRun.mp}
+              </Badge>
+            </div>
           </div>
         </GlassCard>
 
@@ -401,34 +397,13 @@ export default function ProfileScreen() {
           )}
 
           {tab === "skills" && (
-            <div className="flex-1 min-h-0 flex flex-col gap-2">
-              <GlassCard className="p-2.5 !bg-white/55 shrink-0">
-                <div className="flex items-center justify-between mb-1">
-                  <p className="text-xs font-bold text-warm-gray">スキルセット</p>
-                  <Badge variant="warning" size="xs">MP {currentRun.mp}</Badge>
+            <div className="flex-1 min-h-0 flex flex-col gap-2 relative">
+              {skillNotice && (
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 z-10 w-full max-w-[200px] text-center rounded-lg bg-pastel-yellow/95 px-3 py-1.5 text-[11px] font-bold text-amber-700 shadow-sm animate-pop">
+                  {skillNotice}
                 </div>
-                <p className="text-[10px] text-warm-gray/45 mb-1">
-                  装備枠: {skillLoadout.skillSetMax}
-                </p>
-                <div className="flex flex-wrap gap-1">
-                  {Array.from({ length: skillLoadout.skillSetMax }).map((_, slotIndex) => {
-                    const equippedId = skillLoadout.equippedSkillIds[slotIndex];
-                    const equipped = skillLoadout.equippedSkills.find((skill) => skill.id === equippedId);
-                    return (
-                      <Badge key={slotIndex} variant="default" size="xs">
-                        S{slotIndex + 1}: {equipped?.name || "未設定"}
-                      </Badge>
-                    );
-                  })}
-                </div>
-                {skillNotice && (
-                  <div className="mt-1.5 rounded-lg bg-pastel-yellow/30 px-2 py-1 text-[11px] font-bold text-amber-700 animate-pop">
-                    {skillNotice}
-                  </div>
-                )}
-              </GlassCard>
-
-              <div className="flex-1 overflow-y-auto space-y-2 pr-1">
+              )}
+              <div className="flex-1 overflow-y-auto space-y-1.5 pr-1 pb-1">
                 {skillLoadout.allActiveSkills.map((skill) => {
                   const isLearned = skillLoadout.learnedSkillIds.includes(skill.id);
                   const equippedSlot = skillLoadout.equippedSkillIds.indexOf(skill.id);
@@ -498,57 +473,7 @@ export default function ProfileScreen() {
             </div>
           )}
 
-          {tab === "skins" && (
-            <div
-              className="flex-1 min-h-0 grid gap-2"
-              style={{ gridTemplateRows: `repeat(${PAGE_SIZE.skins}, minmax(0, 1fr))` }}
-            >
-              {(["normal", "pastel", "sparkle", "pixel"] as CardSkinId[])
-                .slice(pageStart, pageStart + PAGE_SIZE.skins)
-                .map((skinId) => {
-                  const info = skinLabels[skinId];
-                  const unlocked = meta.cardSkins.includes(skinId);
-                  return (
-                    <div
-                      key={skinId}
-                      className={`rounded-xl border p-3 ${unlocked
-                        ? "bg-white/70 border-white/75"
-                        : "bg-gray-100/45 border-white/65 opacity-45"
-                        }`}
-                    >
-                      <div className="flex items-center gap-2.5 h-full">
-                        <div className="w-11 h-11 rounded-xl bg-white/60 flex items-center justify-center text-2xl shrink-0">
-                          {info.emoji}
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <p className="font-bold text-sm text-warm-gray truncate">{info.name}</p>
-                          <p className="text-[11px] text-warm-gray/40">
-                            {unlocked ? "✅ 解放済み" : "🔒 未解放"}
-                          </p>
-                        </div>
-                        {unlocked && <Badge variant="success" size="xs">使用可</Badge>}
-                      </div>
-                    </div>
-                  );
-                })}
 
-              {Array.from({
-                length: Math.max(
-                  0,
-                  PAGE_SIZE.skins -
-                  (["normal", "pastel", "sparkle", "pixel"] as CardSkinId[])
-                    .slice(pageStart, pageStart + PAGE_SIZE.skins).length
-                ),
-              }).map((_, index) => (
-                <div
-                  key={`skin-empty-${index}`}
-                  className="rounded-xl border-2 border-dashed border-white/55 bg-white/20 grid place-items-center text-[11px] text-warm-gray/30"
-                >
-                  スキンなし
-                </div>
-              ))}
-            </div>
-          )}
 
           {tab !== "profile" && tab !== "skills" && totalPages > 1 && (
             <div className="mt-2 shrink-0 flex items-center gap-2">
