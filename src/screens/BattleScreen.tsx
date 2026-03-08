@@ -106,9 +106,8 @@ export default function BattleScreen() {
   const [fakeHighlight, setFakeHighlight] = useState<number | null>(null);
   const [showVictoryParticles, setShowVictoryParticles] = useState(false);
 
-  // Cutin, Particles, Camera Shake
+  // Cutin, Camera Shake, Flash
   const [activeSkillCutin, setActiveSkillCutin] = useState<{ heroId: string, heroName: string, skillName: string, themeColor: string, imageUrl?: string } | null>(null);
-  const [showMagicCircle, setShowMagicCircle] = useState(false);
   const [isShaking, setIsShaking] = useState(false);
   const [isFlashing, setIsFlashing] = useState(false);
 
@@ -337,16 +336,31 @@ export default function BattleScreen() {
         ? `（選択肢 ${reducedFrom}→${reducedTo}）`
         : "";
 
-    // Pattern A + B: Skill Cutin & Magic Circle (particles/aura effect applied)
+    const attackerId = turnQueue[round] || formation[0]?.id;
+    const attacker = formation.find((m) => m.id === attackerId) || formation[0];
+
+    let cutinImg = hero.imageUrl;
+    let cutinName = hero.name;
+    let cutinThemeColor = hero.themeColor;
+
+    if (attacker && attacker.id !== hero.id) {
+      const comp = currentRun.team.find(c => c.id === attacker.id);
+      if (comp) {
+        cutinImg = comp.imageUrl || (comp.type === "hero" ? getHeroById(comp.heroRef as any)?.imageUrl : undefined);
+        cutinName = comp.name;
+        // Use hero color as fallback since companions might not have themeColor
+        cutinThemeColor = (comp as any).themeColor || hero.themeColor;
+      }
+    }
+
+    // Pattern A: Skill Cutin
     setActiveSkillCutin({
-      heroId: hero.id,
-      heroName: hero.name,
+      heroId: attacker?.id || hero.id,
+      heroName: cutinName,
       skillName: skill.name,
-      themeColor: hero.themeColor,
-      imageUrl: hero.imageUrl,
+      themeColor: cutinThemeColor,
+      imageUrl: cutinImg,
     });
-    setShowMagicCircle(true);
-    setTimeout(() => setShowMagicCircle(false), 1100);
 
     setSkillMessage(`✨ ${skill.name} 発動！${choiceReducedLabel}`);
     setTimeout(() => setSkillMessage(null), 1500);
@@ -462,9 +476,6 @@ export default function BattleScreen() {
     <div className={`h-[100dvh] overflow-hidden px-3 pt-2.5 pb-[calc(env(safe-area-inset-bottom)+0.4rem)] flex flex-col gap-1.5 relative ${shakeClass}`}>
       {/* Pattern C: Flash Screen */}
       {isFlashing && <div className="animate-flash-screen" />}
-
-      {/* Pattern B: Magic Circle Effect */}
-      {showMagicCircle && hero && <div className="magic-circle-effect" style={{ color: hero.themeColor }} />}
 
       {/* Background container */}
       <div

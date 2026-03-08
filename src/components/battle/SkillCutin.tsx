@@ -30,7 +30,7 @@ export default function SkillCutin({
             clearTimeout(t2);
             clearTimeout(t3);
         };
-    }, [onComplete]);
+    }, []);
 
     return (
         <div className={`skill-cutin-container ${stage}`}>
