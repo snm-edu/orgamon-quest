@@ -1,0 +1,106 @@
+.skill-cutin-container {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.skill-cutin-backdrop {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.enter .skill-cutin-backdrop,
+.hold .skill-cutin-backdrop {
+  opacity: 1;
+}
+
+.skill-cutin-speedlines {
+  position: absolute;
+  width: 200vw;
+  height: 200vh;
+  left: -50vw;
+  top: -50vh;
+  background-image: repeating-conic-gradient(
+    currentColor 0%,
+    currentColor 2%,
+    transparent 2%,
+    transparent 4%
+  );
+  opacity: 0.15;
+  animation: skillCutinSpin 5s linear infinite;
+}
+
+@keyframes skillCutinSpin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.skill-cutin-band {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 250px;
+  transform: translateY(-50%) scaleY(0);
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.enter .skill-cutin-band,
+.hold .skill-cutin-band {
+  transform: translateY(-50%) scaleY(1);
+}
+
+.skill-cutin-character {
+  position: absolute;
+  bottom: 0px;
+  right: 0px; /* modified from original left */
+  height: 85%;
+  object-fit: contain;
+  transform: translateX(100%) scale(1.1);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  opacity: 0;
+}
+.enter .skill-cutin-character {
+  opacity: 0;
+  transform: translateX(100%) scale(1.1);
+}
+.hold .skill-cutin-character {
+  opacity: 1;
+  transform: translateX(0%) scale(1);
+}
+.exit .skill-cutin-character {
+  opacity: 0;
+  transform: translateX(-100%) scale(1.1);
+}
+
+.skill-cutin-text-container {
+  position: absolute;
+  left: 1rem;
+  top: 30%;
+  transform: translateY(-50%) translateX(-100vw);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s;
+}
+.hold .skill-cutin-text-container {
+  transform: translateY(-50%) translateX(0);
+}
+.exit .skill-cutin-text-container {
+  transform: translateY(-50%) translateX(100vw);
+  transition-delay: 0s;
+}
+
+.skill-cutin-skillname {
+  font-size: 2rem;
+  font-weight: 900;
+  color: white;
+  margin: 0;
+  font-style: italic;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}

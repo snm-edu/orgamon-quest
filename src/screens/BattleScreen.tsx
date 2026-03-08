@@ -11,6 +11,7 @@ import { buildFormation, buildSpeedTurnQueue, getPartyDefense, POSITION_LABELS }
 import { getItemById } from "../logic/itemLogic";
 import { addCompanionExp } from "../logic/companionLogic";
 import { ProgressBar, Badge, Modal, PastelButton, ParticleEffect } from "../components/common";
+import SkillCutin from "../components/battle/SkillCutin";
 import { audio } from "../utils/audio";
 import cardsData from "../data/cards.json";
 import type { Question, Skill, Card, Companion } from "../types";
@@ -104,6 +105,13 @@ export default function BattleScreen() {
   const [maskedText, setMaskedText] = useState(false);
   const [fakeHighlight, setFakeHighlight] = useState<number | null>(null);
   const [showVictoryParticles, setShowVictoryParticles] = useState(false);
+
+  // Cutin, Particles, Camera Shake
+  const [activeSkillCutin, setActiveSkillCutin] = useState<{ heroId: string, heroName: string, skillName: string, themeColor: string, imageUrl?: string } | null>(null);
+  const [showMagicCircle, setShowMagicCircle] = useState(false);
+  const [isShaking, setIsShaking] = useState(false);
+  const [isFlashing, setIsFlashing] = useState(false);
+
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
@@ -165,6 +173,14 @@ export default function BattleScreen() {
       if (damage >= 40) audio.playSE("heavy_impact");
       else audio.playSE("impact");
       setTimeout(() => setDamageAnim(0), 800);
+
+      // Pattern C: Screen Shake & Flash
+      setIsShaking(true);
+      setIsFlashing(true);
+      setTimeout(() => {
+        setIsShaking(false);
+        setIsFlashing(false);
+      }, 400);
       setTurnMessage(`⚔️ ${actingMember?.name || "味方"} の行動！ ${damage}ダメージ`);
       setTimeout(() => setTurnMessage(null), 1800);
       if (combo) {
@@ -320,6 +336,18 @@ export default function BattleScreen() {
       reducedFrom !== null && reducedTo !== null
         ? `（選択肢 ${reducedFrom}→${reducedTo}）`
         : "";
+
+    // Pattern A + B: Skill Cutin & Magic Circle (particles/aura effect applied)
+    setActiveSkillCutin({
+      heroId: hero.id,
+      heroName: hero.name,
+      skillName: skill.name,
+      themeColor: hero.themeColor,
+      imageUrl: hero.imageUrl,
+    });
+    setShowMagicCircle(true);
+    setTimeout(() => setShowMagicCircle(false), 1500);
+
     setSkillMessage(`✨ ${skill.name} 発動！${choiceReducedLabel}`);
     setTimeout(() => setSkillMessage(null), 1500);
     setShowSkillPanel(false);
@@ -427,9 +455,18 @@ export default function BattleScreen() {
     return comp?.imageUrl || null;
   };
 
+  // Main wrap class logic: handle Screen Shake (Pattern C)
+  const shakeClass = isShaking ? "animate-screen-shake" : "";
 
   return (
-    <div className="h-[100dvh] overflow-hidden px-3 pt-2.5 pb-[calc(env(safe-area-inset-bottom)+0.4rem)] flex flex-col gap-1.5 relative">
+    <div className={`h-[100dvh] flex flex-col bg-slate-900 pb-[calc(env(safe-area-inset-bottom)+0.25rem)] overflow-hidden ${shakeClass}`}>
+      {/* Pattern C: Flash Screen */}
+      {isFlashing && <div className="animate-flash-screen" />}
+
+      {/* Pattern B: Magic Circle Effect */}
+      {showMagicCircle && hero && <div className="magic-circle-effect" style={{ color: hero.themeColor }} />}
+
+      {/* Background container */}
       <div
         className="fixed inset-0 -z-10 bg-cover bg-center opacity-40 mix-blend-multiply"
         style={{ backgroundImage: `url('/images/backgrounds/chapter_${chapter}.webp'), linear-gradient(to bottom right, #fdfbfb, #ebedee)` }}
@@ -648,6 +685,18 @@ export default function BattleScreen() {
           })}
         </div>
       </Modal>
+
+      {/* Pattern A: Skill Cutin Overlay */}
+      {activeSkillCutin && (
+        <SkillCutin
+          heroId={activeSkillCutin.heroId}
+          heroName={activeSkillCutin.heroName}
+          skillName={activeSkillCutin.skillName}
+          themeColor={activeSkillCutin.themeColor}
+          imageUrl={activeSkillCutin.imageUrl}
+          onComplete={() => setActiveSkillCutin(null)}
+        />
+      )}
     </div>
   );
 }
