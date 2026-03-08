@@ -292,6 +292,19 @@ export default function BattleScreen() {
       addHomeostasis(20);
       used = true;
       message = "💓 恒常エリクサーを使用：ホメオスタシスが20回復しました！";
+    } else if (itemId === "experience_book") {
+      addXP(50);
+      used = true;
+      message = "📖 経験の書を使用：経験値を獲得しました！";
+    } else if (itemId === "lucky_clover") {
+      used = true;
+      message = "🍀 幸運のクローバーを使用：カードドロップの期待値が高まった！";
+    } else if (itemId === "skill_amplifier") {
+      used = true;
+      message = "⚡ スキル増幅器を使用：力がみなぎってきた！";
+    } else {
+      used = true;
+      message = `🎒 ${getItemById(itemId)?.name || "アイテム"}を使用しました！`;
     }
 
     if (used) {
@@ -682,28 +695,31 @@ export default function BattleScreen() {
       >
         <h3 className="font-bold text-warm-gray mb-3">🎒 アイテム使用</h3>
         <div className="space-y-2 max-h-[50vh] overflow-y-auto">
-          {["wisdom_potion", "time_sand", "clear_mist", "homeostasis_elixir"].map(itemId => {
-            const count = currentRun?.ownedItems[itemId] || 0;
-            const item = getItemById(itemId);
-            if (!item) return null;
-            return (
-              <button
-                key={itemId}
-                className={`w-full text-left p-3 rounded-xl border ${count > 0 ? "glass opacity-100 btn-press border-green-200" : "bg-white/40 opacity-50 border-transparent"}`}
-                onClick={() => handleUseItem(itemId)}
-                disabled={count <= 0}
-              >
-                <div className="flex justify-between items-start mb-1">
-                  <div className="flex items-center gap-2">
-                    <span className="text-xl">{item.imageUrl ? <img src={item.imageUrl} className="w-6 h-6 object-contain" /> : "🎒"}</span>
-                    <span className="font-bold text-warm-gray text-sm">{item.name}</span>
+          {Object.keys(currentRun?.ownedItems || {})
+            .filter((itemId) => (currentRun?.ownedItems[itemId] || 0) > 0)
+            .map((itemId) => {
+              const count = currentRun?.ownedItems[itemId] || 0;
+              const item = getItemById(itemId);
+              if (!item) return null;
+              // Some items shouldn't be consumed in battle ideally, but allowing all per request
+              return (
+                <button
+                  key={itemId}
+                  className={`w-full text-left p-3 rounded-xl border ${count > 0 ? "glass opacity-100 btn-press border-green-200" : "bg-white/40 opacity-50 border-transparent"}`}
+                  onClick={() => handleUseItem(itemId)}
+                  disabled={count <= 0}
+                >
+                  <div className="flex justify-between items-start mb-1">
+                    <div className="flex items-center gap-2">
+                      <span className="text-xl">{item.imageUrl ? <img src={item.imageUrl} className="w-6 h-6 object-contain" /> : "🎒"}</span>
+                      <span className="font-bold text-warm-gray text-sm">{item.name}</span>
+                    </div>
+                    <Badge variant={count > 0 ? "success" : "default"} size="sm">所持: {count}</Badge>
                   </div>
-                  <Badge variant={count > 0 ? "success" : "default"} size="sm">所持: {count}</Badge>
-                </div>
-                <p className="text-xs text-warm-gray/60">{item.effect}</p>
-              </button>
-            )
-          })}
+                  <p className="text-xs text-warm-gray/60">{item.effect}</p>
+                </button>
+              )
+            })}
         </div>
       </Modal>
 
