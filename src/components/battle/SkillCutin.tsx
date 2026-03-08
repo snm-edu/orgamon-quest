@@ -8,6 +8,7 @@ type Props = {
     themeColor: string;
     imageUrl?: string;
     isItem?: boolean;
+    videoType?: "attack" | "heal";
     onComplete: () => void;
 };
 
@@ -17,6 +18,7 @@ export default function SkillCutin({
     themeColor,
     imageUrl,
     isItem,
+    videoType,
     onComplete,
 }: Props) {
     const [stage, setStage] = useState<"enter" | "hold" | "exit">("enter");
@@ -49,6 +51,21 @@ export default function SkillCutin({
                     background: `linear-gradient(90deg, transparent, ${themeColor}80, transparent)`,
                 }}
             />
+
+            {/* Video Overlay */}
+            {videoType && (
+                <video
+                    src={import.meta.env.BASE_URL + `images/videos/skill_${videoType}.mp4`}
+                    autoPlay
+                    muted
+                    playsInline
+                    className="absolute inset-0 w-full h-full object-cover pointer-events-none z-0"
+                    style={{
+                        mixBlendMode: "screen",
+                    }}
+                    ref={(el) => { if (el) el.playbackRate = 2.0; }}
+                />
+            )}
 
             {/* Character / Item Image */}
             {imageUrl && (

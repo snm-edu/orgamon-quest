@@ -107,7 +107,7 @@ export default function BattleScreen() {
   const [showVictoryParticles, setShowVictoryParticles] = useState(false);
 
   // Cutin, Camera Shake, Flash
-  const [activeSkillCutin, setActiveSkillCutin] = useState<{ heroId: string, heroName: string, skillName: string, themeColor: string, imageUrl?: string, isItem?: boolean } | null>(null);
+  const [activeSkillCutin, setActiveSkillCutin] = useState<{ heroId: string, heroName: string, skillName: string, themeColor: string, imageUrl?: string, isItem?: boolean, videoType?: "attack" | "heal" } | null>(null);
   const [isShaking, setIsShaking] = useState(false);
   const [isFlashing, setIsFlashing] = useState(false);
 
@@ -327,6 +327,7 @@ export default function BattleScreen() {
         themeColor: "#facc15", // yellow-400
         imageUrl: itemData?.imageUrl,
         isItem: true,
+        videoType: "heal",
       });
 
       setSkillMessage(message);
@@ -385,6 +386,9 @@ export default function BattleScreen() {
       }
     }
 
+    const isHeal = skill.effects.some(e => e.type === "heal_homeostasis" || e.type === "cleanse_debuff" || e.type === "hot_heal" || e.type === "safe_net");
+    const videoType = isHeal ? "heal" : "attack";
+
     // Pattern A: Skill Cutin
     setActiveSkillCutin({
       heroId: attacker?.id || hero.id,
@@ -392,6 +396,7 @@ export default function BattleScreen() {
       skillName: skill.name,
       themeColor: cutinThemeColor,
       imageUrl: cutinImg,
+      videoType,
     });
 
     setSkillMessage(`✨ ${skill.name} 発動！${choiceReducedLabel}`);
@@ -741,6 +746,7 @@ export default function BattleScreen() {
           themeColor={activeSkillCutin.themeColor}
           imageUrl={activeSkillCutin.imageUrl}
           isItem={activeSkillCutin.isItem}
+          videoType={activeSkillCutin.videoType}
           onComplete={() => setActiveSkillCutin(null)}
         />
       )}
