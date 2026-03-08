@@ -77,7 +77,7 @@ export default function BattleScreen() {
     currentRun && hero ? getHeroSkillLoadout(hero, currentRun).equippedSkills : [];
   const formation = useMemo(() => {
     if (!hero || !currentRun) return [];
-    return buildFormation(hero, currentRun.team, activeTitle, currentRun.battleFormationIds, currentRun.level);
+    return buildFormation(hero, currentRun.team, activeTitle, currentRun.battleFormationIds, currentRun.level, currentRun.playerName);
   }, [hero, currentRun, activeTitle]);
   const turnQueue = useMemo(() => buildSpeedTurnQueue(formation, BATTLE_ROUNDS + 4), [formation]);
 
@@ -372,8 +372,8 @@ export default function BattleScreen() {
     const attacker = formation.find((m) => m.id === attackerId) || formation[0];
 
     let cutinImg = hero.imageUrl;
-    let cutinName = hero.name;
-    let cutinThemeColor = hero.themeColor;
+    let cutinName = currentRun.playerName || hero.name;
+    let cutinThemeColor = hero.themeColor || "#f08080";
 
     if (attacker && attacker.id !== hero.id) {
       const comp = currentRun.team.find(c => c.id === attacker.id);

@@ -1,13 +1,17 @@
 import { useState } from "react";
 import { useGameStore } from "../stores/gameStore";
 import { ScreenLayout, GlassCard, PastelButton } from "../components/common";
-import type { HeroId } from "../types";
+import type { HeroId, Hero } from "../types";
+import heroesData from "../data/heroes.json";
+
+const heroes = heroesData as Hero[];
 
 export default function PlayerNameScreen() {
-  const [name, setName] = useState("");
+  const pendingHeroId = useGameStore((s) => s.pendingHeroId);
+  const defaultName = heroes.find(h => h.id === pendingHeroId)?.name || "";
+  const [name, setName] = useState(defaultName);
   const startNewGame = useGameStore((s) => s.startNewGame);
   const setScreen = useGameStore((s) => s.setScreen);
-  const pendingHeroId = useGameStore((s) => s.pendingHeroId);
 
   const handleStart = () => {
     if (!name.trim()) return;

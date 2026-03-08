@@ -176,6 +176,14 @@ export default function StoryScreen() {
   const isEnemy = currentDialogue.emotion === "hostile";
   const isMikoto = currentDialogue.speaker === "ミコト先輩";
 
+  const speakerName = currentDialogue.speaker === "プレイヤー" || currentDialogue.speaker === hero?.name
+    ? (currentRun?.playerName || hero?.name || "プレイヤー")
+    : currentDialogue.speaker;
+
+  const dialogueText = hero && currentRun?.playerName
+    ? currentDialogue.text.split(hero.name).join(currentRun.playerName)
+    : currentDialogue.text;
+
   return (
     <div className="h-[100dvh] flex flex-col px-4 py-5 cursor-pointer relative overflow-hidden" onClick={handleTap}>
       {/* BG */}
@@ -198,21 +206,21 @@ export default function StoryScreen() {
         <div className={`w-36 h-36 rounded-full flex items-center justify-center text-5xl mb-4 shadow-lg overflow-hidden ${isEnemy ? "bg-red-100 animate-pulse border-4 border-red-300" : isMikoto ? "bg-white border-4 border-pastel-pink/50" : "glass-strong border-4 border-white/60"
           }`}>
           {speakerImages[currentDialogue.speaker] ? (
-            <img src={speakerImages[currentDialogue.speaker]} alt={currentDialogue.speaker} className="w-full h-full object-cover object-top" />
-          ) : currentDialogue.speaker === "プレイヤー" && hero ? (
-            <img src={hero.imageUrl} alt={hero.name} className="w-full h-full object-cover object-top" />
+            <img src={speakerImages[currentDialogue.speaker]} alt={speakerName} className="w-full h-full object-cover object-top" />
+          ) : (currentDialogue.speaker === "プレイヤー" || currentDialogue.speaker === hero?.name) && hero ? (
+            <img src={hero.imageUrl} alt={speakerName} className="w-full h-full object-cover object-top" />
           ) : (
             emoji
           )}
         </div>
         <p className={`text-xl font-extrabold mb-1 tracking-wider ${isEnemy ? "text-red-500" : "text-gray-700"}`}>
-          {currentDialogue.speaker === "プレイヤー" ? (hero?.name || "プレイヤー") : currentDialogue.speaker}
+          {speakerName}
         </p>
       </div>
 
       {/* Dialogue */}
       <div className={`${bgEmotion} backdrop-blur rounded-2xl p-5 shadow-md mb-4 border ${isEnemy ? "border-red-200/50" : "border-white/30"} animate-slide-up`}>
-        <p className="text-base text-warm-gray leading-relaxed">{currentDialogue.text}</p>
+        <p className="text-base text-warm-gray leading-relaxed">{dialogueText}</p>
       </div>
 
       {/* Progress dots */}

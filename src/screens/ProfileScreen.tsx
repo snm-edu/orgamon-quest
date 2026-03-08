@@ -181,7 +181,7 @@ export default function ProfileScreen() {
             </div>
             <div className="flex-1 min-w-0">
               <p className="font-bold text-sm text-warm-gray truncate">{currentRun.playerName}</p>
-              <p className="text-[11px] text-warm-gray/50 truncate">{hero.name} Lv.{currentRun.level}</p>
+              <p className="text-[11px] text-warm-gray/50 truncate">{hero.profession} Lv.{currentRun.level}</p>
               {(() => {
                 const titleBonus = getTitleBonus(meta.activeTitle);
                 const levelBonus = getLevelStatBonus(currentRun.level);

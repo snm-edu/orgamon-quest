@@ -90,7 +90,8 @@ export function buildFormation(
   companions: Companion[],
   activeTitle: string,
   battleFormationIds?: string[],
-  playerLevel: number = 1
+  playerLevel: number = 1,
+  playerName?: string
 ): FormationMember[] {
   const titleBonus = getTitleBonus(activeTitle);
   const heroWithTitle = applyStatBonus(hero.baseStats, titleBonus);
@@ -104,7 +105,7 @@ export function buildFormation(
 
   memberById.set(hero.id, {
     id: hero.id,
-    name: hero.name,
+    name: playerName || hero.name,
     role: "hero",
     baseStats: heroWithLevel,
   });

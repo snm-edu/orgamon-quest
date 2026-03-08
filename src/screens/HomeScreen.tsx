@@ -181,7 +181,7 @@ export default function HomeScreen() {
           <div className="min-w-0">
             <p className="text-[10px] text-warm-gray/40 font-bold mb-0.5">ミコト先輩</p>
             <p className="text-[11px] text-warm-gray/70 leading-relaxed">
-              {getMikotoMessage(currentRun.playerName, hero.name, currentRun.level, ownedCardsCount, companionCount)}
+              {getMikotoMessage(currentRun.playerName, currentRun.level, ownedCardsCount, companionCount)}
             </p>
           </div>
         </div>
@@ -315,7 +315,7 @@ export default function HomeScreen() {
             </div>
             <div className="min-w-0">
               <p className="font-bold text-warm-gray truncate">{currentRun.playerName}</p>
-              <p className="text-[10px] text-warm-gray/50 truncate">Lv.{currentRun.level} {hero.name}</p>
+              <p className="text-[10px] text-warm-gray/50 truncate">Lv.{currentRun.level} {hero.profession}</p>
             </div>
           </div>
           <button
@@ -462,7 +462,6 @@ function debuffLabel(type: string): string {
 
 function getMikotoMessage(
   playerName: string,
-  heroName: string,
   level: number,
   cards: number,
   companions: number
@@ -474,6 +473,6 @@ function getMikotoMessage(
   if (companions >= 3)
     return `${playerName}、頼もしい仲間が${companions}体もいるわ。チーム編成を工夫してボスに挑んでみて！`;
   if (level >= 5)
-    return `Lv.${level}になった${heroName}… 順調に成長してるわね。もっと難しい章にも挑戦してみて！`;
+    return `Lv.${level}になった${playerName}… 順調に成長してるわね。もっと難しい章にも挑戦してみて！`;
   return `${playerName}、今日もオルガモンワールドへようこそ！ 章マップから冒険を進めよう✨`;
 }
