@@ -325,8 +325,8 @@ export default function TeamEditScreen() {
         </GlassCard>
       </div>
 
-      <div className="shrink-0">
-        <PastelButton fullWidth size="lg" gradient="coral" icon="✅" onClick={() => setScreen("chapter_map")}>
+      <div className="shrink-0 pt-1">
+        <PastelButton fullWidth size="lg" className="py-3.5" gradient="coral" icon="✅" onClick={() => setScreen("chapter_map")}>
           編成確定
         </PastelButton>
       </div>

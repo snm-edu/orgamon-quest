@@ -15,7 +15,6 @@ import leonImg from "../assets/characters/leon.png";
 import mikotoImg from "../assets/characters/mikoto.png";
 
 const heroes = heroesData as Hero[];
-const MISSIONS_PER_PAGE = 2;
 
 const heroImages: Record<string, string> = {
   minato: minatoImg,
@@ -50,7 +49,6 @@ export default function HomeScreen() {
   const [claimedBonus, setClaimedBonus] = useState<{ label: string } | null>(null);
   const [showBonusCalendar, setShowBonusCalendar] = useState(false);
   const [panelPage, setPanelPage] = useState(0);
-  const [missionPage, setMissionPage] = useState(0);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -77,11 +75,6 @@ export default function HomeScreen() {
   const totalPanelPages = PANELS.length;
   const clampedPanelPage = Math.min(panelPage, totalPanelPages - 1);
   const currentPanel = PANELS[clampedPanelPage]?.id ?? "overview";
-
-  const totalMissionPages = Math.max(1, Math.ceil(Math.max(daily.missions.length, 1) / MISSIONS_PER_PAGE));
-  const clampedMissionPage = Math.min(missionPage, totalMissionPages - 1);
-  const missionStart = clampedMissionPage * MISSIONS_PER_PAGE;
-  const visibleMissions = daily.missions.slice(missionStart, missionStart + MISSIONS_PER_PAGE);
 
   const handleClaimLoginBonus = () => {
     const bonus = claimLoginBonus();
@@ -253,17 +246,16 @@ export default function HomeScreen() {
         </div>
       </div>
 
-      <div className="flex-1 min-h-0 grid grid-rows-2 gap-2">
-        {visibleMissions.map((m, index) => {
-          const missionIndex = missionStart + index;
+      <div className="flex-1 min-h-0 flex flex-col gap-2 overflow-y-auto pr-1 pb-1">
+        {daily.missions.map((m, index) => {
           return (
             <div
-              key={`${m.templateId}-${missionIndex}`}
-              className={`rounded-xl border p-2.5 ${m.claimed
-                  ? "bg-gray-50/65 opacity-55 border-white/60"
-                  : m.completed
-                    ? "bg-pastel-green/18 border-green-200/55"
-                    : "bg-white/65 border-white/70"
+              key={`${m.templateId}-${index}`}
+              className={`shrink-0 rounded-xl border p-2.5 ${m.claimed
+                ? "bg-gray-50/65 opacity-55 border-white/60"
+                : m.completed
+                  ? "bg-pastel-green/18 border-green-200/55"
+                  : "bg-white/65 border-white/70"
                 }`}
             >
               <div className="flex items-start gap-2">
@@ -282,7 +274,7 @@ export default function HomeScreen() {
                 <div className="shrink-0 text-right">
                   {m.completed && !m.claimed ? (
                     <button
-                      onClick={() => handleClaimMission(missionIndex)}
+                      onClick={() => handleClaimMission(index)}
                       className="text-[10px] bg-gradient-to-r from-coral to-pastel-pink text-white px-2.5 py-1 rounded-lg font-bold btn-press"
                     >
                       受取
@@ -297,41 +289,11 @@ export default function HomeScreen() {
             </div>
           );
         })}
-        {visibleMissions.length < MISSIONS_PER_PAGE &&
-          Array.from({ length: MISSIONS_PER_PAGE - visibleMissions.length }).map((_, index) => (
-            <div
-              key={`mission-empty-${index}`}
-              className="rounded-xl border-2 border-dashed border-white/55 bg-white/20 grid place-items-center text-[11px] text-warm-gray/30"
-            >
-              ミッションなし
-            </div>
-          ))}
-      </div>
-
-      <div className="flex items-center gap-2">
-        <button
-          onClick={() => setMissionPage((prev) => Math.max(0, Math.min(prev, totalMissionPages - 1) - 1))}
-          disabled={clampedMissionPage === 0}
-          className={`flex-1 min-h-9 rounded-lg text-[11px] font-bold ${clampedMissionPage === 0
-              ? "bg-gray-100 text-warm-gray/30"
-              : "bg-indigo-100/70 text-indigo-700 btn-press"
-            }`}
-        >
-          ← 前へ
-        </button>
-        <p className="text-[10px] text-warm-gray/45 min-w-16 text-center">
-          {clampedMissionPage + 1}/{totalMissionPages}
-        </p>
-        <button
-          onClick={() => setMissionPage((prev) => Math.min(totalMissionPages - 1, Math.min(prev, totalMissionPages - 1) + 1))}
-          disabled={clampedMissionPage >= totalMissionPages - 1}
-          className={`flex-1 min-h-9 rounded-lg text-[11px] font-bold ${clampedMissionPage >= totalMissionPages - 1
-              ? "bg-gray-100 text-warm-gray/30"
-              : "bg-indigo-100/70 text-indigo-700 btn-press"
-            }`}
-        >
-          次へ →
-        </button>
+        {daily.missions.length === 0 && (
+          <div className="rounded-xl border-2 border-dashed border-white/55 bg-white/20 grid place-items-center text-[11px] text-warm-gray/30 min-h-[60px]">
+            ミッションなし
+          </div>
+        )}
       </div>
     </div>
   );
@@ -377,8 +339,8 @@ export default function HomeScreen() {
                 key={panel.id}
                 onClick={() => setPanelPage(index)}
                 className={`min-h-9 rounded-lg text-[11px] font-bold transition-all ${clampedPanelPage === index
-                    ? "bg-indigo-100/70 text-indigo-700"
-                    : "bg-white/55 text-warm-gray/55 hover:bg-white/70"
+                  ? "bg-indigo-100/70 text-indigo-700"
+                  : "bg-white/55 text-warm-gray/55 hover:bg-white/70"
                   }`}
               >
                 {panel.emoji} {panel.label}
@@ -396,7 +358,8 @@ export default function HomeScreen() {
         <div className="shrink-0 space-y-2">
           <PastelButton
             fullWidth
-            size="sm"
+            size="lg"
+            className="min-h-14 text-base py-3.5 shadow-md"
             gradient="coral"
             icon="🗺️"
             onClick={() => setScreen("chapter_map")}
@@ -432,10 +395,10 @@ export default function HomeScreen() {
               <div
                 key={b.day}
                 className={`text-center p-1 rounded-lg text-[9px] transition-all ${b.day <= daily.loginBonusDay
-                    ? "bg-pastel-green/30 text-green-700"
-                    : b.day === daily.loginBonusDay + 1
-                      ? "bg-coral/15 text-coral font-bold ring-1 ring-coral/30"
-                      : "bg-gray-100/60 text-warm-gray/30"
+                  ? "bg-pastel-green/30 text-green-700"
+                  : b.day === daily.loginBonusDay + 1
+                    ? "bg-coral/15 text-coral font-bold ring-1 ring-coral/30"
+                    : "bg-gray-100/60 text-warm-gray/30"
                   }`}
               >
                 <p className="font-bold">{b.day}日</p>

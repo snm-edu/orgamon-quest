@@ -4,6 +4,7 @@ import type { StoryScene, HeroId } from "../types";
 import storyData from "../data/story.json";
 import heroesData from "../data/heroes.json";
 import type { Hero } from "../types";
+import titleLogoImg from "../assets/title_logo.png";
 
 const stories = storyData as StoryScene[];
 const heroes = heroesData as Hero[];
@@ -44,6 +45,7 @@ const speakerImages: Record<string, string> = {
   "無呼吸シャドウ": "/orgamon-quest/images/bosses/apnea_shadow.png",
   "ニューロカオス": "/orgamon-quest/images/bosses/neuro_chaos.png",
   "パンデミックキング": "/orgamon-quest/images/bosses/pandemic_king.png",
+  "ナレーター": titleLogoImg,
 };
 
 const emotionBg: Record<string, string> = {
@@ -132,7 +134,9 @@ export default function StoryScreen() {
     return (
       <div className="h-[100dvh] flex items-center justify-center">
         <div className="text-center">
-          <div className="text-5xl mb-4 animate-float">📖</div>
+          <div className="w-24 h-24 mb-4 mx-auto animate-float opacity-80">
+            <img src={titleLogoImg} alt="ロゴ" className="w-full h-full object-contain" />
+          </div>
           <p className="text-warm-gray/50 text-sm mb-4">ストーリーを読み込み中...</p>
           <button onClick={handleSkip} className="px-6 py-2 glass rounded-xl text-warm-gray text-sm btn-press">スキップ →</button>
         </div>
