@@ -5,6 +5,7 @@ import storyData from "../data/story.json";
 import heroesData from "../data/heroes.json";
 import type { Hero } from "../types";
 import narratorLogoImg from "../assets/narrator_logo.png";
+import { audio } from "../utils/audio";
 
 const stories = storyData as StoryScene[];
 const heroes = heroesData as Hero[];
@@ -105,6 +106,7 @@ export default function StoryScreen() {
       const postBoss = getStoryScene(chapter, "post_boss", heroId);
       if (postBoss) collected.push(postBoss);
       if (heroId) { const heroEnding = getEndingScene(heroId); if (heroEnding) collected.push(heroEnding); }
+      audio.playBGM("ending");
     } else if (storyTiming === "game_start" || storyTiming === "hero_intro") {
       const s = stories.find((s) => s.chapter === 0 && s.timing === storyTiming && (storyTiming === "game_start" || s.heroVariant === heroId));
       if (s) collected.push(s);

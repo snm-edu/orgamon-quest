@@ -1,7 +1,7 @@
 class GameAudio {
     private ctx: AudioContext | null = null;
     private isMuted = false;
-    public activeBgm: 'title' | 'map' | 'battle' | 'result' | 'quiz' | null = null;
+    public activeBgm: 'title' | 'map' | 'battle' | 'result' | 'quiz' | 'ending' | null = null;
 
     // Use HTMLAudioElement for true music playback
     public bgmAudio: HTMLAudioElement | null = null;
@@ -91,7 +91,7 @@ class GameAudio {
     }
 
     // Play actual audio files for BGM instead of generating sounds
-    playBGM(type: 'title' | 'map' | 'battle' | 'result' | 'quiz') {
+    playBGM(type: 'title' | 'map' | 'battle' | 'result' | 'quiz' | 'ending') {
         if (this.isMuted) return;
 
         // If the same BGM is already playing, do nothing
@@ -109,6 +109,7 @@ class GameAudio {
             battle: `/orgamon-quest/audio/bgm_battle${Math.floor(Math.random() * 5) + 1}.mp3`,
             quiz: '/orgamon-quest/audio/bgm_quiz.mp3',
             result: '/orgamon-quest/audio/bgm_result.mp3',
+            ending: '/orgamon-quest/audio/bgm_ending.mp3',
         };
 
         const src = bgmFiles[type];

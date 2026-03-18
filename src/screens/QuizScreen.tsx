@@ -12,7 +12,7 @@ import {
 import { getHeroById, applySkillEffects, getHeroSkillLoadout, getQuizSkillAvailability } from "../logic/skillLogic";
 import { ProgressBar, Badge, Modal } from "../components/common";
 import { audio } from "../utils/audio";
-import type { Question, QuizResult, Skill, Debuff } from "../types";
+import type { Question, QuestionDifficulty, QuizResult, Skill, Debuff } from "../types";
 
 const QUESTIONS_PER_ROUND = 5;
 const BASE_TIME_LIMIT = 30;
@@ -95,6 +95,30 @@ function getBlankDefinitions(question: Question): BlankDefinition[] {
   ];
 }
 
+/** 難易度に応じて穴埋め選択肢を制限する */
+function applyDifficultyToBlankOptions(
+  blanks: BlankDefinition[],
+  diff: QuestionDifficulty
+): BlankDefinition[] {
+  if (diff === "hard") {
+    // むずかしい: 全選択肢+シャッフル
+    return blanks.map((b) => ({
+      ...b,
+      options: shuffleArray(b.options),
+    }));
+  }
+
+  const maxOptions = diff === "easy" ? 4 : 5; // やさしい=4, ふつう=5
+  return blanks.map((b) => {
+    if (b.options.length <= maxOptions) return b;
+    const answerOption = b.answer;
+    const others = b.options.filter((o) => o !== answerOption);
+    const shuffledOthers = shuffleArray(others).slice(0, maxOptions - 1);
+    const reduced = shuffleArray([answerOption, ...shuffledOthers]);
+    return { ...b, options: reduced };
+  });
+}
+
 function getSortCorrectOrder(question: Question): string[] {
   if (question.sortAnswer && question.sortAnswer.length > 0) {
     const ordered = question.sortAnswer
@@ -174,6 +198,7 @@ export default function QuizScreen() {
   const [safeNet, setSafeNet] = useState(false);
   const [maskedText, setMaskedText] = useState(false);
   const [fakeHighlight, setFakeHighlight] = useState<number | null>(null);
+  const [adjustedBlankDefs, setAdjustedBlankDefs] = useState<BlankDefinition[]>([]);
 
   useEffect(() => { audio.playBGM("quiz"); }, []);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -234,11 +259,18 @@ export default function QuizScreen() {
 
         const diff = getEffectiveDifficulty(q, storeDifficulty);
 
-        // やさしい問題は選択肢を4つまで減らす
-        if (diff === "easy" && nextChoices.length > 4 && q.format !== "true_false") {
-          const reduced = applyReduceChoices(nextChoices, nextAnswerIdx, nextChoices.length - 4);
-          nextChoices = reduced.filteredChoices;
-          nextAnswerIdx = reduced.newAnswerIndex;
+        if (q.format !== "true_false") {
+          if (diff === "easy" && nextChoices.length > 4) {
+            // やさしい: 選択肢を4つまで減らす
+            const reduced = applyReduceChoices(nextChoices, nextAnswerIdx, nextChoices.length - 4);
+            nextChoices = reduced.filteredChoices;
+            nextAnswerIdx = reduced.newAnswerIndex;
+          } else if (diff === "normal" && nextChoices.length > 5) {
+            // ふつう: 選択肢を5つまで減らす
+            const reduced = applyReduceChoices(nextChoices, nextAnswerIdx, nextChoices.length - 5);
+            nextChoices = reduced.filteredChoices;
+            nextAnswerIdx = reduced.newAnswerIndex;
+          }
         }
 
         // むずかしい問題は選択肢の順番をシャッフル
@@ -255,7 +287,14 @@ export default function QuizScreen() {
 
       setDisplayChoices(nextChoices);
       setDisplayAnswerIdx(nextAnswerIdx);
-      setBlankAnswers(Array(getBlankDefinitions(q).length).fill(""));
+
+      // 穴埋め問題のblank.optionsにも難易度別制限を適用
+      const blankDiff = getEffectiveDifficulty(q, storeDifficulty);
+      const rawBlanks = getBlankDefinitions(q);
+      const adjustedBlanks = q.format === "fill_blank" ? applyDifficultyToBlankOptions(rawBlanks, blankDiff) : rawBlanks;
+      // adjustedBlanks は描画時にも使うため state に保存
+      setAdjustedBlankDefs(adjustedBlanks);
+      setBlankAnswers(Array(adjustedBlanks.length).fill(""));
       setSortOrder([]);
       setHintKeyword(null);
       setMaskedText(false);
@@ -681,7 +720,7 @@ export default function QuizScreen() {
   const isSortQuestion = q.format === "sort";
   const isManualSubmitQuestion = isFillBlankQuestion || isSortQuestion;
 
-  const blankDefinitions = isFillBlankQuestion ? getBlankDefinitions(q) : [];
+  const blankDefinitions = isFillBlankQuestion ? adjustedBlankDefs : [];
   const blankParts = isFillBlankQuestion ? q.question.split("（　）") : [];
   const inlineBlankLayout =
     isFillBlankQuestion && blankDefinitions.length > 0 && blankParts.length - 1 === blankDefinitions.length;

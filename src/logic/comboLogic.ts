@@ -9,29 +9,16 @@ export function getAllCombos(): TeamCombo[] {
 
 export function checkTeamCombo(
   heroId: string,
-  team: Companion[],
-  ownedCompanions: Companion[] = [],
-  isBossBattle: boolean = false
+  team: Companion[]
 ): TeamCombo | null {
   const teamHeroIds: string[] = [heroId, ...(team.map((c) => c.heroRef).filter(Boolean) as string[])];
-
-  if (isBossBattle && teamHeroIds.length === 3) {
-    const ownedHeroRefs = ownedCompanions.map(c => c.heroRef).filter(Boolean);
-    const allFour = ["minato", "hikari", "kotoha", "leon"];
-    const missingHero = allFour.find(h => !teamHeroIds.includes(h));
-
-    if (missingHero && ownedHeroRefs.includes(missingHero as HeroId)) {
-      if (Math.random() < 0.2) {
-        teamHeroIds.push(missingHero);
-      }
-    }
-  }
 
   const prioritizedCombos = [...combos].sort(
     (a, b) => b.requiredHeroes.length - a.requiredHeroes.length
   );
 
   for (const combo of prioritizedCombos) {
+    if (combo.id === "all_four") continue; // Exclude all_four from regular checks
     const allRequired = combo.requiredHeroes.every((id) =>
       teamHeroIds.includes(id)
     );
@@ -39,6 +26,24 @@ export function checkTeamCombo(
   }
 
   return null;
+}
+
+export function checkAllFourPossible(
+  heroId: string,
+  team: Companion[],
+  ownedCompanions: Companion[] = []
+): boolean {
+  const teamHeroIds: string[] = [heroId, ...(team.map((c) => c.heroRef).filter(Boolean) as string[])];
+  if (teamHeroIds.length !== 3) return false;
+
+  const ownedHeroRefs = ownedCompanions.map(c => c.heroRef).filter(Boolean);
+  const allFour = ["minato", "hikari", "kotoha", "leon"];
+  const missingHero = allFour.find(h => !teamHeroIds.includes(h));
+
+  if (missingHero && ownedHeroRefs.includes(missingHero as HeroId)) {
+    return true;
+  }
+  return false;
 }
 
 export function getComboBonus(combo: TeamCombo | null): number {

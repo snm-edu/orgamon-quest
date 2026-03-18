@@ -129,10 +129,12 @@ describe('isBossDefeated', () => {
 });
 
 describe('isBattleCleared', () => {
-  it('ホメオスタシス >= 70 でクリア', () => {
-    expect(isBattleCleared(70)).toBe(true);
+  it('Returns true if homeostasis >= 70', () => {
+    expect(isBattleCleared(50)).toBe(false);
     expect(isBattleCleared(100)).toBe(true);
+    expect(isBattleCleared(70)).toBe(true);
     expect(isBattleCleared(69)).toBe(false);
+    expect(isBattleCleared(0)).toBe(false);
   });
 });
 
