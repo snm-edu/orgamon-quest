@@ -15,10 +15,10 @@ const endingVideos: Record<string, string> = {
 };
 
 const heroTitles: Record<string, string> = {
-  minato: "ケアプランナー・ミナト",
-  hikari: "精密観察士・ヒカリ",
-  kotoha: "予防ガーディアン・コトハ",
-  leon: "システムマスター・レオン",
+  minato: "看護師・ミナト",
+  hikari: "視能訓練士・ヒカリ",
+  kotoha: "歯科衛生士・コトハ",
+  leon: "臨床工学技士・レオン",
 };
 
 const heroEpilogues: Record<string, string> = {
