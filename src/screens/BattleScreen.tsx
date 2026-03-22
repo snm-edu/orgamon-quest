@@ -485,10 +485,15 @@ export default function BattleScreen() {
         <div className="w-full space-y-3 mt-4 relative z-10">
           {won ? (
             <PastelButton fullWidth size="lg" gradient="coral" icon="📖" onClick={() => {
-              useGameStore.setState((s) => ({ ...s, _storyChapter: chapter, _storyTiming: chapter === 9 ? "game_ending" : "post_boss", _lastRecruitedHero: null } as typeof s));
-              audio.playBGM("map");
-              setScreen("story");
-            }}>ストーリーを見る →</PastelButton>
+              if (chapter === 9) {
+                audio.playBGM("ending");
+                setScreen("ending");
+              } else {
+                useGameStore.setState((s) => ({ ...s, _storyChapter: chapter, _storyTiming: "post_boss", _lastRecruitedHero: null } as typeof s));
+                audio.playBGM("map");
+                setScreen("story");
+              }
+            }}>{chapter === 9 ? "🎬 エンディングへ" : "📖 ストーリーを見る →"}</PastelButton>
           ) : (
             <>
               <PastelButton fullWidth size="lg" gradient="coral" icon="🔄" onClick={() => {
