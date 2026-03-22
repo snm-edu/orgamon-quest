@@ -14,22 +14,22 @@ const endingVideos: Record<string, string> = {
   leon: "/orgamon-quest/images/videos/leon_ending.mp4",
 };
 
-const heroTitles: Record<string, string> = {
-  minato: "看護師・ミナト",
-  hikari: "視能訓練士・ヒカリ",
-  kotoha: "歯科衛生士・コトハ",
-  leon: "臨床工学技士・レオン",
+const heroProfessions: Record<string, string> = {
+  minato: "看護師",
+  hikari: "視能訓練士",
+  kotoha: "歯科衛生士",
+  leon: "臨床工学技士",
 };
 
 const heroEpilogues: Record<string, string> = {
   minato:
-    "患者の命に最も近い存在として\nミナトの戦いは、ここから始まる——",
+    "患者の命に最も近い存在として\nその戦いは、ここから始まる——",
   hikari:
-    "すべての異変を見逃さない瞳で\nヒカリは、未来を見守り続ける——",
+    "すべての異変を見逃さない瞳で\n未来を見守り続ける——",
   kotoha:
-    "口腔から全身の健康を守る盾として\nコトハの予防ケアは、終わらない——",
+    "口腔から全身の健康を守る盾として\n予防ケアは、終わらない——",
   leon:
-    "生命を支える機械の守護者として\nレオンのシステムは、永遠に稼働し続ける——",
+    "生命を支える機械の守護者として\nそのシステムは、永遠に稼働し続ける——",
 };
 
 type Phase = "video" | "epilogue" | "fin";
@@ -40,6 +40,8 @@ export default function EndingScreen() {
   const totalClears = useMetaStore((s) => s.meta.totalClears);
   const heroId = currentRun?.selectedHeroId || "minato";
   const hero = heroes.find((h) => h.id === heroId);
+  const playerName = currentRun?.playerName || hero?.name || "プレイヤー";
+  const displayTitle = `${heroProfessions[heroId] || ""}・${playerName}`;
 
   const [phase, setPhase] = useState<Phase>("video");
   const [fadeIn, setFadeIn] = useState(false);
@@ -97,7 +99,7 @@ export default function EndingScreen() {
             </p>
             <h2 className="text-lg font-extrabold tracking-wider text-white"
               style={{ textShadow: "0 2px 10px rgba(0,0,0,0.9)" }}>
-              {heroTitles[heroId] || hero?.name}
+              {displayTitle}
             </h2>
           </div>
 
