@@ -397,14 +397,16 @@ export const useGameStore = create<GameState>()(
 
           // ヒーロー仲間のランダム加入 (Ch.2, Ch.4, Ch.6 ボスクリア時)
           let newTeam = [...s.currentRun.team];
+          let newOwnedCompanions = [...s.currentRun.ownedCompanions];
           let recruitedHero: Companion | null = null;
           const RECRUIT_CHAPTERS = [2, 4, 6];
           if (RECRUIT_CHAPTERS.includes(chapter)) {
             const heroId = s.currentRun.selectedHeroId;
-            const existingHeroRefs = new Set(
-              newTeam.map((c) => c.heroRef).filter(Boolean)
-            );
+            // team と ownedCompanions の両方から既存のヒーローRefを収集（重複加入防止）
+            const existingHeroRefs = new Set<string>();
             existingHeroRefs.add(heroId); // 自分のヒーローも除外
+            newTeam.forEach((c) => { if (c.heroRef) existingHeroRefs.add(c.heroRef); });
+            newOwnedCompanions.forEach((c) => { if (c.heroRef) existingHeroRefs.add(c.heroRef); });
 
             const heroCompanions = (companionsData as Companion[]).filter(
               (c) => c.type === "hero" && c.heroRef && !existingHeroRefs.has(c.heroRef)
@@ -413,12 +415,19 @@ export const useGameStore = create<GameState>()(
             if (heroCompanions.length > 0) {
               const randomIdx = Math.floor(Math.random() * heroCompanions.length);
               recruitedHero = { ...heroCompanions[randomIdx] };
-              newTeam = [...newTeam, recruitedHero];
+              // ownedCompanions に追加（重複チェック）
+              if (!newOwnedCompanions.some((c) => c.id === recruitedHero!.id)) {
+                newOwnedCompanions = [...newOwnedCompanions, recruitedHero];
+              }
+              // team は主人公を除いて2名まで
+              if (newTeam.length < 2) {
+                newTeam = [...newTeam, recruitedHero];
+              }
             }
           }
 
           const result: Record<string, unknown> = {
-            currentRun: { ...s.currentRun, chapterProgress: cp, team: newTeam },
+            currentRun: { ...s.currentRun, chapterProgress: cp, team: newTeam, ownedCompanions: newOwnedCompanions },
           };
           if (recruitedHero) {
             result._lastRecruitedHero = recruitedHero;

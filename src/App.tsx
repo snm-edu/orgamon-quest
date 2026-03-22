@@ -14,6 +14,7 @@ import ShopScreen from "./screens/ShopScreen";
 import SettingsScreen from "./screens/SettingsScreen";
 import StoryScreen from "./screens/StoryScreen";
 import ProfileScreen from "./screens/ProfileScreen";
+import EndingScreen from "./screens/EndingScreen";
 
 const screens: Record<string, () => React.JSX.Element | null> = {
   title: TitleScreen,
@@ -30,6 +31,7 @@ const screens: Record<string, () => React.JSX.Element | null> = {
   settings: SettingsScreen,
   story: StoryScreen,
   profile: ProfileScreen,
+  ending: EndingScreen,
 };
 
 export default function App() {

@@ -159,7 +159,8 @@ export default function StoryScreen() {
       else {
         if (storyTiming === "game_start") setScreen("hero_select");
         else if (storyTiming === "hero_intro") setScreen("home");
-        else setScreen(storyTiming === "pre_boss" ? "battle" : storyTiming === "post_boss" || storyTiming === "game_ending" ? "chapter_map" : "home");
+        else if (storyTiming === "game_ending") setScreen("ending");
+        else setScreen(storyTiming === "pre_boss" ? "battle" : storyTiming === "post_boss" ? "chapter_map" : "home");
       }
       setShowChar(true);
     }, 150);
@@ -168,7 +169,8 @@ export default function StoryScreen() {
   const handleSkipAll = () => {
     if (storyTiming === "game_start") setScreen("hero_select");
     else if (storyTiming === "hero_intro") setScreen("home");
-    else setScreen(storyTiming === "pre_boss" ? "battle" : storyTiming === "post_boss" || storyTiming === "game_ending" ? "chapter_map" : "home");
+    else if (storyTiming === "game_ending") setScreen("ending");
+    else setScreen(storyTiming === "pre_boss" ? "battle" : storyTiming === "post_boss" ? "chapter_map" : "home");
   };
 
   if (!currentDialogue) return null;

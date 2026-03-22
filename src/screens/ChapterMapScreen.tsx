@@ -5,6 +5,7 @@ import { getQuestionsByChapter } from "../logic/quizLogic";
 import { ScreenLayout, GlassCard, PastelButton, ProgressBar, Badge, Modal } from "../components/common";
 import { audio } from "../utils/audio";
 import chapterMapBg from "../assets/chapter_map_bg.png";
+import heroesData from "../data/heroes.json";
 
 // 事前学習キーワード解説データ
 const KEYWORD_EXPLANATIONS: Record<string, { emoji: string; title: string; summary: string; keyPoint: string; funFact: string }> = {
@@ -559,15 +560,23 @@ export default function ChapterMapScreen() {
       <div className="flex-1 min-h-0 flex flex-col gap-2.5 overflow-hidden">
         <GlassCard className="p-2.5 shrink-0">
           <div className="flex items-center gap-2">
-            {currentRun.team.length > 0 && (
               <div className="flex-1 flex items-center gap-1.5 overflow-x-auto">
-                {currentRun.team.map((c) => (
+                {/* 主人公を常に表示 */}
+                {(() => {
+                  const heroData = heroesData.find((h: { id: string }) => h.id === currentRun.selectedHeroId);
+                  return heroData ? (
+                    <Badge key={heroData.id} variant="default" size="xs" icon="👤">
+                      {currentRun.playerName || heroData.name} Lv.{currentRun.level}
+                    </Badge>
+                  ) : null;
+                })()}
+                {/* チームメンバー（最大2名まで表示） */}
+                {currentRun.team.slice(0, 2).map((c) => (
                   <Badge key={c.id} variant="default" size="xs" icon="👤">
                     {c.name} Lv.{c.level}
                   </Badge>
                 ))}
               </div>
-            )}
             <PastelButton
               variant="secondary"
               size="sm"

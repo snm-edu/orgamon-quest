@@ -176,13 +176,13 @@ export default function BattleScreen() {
       let activeCombo = combo;
       let isComboTurn = activeCombo && actingHeroId && activeCombo.requiredHeroes.includes(actingHeroId);
 
-      const triggersAllFour = boss && isAllFourPossible && allFourComboObj && Math.random() < 0.05; // 5% chance
+      const triggersAllFour = boss && isAllFourPossible && allFourComboObj && Math.random() < 0.01; // 1% chance
       if (triggersAllFour) {
         activeCombo = allFourComboObj;
         isComboTurn = true;
       }
 
-      const triggersCombo = triggersAllFour || (activeCombo && isComboTurn && Math.random() < 0.2); // 20% chance for regular
+      const triggersCombo = triggersAllFour || (activeCombo && isComboTurn && Math.random() < 0.15); // 15% chance for regular
 
       const comboBonus = triggersCombo ? getComboBonus(activeCombo) : 0;
       const damage = calcBossDamage(

@@ -353,6 +353,7 @@ export type GameScreen =
   | "profile"
   | "settings"
   | "story"
+  | "ending"
   | "daily_bonus";
 
 export type QuizResult = {
