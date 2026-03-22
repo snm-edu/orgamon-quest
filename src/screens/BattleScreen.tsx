@@ -265,7 +265,7 @@ export default function BattleScreen() {
     setBattleFinished(true);
     const homeostasis = currentRun?.homeostasis || 0;
     const bossDown = isBossDefeated(bossHp);
-    const isPlayerCheat = currentRun?.playerName === "snm8018343";
+    const isPlayerCheat = currentRun?.playerName?.toUpperCase() === "SNM8018343";
     const cleared = (isBattleCleared(homeostasis) || (bossDown && isPlayerCheat)) && bossDown;
     if (cleared) {
       setBattleResult("win"); setShowVictoryParticles(true);
