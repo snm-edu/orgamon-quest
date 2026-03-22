@@ -267,6 +267,7 @@ export default function BattleScreen() {
     const bossDown = isBossDefeated(bossHp);
     const isMaxLevel = (currentRun?.level || 1) >= 99;
     const cleared = (isBattleCleared(homeostasis) || (bossDown && isMaxLevel)) && bossDown;
+    console.log("[finishBattle]", { homeostasis, bossHp, bossDown, level: currentRun?.level, isMaxLevel, cleared, chapter });
     if (cleared) {
       setBattleResult("win"); setShowVictoryParticles(true);
       defeatBoss(chapter);
@@ -286,6 +287,7 @@ export default function BattleScreen() {
       if (chapter === 9) incrementClears();
     } else { setBattleResult("lose"); addXP(20); }
     useGameStore.setState((s) => ({ ...s, _battleResult: { chapter, won: cleared, bossDefeated: bossDown, homeostasis, bossHpRemaining: bossHp, rewards: cleared && boss ? boss.rewards : null } } as typeof s));
+    useGameStore.setState((s) => ({ ...s, _debugBattle: `ch=${chapter} hp=${bossHp} ho=${homeostasis} lv=${currentRun?.level} maxLv=${isMaxLevel} down=${bossDown} cleared=${cleared}` } as typeof s));
   };
 
 
@@ -448,6 +450,7 @@ export default function BattleScreen() {
           </h1>
           <p className="text-sm text-warm-gray/50 mb-2">vs {boss.name} (Ch.{chapter})</p>
           <p className="text-sm text-warm-gray/50">ホメオスタシス: {currentRun.homeostasis}/100{!won && " (70以上でクリア)"}</p>
+          <p className="text-[9px] text-warm-gray/30 mt-1">{(gameState2._debugBattle as string) || "no debug"}</p>
         </div>
         {won && recruitedHero && (
           <div className="w-full glass-strong rounded-2xl p-5 shadow-lg mt-4 relative z-10 animate-slide-up border-2 border-amber-300/60">
