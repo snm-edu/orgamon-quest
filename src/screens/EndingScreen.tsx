@@ -83,30 +83,8 @@ export default function EndingScreen() {
   return (
     <div
       className="h-[100dvh] flex flex-col items-center justify-center relative overflow-hidden"
-      style={{
-        background: `linear-gradient(180deg, #0d0d20 0%, ${themeColor}20 50%, #0d0d20 100%)`,
-      }}
+      style={{ background: "#000" }}
     >
-      {/* Animated particles */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {Array.from({ length: 20 }).map((_, i) => (
-          <div
-            key={i}
-            className="absolute rounded-full"
-            style={{
-              background: `${themeColor}90`,
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animation: `float ${4 + Math.random() * 6}s ease-in-out infinite`,
-              animationDelay: `${Math.random() * 5}s`,
-              opacity: 0.4 + Math.random() * 0.4,
-              width: `${2 + Math.random() * 3}px`,
-              height: `${2 + Math.random() * 3}px`,
-            }}
-          />
-        ))}
-      </div>
-
       {/* === PHASE: VIDEO === */}
       {phase === "video" && (
         <div
@@ -114,21 +92,16 @@ export default function EndingScreen() {
         >
           {/* Title overlay */}
           <div className="absolute top-6 left-0 right-0 z-20 text-center">
-            <p
-              className="text-[11px] tracking-[0.4em] uppercase mb-1 font-semibold"
-              style={{ color: themeColor }}
-            >
+            <p className="text-[11px] tracking-[0.4em] uppercase mb-1 font-semibold text-yellow-300">
               — Ending —
             </p>
-            <h2
-              className="text-lg font-extrabold tracking-wider"
-              style={{ color: "#fff", textShadow: `0 0 20px ${themeColor}` }}
-            >
+            <h2 className="text-lg font-extrabold tracking-wider text-white"
+              style={{ textShadow: "0 2px 10px rgba(0,0,0,0.9)" }}>
               {heroTitles[heroId] || hero?.name}
             </h2>
           </div>
 
-          {/* Video - fullscreen, muted so BGM keeps playing */}
+          {/* Video - fullscreen */}
           <div className="w-full h-full absolute inset-0">
             <video
               ref={videoRef}
@@ -139,20 +112,19 @@ export default function EndingScreen() {
               muted
               onEnded={handleVideoEnd}
             />
-            {/* Top/Bottom gradient for text readability */}
             <div
               className="absolute inset-0 pointer-events-none"
               style={{
-                background: `linear-gradient(0deg, #0d0d20 0%, transparent 25%, transparent 75%, #0d0d20 100%)`,
+                background: "linear-gradient(0deg, #000 0%, transparent 20%, transparent 80%, #000 100%)",
               }}
             />
           </div>
 
-          {/* Skip button */}
+          {/* Skip */}
           <button
             onClick={handleVideoEnd}
-            className="absolute bottom-6 right-4 z-30 px-4 py-2 rounded-xl text-xs text-white/60 hover:text-white transition-colors backdrop-blur-sm"
-            style={{ background: "rgba(0,0,0,0.4)" }}
+            className="absolute bottom-6 right-4 z-30 px-4 py-2 rounded-xl text-xs text-white font-medium backdrop-blur-sm"
+            style={{ background: "rgba(0,0,0,0.6)" }}
           >
             スキップ ▶▶
           </button>
@@ -166,10 +138,10 @@ export default function EndingScreen() {
         >
           {/* Hero portrait */}
           <div
-            className="w-32 h-32 rounded-full overflow-hidden mb-6 shadow-2xl"
+            className="w-32 h-32 rounded-full overflow-hidden mb-8 shadow-2xl"
             style={{
               border: `3px solid ${themeColor}`,
-              boxShadow: `0 0 50px ${themeColor}50, 0 0 100px ${themeColor}20`,
+              boxShadow: `0 0 40px ${themeColor}40`,
             }}
           >
             {hero?.imageUrl && (
@@ -181,15 +153,14 @@ export default function EndingScreen() {
             )}
           </div>
 
-          {/* Epilogue text */}
-          <div className="space-y-3 mb-10">
+          {/* Epilogue text - pure white on black */}
+          <div className="space-y-4 mb-10">
             {(heroEpilogues[heroId] || "").split("\n").map((line, i) => (
               <p
                 key={i}
-                className="text-white text-lg font-medium tracking-wide leading-relaxed"
+                className="text-white text-lg font-bold tracking-wide leading-relaxed"
                 style={{
                   animation: `fadeSlideUp 1s ease-out ${0.5 + i * 0.8}s both`,
-                  textShadow: "0 2px 8px rgba(0,0,0,0.6)",
                 }}
               >
                 {line}
@@ -198,15 +169,11 @@ export default function EndingScreen() {
           </div>
 
           {/* Congrats */}
-          <div
-            className="mt-2"
-            style={{ animation: "fadeSlideUp 1s ease-out 2.5s both" }}
-          >
-            <p className="text-sm font-bold tracking-[0.2em]"
-              style={{ color: themeColor, textShadow: `0 0 10px ${themeColor}60` }}>
+          <div style={{ animation: "fadeSlideUp 1s ease-out 2.5s both" }}>
+            <p className="text-lg font-extrabold tracking-[0.15em] text-yellow-300">
               🏆 CONGRATULATIONS 🏆
             </p>
-            <p className="text-white/70 text-sm mt-2 font-medium">
+            <p className="text-white text-base mt-2 font-bold">
               クリア回数: {totalClears}
             </p>
           </div>
@@ -223,18 +190,17 @@ export default function EndingScreen() {
             style={{ animation: "fadeSlideUp 1.5s ease-out both" }}
           >
             <h1
-              className="text-6xl font-black tracking-[0.4em] mb-4"
+              className="text-7xl font-black tracking-[0.4em] mb-5 text-white"
               style={{
-                color: "#fff",
-                textShadow: `0 0 30px ${themeColor}, 0 0 60px ${themeColor}60`,
+                textShadow: `0 0 40px ${themeColor}, 0 0 80px ${themeColor}80`,
               }}
             >
               FIN
             </h1>
-            <p className="text-white/80 text-base font-bold tracking-[0.15em] mb-6">
+            <p className="text-white text-xl font-extrabold tracking-[0.15em] mb-6">
               オルガモン図鑑クエスト
             </p>
-            <p className="text-white/60 text-sm tracking-[0.2em] font-medium"
+            <p className="text-yellow-200 text-base tracking-[0.2em] font-bold"
               style={{ animation: "fadeSlideUp 1s ease-out 1s both" }}
             >
               Presented by N.Y
@@ -244,12 +210,12 @@ export default function EndingScreen() {
           {/* Buttons */}
           {showFinButtons && (
             <div
-              className="space-y-3 w-60"
+              className="space-y-3 w-64"
               style={{ animation: "fadeSlideUp 0.8s ease-out both" }}
             >
               <button
                 onClick={handleGoHome}
-                className="w-full py-3.5 rounded-xl text-sm font-bold text-white tracking-wider transition-all hover:scale-105 active:scale-95"
+                className="w-full py-3.5 rounded-xl text-base font-bold text-white tracking-wider transition-all hover:scale-105 active:scale-95"
                 style={{
                   background: `linear-gradient(135deg, ${themeColor}, ${themeColor}cc)`,
                   boxShadow: `0 4px 24px ${themeColor}50`,
@@ -262,8 +228,8 @@ export default function EndingScreen() {
                   audio.playBGM("map");
                   setScreen("chapter_map");
                 }}
-                className="w-full py-2.5 rounded-xl text-xs text-white/50 hover:text-white/80 font-medium transition-colors"
-                style={{ background: "rgba(255,255,255,0.08)" }}
+                className="w-full py-2.5 rounded-xl text-sm text-white font-medium transition-colors"
+                style={{ background: "rgba(255,255,255,0.15)" }}
               >
                 🗺️ 冒険を続ける
               </button>
@@ -272,17 +238,10 @@ export default function EndingScreen() {
         </div>
       )}
 
-      {/* Global CSS for animations */}
       <style>{`
         @keyframes fadeSlideUp {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
         }
       `}</style>
     </div>
