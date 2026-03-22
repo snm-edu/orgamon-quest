@@ -32,17 +32,7 @@ const heroEpilogues: Record<string, string> = {
     "生命を支える機械の守護者として\nレオンのシステムは、永遠に稼働し続ける——",
 };
 
-const staffCredits = [
-  { role: "企画・監修", name: "湘南医療大学" },
-  { role: "ゲームデザイン", name: "入学前教育プロジェクトチーム" },
-  { role: "キャラクターデザイン", name: "AI Art Generation" },
-  { role: "音楽", name: "AI Music Generation" },
-  { role: "ストーリー", name: "Medical Education Team" },
-  { role: "プログラミング", name: "Orgamon Quest Dev Team" },
-  { role: "スペシャルサンクス", name: "新入生のみなさん" },
-];
-
-type Phase = "video" | "epilogue" | "credits" | "fin";
+type Phase = "video" | "epilogue" | "fin";
 
 export default function EndingScreen() {
   const setScreen = useGameStore((s) => s.setScreen);
@@ -54,11 +44,10 @@ export default function EndingScreen() {
 
   const [phase, setPhase] = useState<Phase>("video");
   const [fadeIn, setFadeIn] = useState(false);
-  const [creditScroll, setCreditScroll] = useState(false);
   const [showFinButtons, setShowFinButtons] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  // Ensure ending BGM is playing
+  // Ensure ending BGM keeps playing
   useEffect(() => {
     audio.playBGM("ending");
     setTimeout(() => setFadeIn(true), 300);
@@ -73,24 +62,9 @@ export default function EndingScreen() {
     }, 800);
   };
 
-  // Epilogue auto-advance
+  // Epilogue auto-advance to fin
   useEffect(() => {
     if (phase === "epilogue") {
-      const timer = setTimeout(() => {
-        setFadeIn(false);
-        setTimeout(() => {
-          setPhase("credits");
-          setFadeIn(true);
-          setTimeout(() => setCreditScroll(true), 600);
-        }, 800);
-      }, 6000);
-      return () => clearTimeout(timer);
-    }
-  }, [phase]);
-
-  // Credits auto-advance
-  useEffect(() => {
-    if (phase === "credits") {
       const timer = setTimeout(() => {
         setFadeIn(false);
         setTimeout(() => {
@@ -98,7 +72,7 @@ export default function EndingScreen() {
           setFadeIn(true);
           setTimeout(() => setShowFinButtons(true), 2000);
         }, 800);
-      }, 12000);
+      }, 6000);
       return () => clearTimeout(timer);
     }
   }, [phase]);
@@ -158,7 +132,7 @@ export default function EndingScreen() {
             </h2>
           </div>
 
-          {/* Video */}
+          {/* Video - muted so BGM keeps playing */}
           <div className="w-full max-w-sm mx-auto rounded-2xl overflow-hidden shadow-2xl relative" style={{ border: `2px solid ${themeColor}40` }}>
             <video
               ref={videoRef}
@@ -166,7 +140,7 @@ export default function EndingScreen() {
               className="w-full h-auto"
               autoPlay
               playsInline
-              muted={false}
+              muted
               onEnded={handleVideoEnd}
               style={{ maxHeight: "60dvh", objectFit: "cover" }}
             />
@@ -249,43 +223,6 @@ export default function EndingScreen() {
         </div>
       )}
 
-      {/* === PHASE: CREDITS === */}
-      {phase === "credits" && (
-        <div
-          className={`w-full h-full flex flex-col items-center justify-center relative transition-opacity duration-700 ${fadeIn ? "opacity-100" : "opacity-0"}`}
-        >
-          <div className="absolute top-8 text-center z-10">
-            <h2
-              className="text-xl font-bold tracking-[0.2em]"
-              style={{ color: `${themeColor}cc` }}
-            >
-              STAFF CREDITS
-            </h2>
-          </div>
-
-          <div
-            className={`flex flex-col items-center gap-8 transition-transform duration-[10000ms] ease-linear ${creditScroll ? "-translate-y-[60%]" : "translate-y-[30%]"}`}
-          >
-            {staffCredits.map((credit, i) => (
-              <div key={i} className="text-center">
-                <p className="text-white/30 text-xs tracking-[0.15em] uppercase mb-1">
-                  {credit.role}
-                </p>
-                <p className="text-white/70 text-base font-medium">
-                  {credit.name}
-                </p>
-              </div>
-            ))}
-
-            <div className="mt-8 text-center">
-              <p className="text-white/20 text-xs tracking-widest">
-                — Thank You For Playing —
-              </p>
-            </div>
-          </div>
-        </div>
-      )}
-
       {/* === PHASE: FIN === */}
       {phase === "fin" && (
         <div
@@ -305,8 +242,13 @@ export default function EndingScreen() {
             >
               FIN
             </h1>
-            <p className="text-white/40 text-sm tracking-widest">
+            <p className="text-white/40 text-sm tracking-widest mb-6">
               オルガモン図鑑クエスト
+            </p>
+            <p className="text-white/30 text-xs tracking-[0.2em]"
+              style={{ animation: "fadeSlideUp 1s ease-out 1s both" }}
+            >
+              Presented by N.Y
             </p>
           </div>
 

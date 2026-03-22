@@ -62,12 +62,12 @@ export default function ComboCutin({
 
             {/* Skill Name Text */}
             <div className="combo-cutin-text-container">
-                <p className="text-xl text-yellow-300 font-bold mb-1 shadow-black drop-shadow-md italic">TEAM COMBO!</p>
+                <p className="text-xl text-yellow-300 font-bold mb-1 shadow-black drop-shadow-md italic text-center">TEAM COMBO!</p>
                 <h2
                     className="combo-cutin-skillname"
                     style={{ textShadow: `0 0 10px ${themeColor}, 0 0 20px ${themeColor}` }}
                 >
-                    {combo.name}
+                    {combo.name.includes("・") ? combo.name.replace(/・/g, "\n・") : combo.name}
                 </h2>
             </div>
         </div>
