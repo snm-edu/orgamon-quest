@@ -265,8 +265,8 @@ export default function BattleScreen() {
     setBattleFinished(true);
     const homeostasis = currentRun?.homeostasis || 0;
     const bossDown = isBossDefeated(bossHp);
-    const isPlayerCheat = currentRun?.playerName?.toUpperCase() === "SNM8018343";
-    const cleared = (isBattleCleared(homeostasis) || (bossDown && isPlayerCheat)) && bossDown;
+    const isMaxLevel = (currentRun?.level || 1) >= 99;
+    const cleared = (isBattleCleared(homeostasis) || (bossDown && isMaxLevel)) && bossDown;
     if (cleared) {
       setBattleResult("win"); setShowVictoryParticles(true);
       defeatBoss(chapter);
