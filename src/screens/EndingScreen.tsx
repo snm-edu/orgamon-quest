@@ -40,20 +40,17 @@ export default function EndingScreen() {
   const totalClears = useMetaStore((s) => s.meta.totalClears);
   const heroId = currentRun?.selectedHeroId || "minato";
   const hero = heroes.find((h) => h.id === heroId);
-  const playerName = currentRun?.playerName || hero?.name || "プレイヤー";
 
   const [phase, setPhase] = useState<Phase>("video");
   const [fadeIn, setFadeIn] = useState(false);
   const [showFinButtons, setShowFinButtons] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  // Ensure ending BGM keeps playing
   useEffect(() => {
     audio.playBGM("ending");
     setTimeout(() => setFadeIn(true), 300);
   }, []);
 
-  // When video ends, move to epilogue
   const handleVideoEnd = () => {
     setFadeIn(false);
     setTimeout(() => {
@@ -62,7 +59,6 @@ export default function EndingScreen() {
     }, 800);
   };
 
-  // Epilogue auto-advance to fin
   useEffect(() => {
     if (phase === "epilogue") {
       const timer = setTimeout(() => {
@@ -88,24 +84,24 @@ export default function EndingScreen() {
     <div
       className="h-[100dvh] flex flex-col items-center justify-center relative overflow-hidden"
       style={{
-        background: `linear-gradient(180deg, #0a0a1a 0%, ${themeColor}15 50%, #0a0a1a 100%)`,
+        background: `linear-gradient(180deg, #0d0d20 0%, ${themeColor}20 50%, #0d0d20 100%)`,
       }}
     >
       {/* Animated particles */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {Array.from({ length: 30 }).map((_, i) => (
+        {Array.from({ length: 20 }).map((_, i) => (
           <div
             key={i}
-            className="absolute w-1 h-1 rounded-full"
+            className="absolute rounded-full"
             style={{
-              background: `${themeColor}80`,
+              background: `${themeColor}90`,
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
               animation: `float ${4 + Math.random() * 6}s ease-in-out infinite`,
               animationDelay: `${Math.random() * 5}s`,
-              opacity: 0.3 + Math.random() * 0.5,
-              width: `${2 + Math.random() * 4}px`,
-              height: `${2 + Math.random() * 4}px`,
+              opacity: 0.4 + Math.random() * 0.4,
+              width: `${2 + Math.random() * 3}px`,
+              height: `${2 + Math.random() * 3}px`,
             }}
           />
         ))}
@@ -117,54 +113,46 @@ export default function EndingScreen() {
           className={`w-full h-full flex flex-col items-center justify-center transition-opacity duration-700 ${fadeIn ? "opacity-100" : "opacity-0"}`}
         >
           {/* Title overlay */}
-          <div className="absolute top-8 z-20 text-center">
+          <div className="absolute top-6 left-0 right-0 z-20 text-center">
             <p
-              className="text-xs tracking-[0.3em] uppercase mb-1"
-              style={{ color: `${themeColor}aa` }}
+              className="text-[11px] tracking-[0.4em] uppercase mb-1 font-semibold"
+              style={{ color: themeColor }}
             >
-              Ending
+              — Ending —
             </p>
             <h2
-              className="text-lg font-bold tracking-wider"
-              style={{ color: themeColor }}
+              className="text-lg font-extrabold tracking-wider"
+              style={{ color: "#fff", textShadow: `0 0 20px ${themeColor}` }}
             >
               {heroTitles[heroId] || hero?.name}
             </h2>
           </div>
 
-          {/* Video - muted so BGM keeps playing */}
-          <div className="w-full max-w-sm mx-auto rounded-2xl overflow-hidden shadow-2xl relative" style={{ border: `2px solid ${themeColor}40` }}>
+          {/* Video - fullscreen, muted so BGM keeps playing */}
+          <div className="w-full h-full absolute inset-0">
             <video
               ref={videoRef}
               src={endingVideos[heroId]}
-              className="w-full h-auto"
+              className="w-full h-full object-cover"
               autoPlay
               playsInline
               muted
               onEnded={handleVideoEnd}
-              style={{ maxHeight: "60dvh", objectFit: "cover" }}
             />
-            {/* Gradient overlays */}
+            {/* Top/Bottom gradient for text readability */}
             <div
               className="absolute inset-0 pointer-events-none"
               style={{
-                background: `linear-gradient(0deg, #0a0a1a 0%, transparent 20%, transparent 80%, #0a0a1a 100%)`,
+                background: `linear-gradient(0deg, #0d0d20 0%, transparent 25%, transparent 75%, #0d0d20 100%)`,
               }}
             />
-          </div>
-
-          {/* Player name */}
-          <div className="absolute bottom-12 z-20 text-center">
-            <p className="text-white/30 text-xs tracking-widest">
-              {playerName} の物語
-            </p>
           </div>
 
           {/* Skip button */}
           <button
             onClick={handleVideoEnd}
-            className="absolute bottom-4 right-4 z-30 px-3 py-1.5 rounded-lg text-[10px] text-white/30 hover:text-white/60 transition-colors"
-            style={{ background: "rgba(255,255,255,0.05)" }}
+            className="absolute bottom-6 right-4 z-30 px-4 py-2 rounded-xl text-xs text-white/60 hover:text-white transition-colors backdrop-blur-sm"
+            style={{ background: "rgba(0,0,0,0.4)" }}
           >
             スキップ ▶▶
           </button>
@@ -174,14 +162,14 @@ export default function EndingScreen() {
       {/* === PHASE: EPILOGUE === */}
       {phase === "epilogue" && (
         <div
-          className={`flex flex-col items-center justify-center px-8 text-center transition-opacity duration-700 ${fadeIn ? "opacity-100" : "opacity-0"}`}
+          className={`flex flex-col items-center justify-center px-6 text-center transition-opacity duration-700 ${fadeIn ? "opacity-100" : "opacity-0"}`}
         >
           {/* Hero portrait */}
           <div
-            className="w-28 h-28 rounded-full overflow-hidden mb-6 shadow-xl"
+            className="w-32 h-32 rounded-full overflow-hidden mb-6 shadow-2xl"
             style={{
-              border: `3px solid ${themeColor}60`,
-              boxShadow: `0 0 40px ${themeColor}30`,
+              border: `3px solid ${themeColor}`,
+              boxShadow: `0 0 50px ${themeColor}50, 0 0 100px ${themeColor}20`,
             }}
           >
             {hero?.imageUrl && (
@@ -194,13 +182,14 @@ export default function EndingScreen() {
           </div>
 
           {/* Epilogue text */}
-          <div className="space-y-2 mb-8">
+          <div className="space-y-3 mb-10">
             {(heroEpilogues[heroId] || "").split("\n").map((line, i) => (
               <p
                 key={i}
-                className="text-white/80 text-base font-light tracking-wide leading-relaxed"
+                className="text-white text-lg font-medium tracking-wide leading-relaxed"
                 style={{
                   animation: `fadeSlideUp 1s ease-out ${0.5 + i * 0.8}s both`,
+                  textShadow: "0 2px 8px rgba(0,0,0,0.6)",
                 }}
               >
                 {line}
@@ -210,13 +199,14 @@ export default function EndingScreen() {
 
           {/* Congrats */}
           <div
-            className="mt-4"
+            className="mt-2"
             style={{ animation: "fadeSlideUp 1s ease-out 2.5s both" }}
           >
-            <p className="text-xs text-white/40 tracking-widest">
+            <p className="text-sm font-bold tracking-[0.2em]"
+              style={{ color: themeColor, textShadow: `0 0 10px ${themeColor}60` }}>
               🏆 CONGRATULATIONS 🏆
             </p>
-            <p className="text-sm text-white/50 mt-2">
+            <p className="text-white/70 text-sm mt-2 font-medium">
               クリア回数: {totalClears}
             </p>
           </div>
@@ -228,24 +218,23 @@ export default function EndingScreen() {
         <div
           className={`flex flex-col items-center justify-center text-center transition-opacity duration-1000 ${fadeIn ? "opacity-100" : "opacity-0"}`}
         >
-          {/* Logo / Fin text */}
           <div
-            className="mb-8"
+            className="mb-10"
             style={{ animation: "fadeSlideUp 1.5s ease-out both" }}
           >
             <h1
-              className="text-5xl font-black tracking-[0.3em] mb-3"
+              className="text-6xl font-black tracking-[0.4em] mb-4"
               style={{
-                color: themeColor,
-                textShadow: `0 0 40px ${themeColor}40`,
+                color: "#fff",
+                textShadow: `0 0 30px ${themeColor}, 0 0 60px ${themeColor}60`,
               }}
             >
               FIN
             </h1>
-            <p className="text-white/40 text-sm tracking-widest mb-6">
+            <p className="text-white/80 text-base font-bold tracking-[0.15em] mb-6">
               オルガモン図鑑クエスト
             </p>
-            <p className="text-white/30 text-xs tracking-[0.2em]"
+            <p className="text-white/60 text-sm tracking-[0.2em] font-medium"
               style={{ animation: "fadeSlideUp 1s ease-out 1s both" }}
             >
               Presented by N.Y
@@ -255,15 +244,15 @@ export default function EndingScreen() {
           {/* Buttons */}
           {showFinButtons && (
             <div
-              className="space-y-3 w-56"
+              className="space-y-3 w-60"
               style={{ animation: "fadeSlideUp 0.8s ease-out both" }}
             >
               <button
                 onClick={handleGoHome}
-                className="w-full py-3 rounded-xl text-sm font-bold text-white tracking-wider transition-all hover:scale-105 active:scale-95"
+                className="w-full py-3.5 rounded-xl text-sm font-bold text-white tracking-wider transition-all hover:scale-105 active:scale-95"
                 style={{
-                  background: `linear-gradient(135deg, ${themeColor}, ${themeColor}aa)`,
-                  boxShadow: `0 4px 20px ${themeColor}40`,
+                  background: `linear-gradient(135deg, ${themeColor}, ${themeColor}cc)`,
+                  boxShadow: `0 4px 24px ${themeColor}50`,
                 }}
               >
                 🏠 タイトルへ戻る
@@ -273,8 +262,8 @@ export default function EndingScreen() {
                   audio.playBGM("map");
                   setScreen("chapter_map");
                 }}
-                className="w-full py-2.5 rounded-xl text-xs text-white/40 hover:text-white/60 transition-colors"
-                style={{ background: "rgba(255,255,255,0.05)" }}
+                className="w-full py-2.5 rounded-xl text-xs text-white/50 hover:text-white/80 font-medium transition-colors"
+                style={{ background: "rgba(255,255,255,0.08)" }}
               >
                 🗺️ 冒険を続ける
               </button>
