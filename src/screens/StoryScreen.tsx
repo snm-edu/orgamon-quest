@@ -120,6 +120,7 @@ export default function StoryScreen() {
 
     if (collected.length === 0) {
       // Auto-skip if no story exists for this chapter/timing
+      if (storyTiming === "game_ending") { setScreen("ending"); return; }
       setScreen(storyTiming === "pre_boss" ? "battle" : "chapter_map");
       return;
     }
@@ -131,6 +132,7 @@ export default function StoryScreen() {
     const handleSkip = () => {
       if (storyTiming === "game_start") setScreen("hero_select");
       else if (storyTiming === "hero_intro") setScreen("home");
+      else if (storyTiming === "game_ending") setScreen("ending");
       else setScreen(storyTiming === "pre_boss" ? "battle" : "chapter_map");
     };
     return (
