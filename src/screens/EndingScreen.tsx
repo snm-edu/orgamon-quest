@@ -8,10 +8,10 @@ import type { Hero } from "../types";
 const heroes = heroesData as Hero[];
 
 const endingVideos: Record<string, string> = {
-  minato: "/orgamon-quest/images/videos/minato_ending.mp4",
-  hikari: "/orgamon-quest/images/videos/hikari_ending.mp4",
-  kotoha: "/orgamon-quest/images/videos/kotoha_ending.mp4",
-  leon: "/orgamon-quest/images/videos/leon_ending.mp4",
+  minato: "./images/videos/minato_ending.mp4",
+  hikari: "./images/videos/hikari_ending.mp4",
+  kotoha: "./images/videos/kotoha_ending.mp4",
+  leon: "./images/videos/leon_ending.mp4",
 };
 
 const heroProfessions: Record<string, string> = {

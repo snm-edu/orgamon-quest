@@ -154,7 +154,7 @@ export default function ZukanScreen() {
   };
 
   return (
-    <ScreenLayout bgImage="/orgamon-quest/images/backgrounds/zukan_bg.webp"
+    <ScreenLayout bgImage="./images/backgrounds/zukan_bg.webp"
       onBack={() => setScreen("home")}
       title="図鑑"
       titleEmoji="📚"

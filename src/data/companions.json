@@ -34,7 +34,7 @@
       "ケアマスター"
     ],
     "evolutionStage": 0,
-    "imageUrl": "/orgamon-quest/images/custom/nurse_aya_portrait_1772861515336.png?v=5"
+    "imageUrl": "./images/custom/nurse_aya_portrait_1772861515336.png?v=5"
   },
   {
     "id": "nurse_sora",
@@ -71,7 +71,7 @@
       "緊急対応マスター"
     ],
     "evolutionStage": 0,
-    "imageUrl": "/orgamon-quest/images/companions/set2/comp2_0.png?v=2"
+    "imageUrl": "./images/companions/set2/comp2_0.png?v=2"
   },
   {
     "id": "nurse_rei",
@@ -113,7 +113,7 @@
       "看護スペシャリスト"
     ],
     "evolutionStage": 0,
-    "imageUrl": "/orgamon-quest/images/custom/nurse_rei_portrait_1772861528982.png?v=5"
+    "imageUrl": "./images/custom/nurse_rei_portrait_1772861528982.png?v=5"
   },
   {
     "id": "researcher_kento",
@@ -150,7 +150,7 @@
       "ラボチーフ"
     ],
     "evolutionStage": 0,
-    "imageUrl": "/orgamon-quest/images/custom/researcher_kent_portrait_1772861543387.png?v=5"
+    "imageUrl": "./images/custom/researcher_kent_portrait_1772861543387.png?v=5"
   },
   {
     "id": "researcher_yuki",
@@ -192,7 +192,7 @@
       "分析マスター"
     ],
     "evolutionStage": 0,
-    "imageUrl": "/orgamon-quest/images/companions/set2/comp2_1.png?v=2"
+    "imageUrl": "./images/companions/set2/comp2_1.png?v=2"
   },
   {
     "id": "guardian_takeshi",
@@ -230,7 +230,7 @@
       "最前線の盾"
     ],
     "evolutionStage": 0,
-    "imageUrl": "/orgamon-quest/images/custom/guardian_takeshi_portrait_1772861556789.png?v=5"
+    "imageUrl": "./images/custom/guardian_takeshi_portrait_1772861556789.png?v=5"
   },
   {
     "id": "guardian_mio",
@@ -268,7 +268,7 @@
       "機材マスター"
     ],
     "evolutionStage": 0,
-    "imageUrl": "/orgamon-quest/images/companions/set2/comp2_2.png?v=2"
+    "imageUrl": "./images/companions/set2/comp2_2.png?v=2"
   },
   {
     "id": "guardian_ryu",
@@ -309,7 +309,7 @@
       "絶対防御者"
     ],
     "evolutionStage": 0,
-    "imageUrl": "/orgamon-quest/images/custom/guardian_ryu_portrait_1772861569722.png?v=5"
+    "imageUrl": "./images/custom/guardian_ryu_portrait_1772861569722.png?v=5"
   },
   {
     "id": "hero_minato",
@@ -346,7 +346,7 @@
       "ホメオスタシス指揮官"
     ],
     "evolutionStage": 0,
-    "imageUrl": "/orgamon-quest/images/heroes/minato.png"
+    "imageUrl": "./images/heroes/minato.png"
   },
   {
     "id": "hero_hikari",
@@ -389,7 +389,7 @@
       "ニューロビジョンマスター"
     ],
     "evolutionStage": 0,
-    "imageUrl": "/orgamon-quest/images/heroes/hikari.png"
+    "imageUrl": "./images/heroes/hikari.png"
   },
   {
     "id": "hero_kotoha",
@@ -431,7 +431,7 @@
       "ライフロングケアマスター"
     ],
     "evolutionStage": 0,
-    "imageUrl": "/orgamon-quest/images/heroes/kotoha.png"
+    "imageUrl": "./images/heroes/kotoha.png"
   },
   {
     "id": "hero_leon",
@@ -474,6 +474,6 @@
       "生命維持システムマスター"
     ],
     "evolutionStage": 0,
-    "imageUrl": "/orgamon-quest/images/heroes/leon.png"
+    "imageUrl": "./images/heroes/leon.png"
   }
 ]

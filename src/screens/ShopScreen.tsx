@@ -79,7 +79,7 @@ export default function ShopScreen() {
   };
 
   return (
-    <ScreenLayout bgImage="/orgamon-quest/images/backgrounds/shop_bg.webp"
+    <ScreenLayout bgImage="./images/backgrounds/shop_bg.webp"
       onBack={() => setScreen("home")}
       title="ショップ"
       titleEmoji="🛍️"

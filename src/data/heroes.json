@@ -150,7 +150,7 @@
       "トリアージナース",
       "ホメオスタシス指揮官"
     ],
-    "imageUrl": "/orgamon-quest/images/heroes/minato.png"
+    "imageUrl": "./images/heroes/minato.png"
   },
   {
     "id": "hikari",
@@ -293,7 +293,7 @@
       "視機能アナリスト",
       "ニューロビジョンマスター"
     ],
-    "imageUrl": "/orgamon-quest/images/heroes/hikari.png"
+    "imageUrl": "./images/heroes/hikari.png"
   },
   {
     "id": "kotoha",
@@ -436,7 +436,7 @@
       "行動変容コーチ",
       "ライフロングケアマスター"
     ],
-    "imageUrl": "/orgamon-quest/images/heroes/kotoha.png"
+    "imageUrl": "./images/heroes/kotoha.png"
   },
   {
     "id": "leon",
@@ -589,6 +589,6 @@
       "システムエンジニア",
       "生命維持システムマスター"
     ],
-    "imageUrl": "/orgamon-quest/images/heroes/leon.png"
+    "imageUrl": "./images/heroes/leon.png"
   }
 ]

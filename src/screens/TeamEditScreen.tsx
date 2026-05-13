@@ -157,7 +157,7 @@ export default function TeamEditScreen() {
   if (!currentRun || !hero) return null;
 
   return (
-    <ScreenLayout bgImage="/orgamon-quest/images/backgrounds/team_bg.webp"
+    <ScreenLayout bgImage="./images/backgrounds/team_bg.webp"
       onBack={() => setScreen("home")}
       title="チーム編成"
       titleEmoji="👥"

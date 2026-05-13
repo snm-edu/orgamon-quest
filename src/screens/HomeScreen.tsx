@@ -299,7 +299,7 @@ export default function HomeScreen() {
   );
 
   return (
-    <ScreenLayout bgImage="/orgamon-quest/images/backgrounds/home_bg.webp"
+    <ScreenLayout bgImage="./images/backgrounds/home_bg.webp"
       accentColor={hero.themeColor}
       padding="compact"
       className="h-[100dvh] flex flex-col pb-[calc(env(safe-area-inset-bottom)+0.25rem)]"
